@@ -8,27 +8,41 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp; [1.2. Visão geral da análise de dados](#Visão-geral-da-análise-de-dados)
 
-&nbsp;&nbsp;&nbsp;&nbsp; [1.3. Análise descritiva](#Análise-descritiva)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.2.1. Análise descritiva](#Análise-descritiva)
 
-&nbsp;&nbsp;&nbsp;&nbsp; [1.4. Análise diagnóstica](#Análise-diagnóstica)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.2.2. Análise diagnóstica](#Análise-diagnóstica)
 
-&nbsp;&nbsp;&nbsp;&nbsp; [1.5. Análise preditiva](#Análise-preditiva)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.2.3. Análise preditiva](#Análise-preditiva)
 
-&nbsp;&nbsp;&nbsp;&nbsp; [1.6. Análise prescritiva](#Análise-prescritivas)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.2.4. Análise prescritiva](#Análise-prescritivas)
 
-&nbsp;&nbsp;&nbsp;&nbsp; [1.7. Análise cognitiva](#Análise-cognitiva)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.2.5. Análise cognitiva](#Análise-cognitiva)
 
-&nbsp;&nbsp;&nbsp;&nbsp; [1.8. Funções em dados](#Funções-em-dados)
+&nbsp;&nbsp;&nbsp;&nbsp; [1.3. Funções em dados](#Funções-em-dados)
 
-&nbsp;&nbsp;&nbsp;&nbsp; [1.9. Analista de negócios](#Analista-de-negócios)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.3.1. Analista de negócios](#Analista-de-negócios)
 
-&nbsp;&nbsp;&nbsp;&nbsp; [1.10. Analista de dados](#Analista-de-dados)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.3.2. Analista de dados](#Analista-de-dados)
 
-&nbsp;&nbsp;&nbsp;&nbsp; [1.11. Engenheiro de dados](#Engenheiro-de-dados)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.3.3. Engenheiro de dados](#Engenheiro-de-dados)
 
-&nbsp;&nbsp;&nbsp;&nbsp; [1.12. Cientista de dados](#Cientista-de-dados)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.3.4. Cientista de dados](#Cientista-de-dados)
 
-&nbsp;&nbsp;&nbsp;&nbsp; [1.13. Administrador de banco de dados](#Administrador-de-banco-de-dados)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.3.5. Administrador de banco de dados](#Administrador-de-banco-de-dados)
+
+&nbsp;&nbsp;&nbsp;&nbsp; [1.4. Tarefas de um analista de dados](#Tarefas-de-um-analista-de-dados)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.4.1. Preparar](#Preparar)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.4.2. Modelar](#Modelar)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.4.3. Visualizar](#Visualizar)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.4.4. Analisar](#Analisar)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.4.5. Gerenciar](#Gerenciar)
+
+&nbsp;&nbsp;&nbsp;&nbsp; [1.5. Resumo](#Resumo)
 
 [2. Preparar dados para análise com o Power BI](#Preparar-dados-para-análise-com-o-Power-BI)
 
@@ -40,9 +54,9 @@
 
 [6. Fonte](#Fonte)
 
-## Introdução à análise de dados da Microsoft
+# Introdução à análise de dados da Microsoft
 
-### Introdução
+## Introdução
 
 O papel do analista de dados é fundamental no cenário atual, onde as organizações geram e armazenam grandes volumes de dados diariamente. Esses dados vêm de diversas fontes, como transações, serviços, redes sociais e comportamentos de consumo. O grande desafio das empresas é transformar esses dados em ações estratégicas que impulsionem os negócios.
 
@@ -52,7 +66,7 @@ Essa narrativa baseada em dados deve ser acessível, direcionada ao público cer
 
 Ao longo do processo, a análise de dados se torna uma ferramenta poderosa para descobrir insights, influenciar decisões e transformar dados em vantagem competitiva.
 
-### Visão geral da análise de dados
+## Visão geral da análise de dados
 
 Antes de servirem para contar uma história, os dados precisam passar por um processo de preparação — identificação, limpeza, transformação e modelagem — conhecido como análise de dados. Esse processo gera insights úteis que são apresentados por meio de relatórios e narrativas para apoiar a tomada de decisão.
 
@@ -104,7 +118,7 @@ Ela orienta a tomada de decisões baseada em dados, mesmo em cenários incertos.
 
 Busca inferir conhecimento a partir de padrões e dados existentes, criando um ciclo de autoaprendizado ao alimentar novas descobertas em sua base de conhecimento. Diferente de regras fixas, suas hipóteses são não estruturadas e vêm de diversas fontes, com diferentes níveis de confiança. Utiliza machine learning e processamento de linguagem natural para interpretar dados complexos e não estruturados, como análises de produtos e logs de call center, ajudando a prever possíveis cenários futuros e a lidar com mudanças.
 
-### Funções em dados
+## Funções em dados
 
 Criar uma narrativa com dados não começa com o analista — os dados vêm de outras fontes e, muitas vezes, prepará-los está fora do seu escopo. Projetos atuais são complexos e colaborativos, exigindo o trabalho conjunto de profissionais com habilidades complementares.
 
@@ -151,6 +165,56 @@ Grande parte do trabalho envolve estruturação de dados e engenharia de atribut
 O administrador de banco de dados (DBA) gerencia os aspectos operacionais de soluções de dados em ambientes híbridos e em nuvem, como Azure e SQL Server. É responsável pela disponibilidade, desempenho, segurança, além de backups e planos de recuperação.
 
 Diferente do engenheiro de dados, que atua na estruturação e preparação dos dados, o DBA foca na integridade dos bancos de dados, no hardware envolvido e no controle de acesso, garantindo que os dados estejam protegidos e otimizados para o uso empresarial.
+
+## Tarefas de um analista de dados
+
+O analista de dados desempenha um papel essencial nas organizações, ajudando a descobrir e compreender informações que mantêm a empresa eficiente e equilibrada. Para isso, é fundamental que conheça bem suas responsabilidades e tarefas diárias.
+
+Além de gerar insights valiosos a partir dos dados disponíveis, o analista colabora com outros profissionais da organização para revelar informações relevantes durante todo o processo de análise de dados, que envolve cinco áreas principais:
+
+### Preparar
+
+Como analista de dados, grande parte do seu tempo será dedicada à preparação e modelagem dos dados, pois dados incorretos podem gerar relatórios inválidos, perda de confiança e impactos negativos nos negócios.
+
+A preparação de dados transforma dados brutos em informações confiáveis e compreensíveis, envolvendo tarefas como: analisar o perfil (características, qualidade e estrutura), limpeza, correção de erros, identificação de dados ausentes, conversão de formatos, melhoria da legibilidade.
+
+Também exige decisões sobre conexões de dados, desempenho, e garantias de privacidade e segurança, como anonimização ou remoção de dados sensíveis. Embora possa ser um processo demorado, é essencial para garantir qualidade e insights confiáveis.
+
+### Modelar
+
+Após a preparação, os dados estão prontos para a modelagem, que consiste em definir relações entre tabelas. Um modelo semântico bem construído é essencial para gerar relatórios precisos, rápidos e fáceis de manter.
+
+Modelos mal planejados afetam negativamente o desempenho e a precisão dos relatórios, principalmente em grandes volumes de dados. No Power BI, problemas de lentidão ou atualização costumam indicar falhas na preparação ou modelagem.
+
+A preparação e modelagem são processos iterativos e interdependentes. Compreender e preparar bem os dados facilita muito a criação de um modelo eficaz.
+
+### Visualizar
+
+A visualização de dados dá vida aos dados e tem como objetivo principal resolver problemas empresariais. Relatórios bem projetados contam uma narrativa clara e envolvente, permitindo que tomadores de decisão compreendam rapidamente os insights e tomem decisões precisas.
+
+Para isso, o analista de dados deve entender o problema da empresa e evitar excesso de informações, criando uma narrativa concisa que destaque os pontos-chave. As ferramentas de IA do Power BI ajudam a criar relatórios avançados sem a necessidade de código, facilitando a descoberta de insights.
+
+A acessibilidade também é essencial: os relatórios devem ser pensados para atender a todos os usuários desde o início. Cores, fontes, visualizações e layout devem trabalhar juntos para construir uma narrativa visual eficaz.
+
+### Analisar
+
+A etapa analisar consiste em entender e interpretar os dados exibidos nos relatórios. Como analista de dados, é essencial dominar os recursos analíticos do Power BI para identificar padrões, tendências e previsões, comunicando esses insights de forma clara.
+
+A análise avançada permite decisões mais eficazes, geração de insights acionáveis e uma visão aprofundada do comportamento e dos dados da empresa. Antes restrita a especialistas, hoje a análise está mais acessível graças ao Power BI, que facilita o trabalho com elementos visuais, métricas e dashboards.
+
+As integrações de IA com o Power BI — como Azure Machine Learning e serviços cognitivos — elevam o nível da análise, tornando os relatórios mais poderosos e enriquecidos.
+
+### Gerenciar
+
+O Power BI possui diversos componentes — como relatórios, dashboards, workspaces e modelos semânticos — que o analista de dados deve gerenciar com responsabilidade, garantindo compartilhamento seguro e distribuição eficaz dos ativos.
+
+Aplicativos facilitam a distribuição para grandes públicos, com navegação personalizada e integração com outros ativos da organização. Um bom gerenciamento promove colaboração, acesso controlado e evita vazamento de dados.
+
+Também ajuda a reduzir silos e duplicações, reutilizando modelos semânticos e garantindo confiabilidade por meio de modelos certificados. Com isso, o Power BI apoia uma gestão eficiente e segura dos dados corporativos.
+
+## Resumo
+
+Neste módulo, você aprendeu que a função de analista de dados é vital para o sucesso de uma organização. Além disso, as tarefas que os analistas de dados executam ajudam a verificar se as decisões empresariais são baseadas em dados confiáveis. Você também conferiu as diferentes funções que trabalham com os dados e como as pessoas nessas funções trabalham em parceria próxima com um analista de dados para fornecer insights valiosos sobre os ativos de dados de uma empresa.
 
 ## Preparar dados para análise com o Power BI
 
