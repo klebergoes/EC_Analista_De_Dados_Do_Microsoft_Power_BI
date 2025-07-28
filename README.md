@@ -4,45 +4,53 @@
 
 [1. Introdução à análise de dados da Microsoft](#Introdução-à-análise-de-dados-da-Microsoft)
 
-&nbsp;&nbsp;&nbsp;&nbsp; [1.1. Introdução](#Introdução)
+&nbsp;&nbsp;&nbsp;&nbsp; [1.1. Descobrir a análise de dados](#Descobrir-a-análise-de-dados)
 
-&nbsp;&nbsp;&nbsp;&nbsp; [1.2. Visão geral da análise de dados](#Visão-geral-da-análise-de-dados)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.1. Introdução](#Introdução)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.2.1. Análise descritiva](#Análise-descritiva)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.2. Visão geral da análise de dados](#Visão-geral-da-análise-de-dados)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.2.2. Análise diagnóstica](#Análise-diagnóstica)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.2.1. Análise descritiva](#Análise-descritiva)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.2.3. Análise preditiva](#Análise-preditiva)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.2.2. Análise diagnóstica](#Análise-diagnóstica)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.2.4. Análise prescritiva](#Análise-prescritivas)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.2.3. Análise preditiva](#Análise-preditiva)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.2.5. Análise cognitiva](#Análise-cognitiva)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.2.4. Análise prescritiva](#Análise-prescritivas)
 
-&nbsp;&nbsp;&nbsp;&nbsp; [1.3. Funções em dados](#Funções-em-dados)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.2.5. Análise cognitiva](#Análise-cognitiva)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.3.1. Analista de negócios](#Analista-de-negócios)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.3. Funções em dados](#Funções-em-dados)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.3.2. Analista de dados](#Analista-de-dados)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.3.1. Analista de negócios](#Analista-de-negócios)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.3.3. Engenheiro de dados](#Engenheiro-de-dados)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.3.2. Analista de dados](#Analista-de-dados)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.3.4. Cientista de dados](#Cientista-de-dados)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.3.3. Engenheiro de dados](#Engenheiro-de-dados)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.3.5. Administrador de banco de dados](#Administrador-de-banco-de-dados)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.3.4. Cientista de dados](#Cientista-de-dados)
 
-&nbsp;&nbsp;&nbsp;&nbsp; [1.4. Tarefas de um analista de dados](#Tarefas-de-um-analista-de-dados)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.3.5. Administrador de banco de dados](#Administrador-de-banco-de-dados)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.4.1. Preparar](#Preparar)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.4. Tarefas de um analista de dados](#Tarefas-de-um-analista-de-dados)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.4.2. Modelar](#Modelar)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.4.1. Preparar](#Preparar)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.4.3. Visualizar](#Visualizar)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.4.2. Modelar](#Modelar)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.4.4. Analisar](#Analisar)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.4.3. Visualizar](#Visualizar)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.4.5. Gerenciar](#Gerenciar)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.4.4. Analisar](#Analisar)
 
-&nbsp;&nbsp;&nbsp;&nbsp; [1.5. Resumo](#Resumo)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.4.5. Gerenciar](#Gerenciar)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.5. Resumo](#Resumo)
+
+&nbsp;&nbsp;&nbsp;&nbsp; [1.2. Comece a criar com o Power BI](#Comece-a-criar-com-o-Power-BI)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.2.1. Introdução](#Introdução)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.2.2. Usar o Power BI](#Usar-o-Power-BI)
 
 [2. Preparar dados para análise com o Power BI](#Preparar-dados-para-análise-com-o-Power-BI)
 
@@ -53,6 +61,8 @@
 [5. Gerenciar espaços de trabalho e modelos semânticos no Power BI](#Gerenciar-espaços-de-trabalho-e-modelos-semânticos-no-Power-BI)
 
 [6. Fonte](#Fonte)
+
+# Descobrir a análise de dados
 
 # Introdução à análise de dados da Microsoft
 
@@ -215,6 +225,12 @@ Também ajuda a reduzir silos e duplicações, reutilizando modelos semânticos 
 ## Resumo
 
 Neste módulo, você aprendeu que a função de analista de dados é vital para o sucesso de uma organização. Além disso, as tarefas que os analistas de dados executam ajudam a verificar se as decisões empresariais são baseadas em dados confiáveis. Você também conferiu as diferentes funções que trabalham com os dados e como as pessoas nessas funções trabalham em parceria próxima com um analista de dados para fornecer insights valiosos sobre os ativos de dados de uma empresa.
+
+# Comece a criar com o Power BI
+
+## Introdução
+
+O Microsoft Power BI é uma solução completa para preparação, visualização, distribuição e gerenciamento de dados. Ele permite criar relatórios interativos e visualmente atrativos, desde os mais simples até os mais complexos com modelagem de dados. É uma ferramenta essencial para analistas de dados, mas todos os profissionais da área podem se beneficiar ao entender seu funcionamento para explorar e comunicar insights.
 
 ## Preparar dados para análise com o Power BI
 
