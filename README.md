@@ -6,51 +6,59 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp; [1.1. Descobrir a análise de dados](#Descobrir-a-análise-de-dados)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.1. Introdução](#Introdução)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.1. Visão geral da análise de dados](#Visão-geral-da-análise-de-dados)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.2. Visão geral da análise de dados](#Visão-geral-da-análise-de-dados)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.1.1. Análise descritiva](#Análise-descritiva)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.2.1. Análise descritiva](#Análise-descritiva)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.1.2. Análise diagnóstica](#Análise-diagnóstica)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.2.2. Análise diagnóstica](#Análise-diagnóstica)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.1.3. Análise preditiva](#Análise-preditiva)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.2.3. Análise preditiva](#Análise-preditiva)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.1.4. Análise prescritiva](#Análise-prescritivas)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.2.4. Análise prescritiva](#Análise-prescritivas)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.1.5. Análise cognitiva](#Análise-cognitiva)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.2.5. Análise cognitiva](#Análise-cognitiva)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.2. Funções em dados](#Funções-em-dados)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.3. Funções em dados](#Funções-em-dados)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.2.1. Analista de negócios](#Analista-de-negócios)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.3.1. Analista de negócios](#Analista-de-negócios)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.2.2. Analista de dados](#Analista-de-dados)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.3.2. Analista de dados](#Analista-de-dados)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.2.3. Engenheiro de dados](#Engenheiro-de-dados)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.3.3. Engenheiro de dados](#Engenheiro-de-dados)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.2.4. Cientista de dados](#Cientista-de-dados)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.3.4. Cientista de dados](#Cientista-de-dados)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.2.5. Administrador de banco de dados](#Administrador-de-banco-de-dados)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.3.5. Administrador de banco de dados](#Administrador-de-banco-de-dados)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.3. Tarefas de um analista de dados](#Tarefas-de-um-analista-de-dados)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.4. Tarefas de um analista de dados](#Tarefas-de-um-analista-de-dados)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.3.1. Preparar](#Preparar)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.4.1. Preparar](#Preparar)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.3.2. Modelar](#Modelar)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.4.2. Modelar](#Modelar)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.3.3. Visualizar](#Visualizar)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.4.3. Visualizar](#Visualizar)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.3.4. Analisar](#Analisar)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.4.4. Analisar](#Analisar)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.3.5. Gerenciar](#Gerenciar)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.4.5. Gerenciar](#Gerenciar)
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.5. Resumo](#Resumo)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.4. Resumo](#Resumo)
 
 &nbsp;&nbsp;&nbsp;&nbsp; [1.2. Comece a criar com o Power BI](#Comece-a-criar-com-o-Power-BI)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.2.1. Introdução](#Introdução)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.2.1. Usando o Power BI](#Usando-o-Power-BI)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.2.2. Usar o Power BI](#Usar-o-Power-BI)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.2.2. Explore o fluxo do Power BI](#Explore-o-fluxo-do-Power-BI)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.2.3. Blocos de construção do Power BI](#Blocos-de-construção-do-Power-BI)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.2.3.1. Crie um modelo semântico](#Crie-um-modelo-semântico)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.2.3.2. Crie visualizações em um relatório](#Crie-visualizações-em-um-relatório)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.2.3.3. Crie um painel](#Crie-um-painel)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.2.4. Tour e uso do Power BI Service](#Tour-e-uso-do-Power-BI-Service)
 
 [2. Preparar dados para análise com o Power BI](#Preparar-dados-para-análise-com-o-Power-BI)
 
@@ -65,8 +73,6 @@
 # Descobrir a análise de dados
 
 # Introdução à análise de dados da Microsoft
-
-## Introdução
 
 O papel do analista de dados é fundamental no cenário atual, onde as organizações geram e armazenam grandes volumes de dados diariamente. Esses dados vêm de diversas fontes, como transações, serviços, redes sociais e comportamentos de consumo. O grande desafio das empresas é transformar esses dados em ações estratégicas que impulsionem os negócios.
 
@@ -228,14 +234,82 @@ Neste módulo, você aprendeu que a função de analista de dados é vital para 
 
 # Comece a criar com o Power BI
 
-## Introdução
-
 O Microsoft Power BI é uma solução completa para preparação, visualização, distribuição e gerenciamento de dados. Ele permite criar relatórios interativos e visualmente atrativos, desde os mais simples até os mais complexos com modelagem de dados. É uma ferramenta essencial para analistas de dados, mas todos os profissionais da área podem se beneficiar ao entender seu funcionamento para explorar e comunicar insights.
 
-## Preparar dados para análise com o Power BI
+## Usando o Power BI
 
-## Modelar dados com o Power BI
+Para criar relatórios no Power BI, é essencial conhecer seus três componentes principais:
 
-## Criar elementos visuais e relatórios do Power BI
+- Power BI Desktop: ferramenta de desenvolvimento usada para criar relatórios, disponível gratuitamente.
 
-## Fonte
+- Power BI Service: plataforma online para organizar, gerenciar e compartilhar relatórios, acessível via app.powerbi.com.
+
+- Power BI Mobile: aplicativo que permite visualizar relatórios otimizados em dispositivos móveis.
+
+## Explore o fluxo do Power BI
+
+Há um fluxo comum ao criar relatórios com o Power BI. Primeiro, você começa com Power BI Desktop para se conectar aos dados e criar o relatório. Em seguida, publica o relatório no serviço do Power BI e distribui aos consumidores.
+
+O fluxo do Power BI é:
+
+- Conectar-se a dados com o Power BI Desktop
+  
+- Transformar e modelar dados com Power BI Desktop.
+  
+- Criar visualizações e relatórios com Power BI Desktop.
+  
+- Publicar o relatório no serviço do Power BI.
+  
+- Distribuir e gerenciar relatórios no serviço do Power BI.
+
+O serviço do Power BI também permite criar painéis de alto nível que fazem busca detalhada em relatórios e aplicativos para agrupar facilmente relatórios relacionados aos usuários em um formato simples.
+
+## Blocos de construção do Power BI
+
+Os blocos de construção do Power BI são modelos semânticos e visualizações. Crie um modelo semântico e use visuais para criar um relatório.
+
+### Crie um modelo semântico
+
+Um modelo semântico consiste em:
+
+- Conectar-se a todas as fontes de dados necessárias
+  
+- Limpar e transformar os dados de acordo com as necessidades
+
+- Adicionar relações entre tabelas
+
+- Cálculos para estender o modelo semântico
+
+### Crie visualizações em um relatório
+
+No Power BI Desktop, as visualizações são adicionadas às páginas do relatório. É ideal manter cada página simples com dados relacionados, para que os consumidores possam ver facilmente os insights.
+
+O Power BI é uma solução low-code, o que significa que você pode "arrastar e soltar" o campo de dados diretamente na tela. O Power BI escolherá um visual para o campo de dados. Você pode alterar facilmente entre visuais para os mesmos campos e adicionar ou remover campos de dados ao visual.
+
+Os relatórios do Power BI são interativos. Os usuários podem clicar em visuais para filtrar ou detalhar informações, explorando os dados de forma dinâmica e visualizando como um gráfico afeta os outros na página.
+
+Quando estiver satisfeito com seu relatório, publique-o no serviço do Power BI.
+
+### Crie um painel
+
+No Power BI Service, é possível criar painéis com blocos fixados de relatórios publicados. 
+
+Os painéis consistem em uma única página composta por blocos. Para adicionar blocos a um painel, fixe um visual em um relatório no painel. Os blocos não são interativos como os visuais; portanto, quando um usuário interage com o bloco, ele acessa o relatório subjacente para obter mais informações.
+
+Para recapitular:
+
+- Os blocos de construção do Power BI são modelos semânticos e visualizações.
+  
+- Com o Power BI Desktop, crie o modelo semântico e use visuais para criar relatórios.
+  
+- Com o Power BI Service, você pode distribuir conteúdo para seus consumidores e usar relatórios para criar painéis.
+
+## Tour e uso do Power BI Service
+
+# Preparar dados para análise com o Power BI
+
+# Modelar dados com o Power BI
+
+# Criar elementos visuais e relatórios do Power BI
+
+# Fonte
