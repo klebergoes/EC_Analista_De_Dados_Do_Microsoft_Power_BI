@@ -42,8 +42,6 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.3.5. Gerenciar](#Gerenciar)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.1.4. Resumo](#Resumo)
-
 &nbsp;&nbsp;&nbsp;&nbsp; [1.2. Comece a criar com o Power BI](#Comece-a-criar-com-o-Power-BI)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.2.1. Usando o Power BI](#Usando-o-Power-BI)
@@ -59,6 +57,18 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.2.3.3. Crie um painel](#Crie-um-painel)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.2.4. Tour e uso do Power BI Service](#Tour-e-uso-do-Power-BI-Service)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.2.4.1. Workspaces](#Workspaces)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.2.4.2. Seção Aprender](#Seção-Aprender)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.2.4.3. Seção Aplicativos](#Seção-Aplicativos)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.2.4.4. Atualizar um modelo semântico](#Atualizar-um-modelo-semântico)
+
+&nbsp;&nbsp;&nbsp;&nbsp; [1.3. Introdução à análise de ponta a ponta usando o Microsoft Fabric](#Introdução-à-análise-de-ponta-a-ponta-usando-o-Microsoft-Fabric)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.3.1. Explorar análises de ponta a ponta com o Microsoft Fabric](#Explorar-análises-de-ponta-a-ponta-com-o-Microsoft-Fabric)
 
 [2. Preparar dados para análise com o Power BI](#Preparar-dados-para-análise-com-o-Power-BI)
 
@@ -228,10 +238,6 @@ Aplicativos facilitam a distribuição para grandes públicos, com navegação p
 
 Também ajuda a reduzir silos e duplicações, reutilizando modelos semânticos e garantindo confiabilidade por meio de modelos certificados. Com isso, o Power BI apoia uma gestão eficiente e segura dos dados corporativos.
 
-## Resumo
-
-Neste módulo, você aprendeu que a função de analista de dados é vital para o sucesso de uma organização. Além disso, as tarefas que os analistas de dados executam ajudam a verificar se as decisões empresariais são baseadas em dados confiáveis. Você também conferiu as diferentes funções que trabalham com os dados e como as pessoas nessas funções trabalham em parceria próxima com um analista de dados para fornecer insights valiosos sobre os ativos de dados de uma empresa.
-
 # Comece a criar com o Power BI
 
 O Microsoft Power BI é uma solução completa para preparação, visualização, distribuição e gerenciamento de dados. Ele permite criar relatórios interativos e visualmente atrativos, desde os mais simples até os mais complexos com modelagem de dados. É uma ferramenta essencial para analistas de dados, mas todos os profissionais da área podem se beneficiar ao entender seu funcionamento para explorar e comunicar insights.
@@ -305,6 +311,45 @@ Para recapitular:
 - Com o Power BI Service, você pode distribuir conteúdo para seus consumidores e usar relatórios para criar painéis.
 
 ## Tour e uso do Power BI Service
+
+### Workspaces 
+
+São a base do serviço do Power BI. Ao publicar qualquer relatório, você deve escolher um espaço de trabalho. Por padrão, todo usuário tem acesso ao Meu espaço de trabalho, que é ideal apenas para testes. Quando você desejar compartilhar conteúdo com outras pessoas, sempre crie e use um espaço de trabalho compartilhado.
+
+### Seção Aprender
+
+Se ainda não tiver criado um relatório, o Power BI oferecerá vários exemplos para você explorar. Esses relatórios são carregados no Meu espaço de trabalho para que você possa explorá-los em particular. Você pode acessar no painel de navegação.
+
+### Seção Aplicativos
+
+No Power BI, você pode criar aplicativos em espaços de trabalho para compartilhar relatórios e painéis de forma controlada e simplificada. Após cada alteração, é necessário atualizar o aplicativo, garantindo que só a versão desejada seja vista pela audiência. Os aplicativos são ideais para compartilhamento organizado, evitando permissões excessivas ou visualização de conteúdo ainda não finalizado. Os aplicativos modelo permitem que você encontre um aplicativo existente que atenda às suas necessidades e, em seguida, conecte seus dados. Esses aplicativos podem ser uma ótima maneira de compartilhar insights rapidamente com o mínimo de esforço.
+
+### Atualizar um modelo semântico
+
+Para dar suporte para seus dados em constante alteração, é possível configurar atualizações agendadas de seus modelos semânticos no serviço do Power BI. Também estão disponíveis atualizações sob demanda.
+
+> Dica:
+> 
+> Para acessar aplicativos de modelo no Power BI:
+> 
+> 1. Selecione o ícone **Aplicativos** no painel de navegação à esquerda.  
+> 2. Clique em **Obter aplicativos**.  
+> 3. Vá até a guia **Aplicativos de modelo**.
+
+# Introdução à análise de ponta a ponta usando o Microsoft Fabric
+
+O Microsoft Fabric é uma plataforma de análise de ponta a ponta que fornece um ambiente único e integrado para profissionais de dados e a empresa colaborarem em projetos de dados. Ele fornece um conjunto de serviços integrados que permitem ingerir, armazenar, processar e analisar dados em um único ambiente.
+
+O Fabric inclui os seguintes serviços:
+
+- Engenharia de dados
+- Integração de dados
+- Armazenamento de dados
+- Inteligência em tempo real
+- Ciência de dados
+- Inteligência empresarial
+
+## Explorar análises de ponta a ponta com o Microsoft Fabric
 
 # Preparar dados para análise com o Power BI
 
