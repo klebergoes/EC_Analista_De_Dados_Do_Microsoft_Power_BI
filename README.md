@@ -70,6 +70,32 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.3.1. Explorar análises de ponta a ponta com o Microsoft Fabric](#Explorar-análises-de-ponta-a-ponta-com-o-Microsoft-Fabric)
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.3.1.1. OneLake](#OneLake)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.3.1.2. Workspace](#Workspace)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.3.1.3. Administração e governança](#Administração-e-governança)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.3.2. Explorar as equipes de dados e o Microsoft Fabric](#Explorar-as-equipes-de-dados-e-o-Microsoft-Fabric)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.3.2.1. Funções e desafios tradicionais](#Funções-e-desafios-tradicionais)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.3.2.1. Evolução dos fluxos de trabalho colaborativos](#Evolução-dos-fluxos-de-trabalho-colaborativos)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.3.3. Habilitar e usar o Microsoft Fabric](#Habilitar-e-usar-o-Microsoft-Fabric)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.3.3.1. Habilitar o Microsoft Fabric](#Habilitar-o-Microsoft-Fabric)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.3.3.2. Criar workspace](#Criar-workspace)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.3.3.3. Descobrir dados com o catálogo do OneLake](#Descobrir-dados-com-o-catálogo-do-OneLake)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.3.3.4. Criar itens utilizando as cargas de trabalho do Fabric](#Criar-itens-utilizando-as-cargas-de-trabalho-do-Fabric)
+
+&nbsp;&nbsp;&nbsp;&nbsp; [1.4. Criar relatórios interativos usando o Copilot para Power BI](#Criar-relatórios-interativos-usando-o-Copilot-para-Power-BI)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.4.1. Prepare seus dados para uso com o Copilot para Power BI](#Prepare-seus-dados-para-uso-com-o-Copilot-para-Power-BI)
+
 [2. Preparar dados para análise com o Power BI](#Preparar-dados-para-análise-com-o-Power-BI)
 
 [3. Modelar dados com o Power BI](#Modelar-dados-com-o-Power-BI)
@@ -350,6 +376,112 @@ O Fabric inclui os seguintes serviços:
 - Inteligência empresarial
 
 ## Explorar análises de ponta a ponta com o Microsoft Fabric
+
+O Microsoft Fabric simplifica as soluções de análise fornecendo um produto único e fácil de usar que integra várias ferramentas e serviços em uma plataforma. É uma plataforma saaS (software como serviço) unificada em que todos os dados são armazenados em um único formato aberto no OneLake. 
+
+### OneLake
+
+O OneLake é o armazenamento centralizado do Microsoft Fabric, baseado no Azure Data Lake Storage (ADLS). Ele unifica dados entre regiões e nuvens em um único lago lógico, eliminando a necessidade de mover ou duplicar dados.
+
+- Suporta múltiplos formatos: Delta, Parquet, CSV, JSON.
+- Todos os dados gerados no Fabric são armazenados automaticamente no OneLake.
+- Dados tabulares usam o formato delta-parquet para integração perfeita entre mecanismos.
+- Atalhos permitem acesso a dados externos sem cópia, mantendo sincronia e consistência com a origem.
+
+### Workspace
+
+No Microsoft Fabric, os workspaces são contêineres lógicos que organizam e gerenciam dados, relatórios e ativos. Eles:
+
+- Controlam permissões para acesso seguro e colaboração.
+- Separaram recursos para facilitar a gestão e segurança.
+- Permitem gerenciar recursos de computação e integrar com o Git para controle de versão, colaboração e histórico de alterações.
+
+### Administração e governança
+
+A administração e governança no Microsoft Fabric são centralizadas por meio do portal de administração. Nele, é possível:
+
+- Gerenciar permissões, grupos, fontes de dados e gateways.
+- Monitorar uso e desempenho.
+- Usar APIs e SDKs para automação e integração.
+
+O catálogo do OneLake ajuda a monitorar e manter a governança, oferecendo informações sobre metadados, rótulos de confidencialidade e status de atualização dos dados.
+
+## Explorar as equipes de dados e o Microsoft Fabric
+
+O Microsoft Fabric é uma plataforma unificada de análise de dados que facilita a colaboração entre profissionais ao eliminar silos de dados e a dependência de múltiplos sistemas.
+
+### Funções e desafios tradicionais
+
+No modelo tradicional de análise de dados, há desafios causados pela divisão de tarefas entre engenheiros, analistas e cientistas de dados. Isso gera:
+
+- Atrasos e retrabalho por causa da dependência entre equipes.
+- Analistas precisam fazer transformações extras, muitas vezes sem contexto adequado.
+- Cientistas de dados enfrentam dificuldades de integração com sistemas existentes, dificultando a geração de insights.
+
+### Evolução dos fluxos de trabalho colaborativos
+
+O Microsoft Fabric unifica ferramentas de análise em uma única plataforma SaaS, permitindo colaboração eficiente entre funções sem duplicação de esforços:
+
+- Engenheiros de dados usam Pipelines e Notebooks para ingerir, transformar e armazenar dados no OneLake com Delta-Parquet com controle de versão.
+- Analistas de dados podem preparar os dados antecipadamente com fluxos de dados e acessar o OneLake via Direct Lake, o que diminui a necessidade de ajustes posteriores. Isso torna a criação de relatórios interativos no Power BI mais ágil e eficiente.
+- Cientistas de dados utilizam Python/Spark em notebooks e integram modelos ao Azure Machine Learning.
+- Engenheiros de Analytics organizam dados nos lakehouses, criando modelos semânticos para análise de autoatendimento.
+- Usuários low-code e desenvolvedores cidadãos acessam dados no Hub OneLake e criam relatórios com Power BI e fluxos de dados simples. Eles também podem usar fluxos de dados para executar tarefas ETL simples sem depender de engenheiros de dados.
+
+## Habilitar e usar o Microsoft Fabric
+
+Para usar todos os recursos do Microsoft Fabric, ele deve estar habilitado na organização. Isso pode exigir suporte do TI e o envolvimento de funções como:
+
+- Administrador do Fabric: gerencia configurações do Fabric.
+- Administrador do Power Platform: supervisiona serviços da plataforma, incluindo o Fabric.
+- Administrador do Microsoft 365: gerencia os serviços Microsoft na organização, incluindo o Fabric.
+
+### Habilitar o Microsoft Fabric
+
+Os administradores podem habilitar o Fabric no **portal de administração > configurações do locatário** no serviço do Power BI. A habilitação pode ser feita para toda a organização ou para grupos de segurança específicos do Microsoft 365 ou Microsoft Entra. Também é possível delegar essa permissão a outros usuários no nível de capacidade.
+
+### Criar workspace
+
+Os workspaces são ambientes colaborativos no Microsoft Fabric onde se criam e gerenciam itens como lakehouses, warehouses e relatórios, com os dados armazenados no OneLake. Eles também mostram a linhagem de dados, facilitando a visualização do fluxo e das dependências.
+
+Nas configurações do workspace, é possível definir:
+
+- Tipo de licença para usar recursos do Fabric.
+- Acesso do OneDrive para o espaço de trabalho.
+- Conexão com o Armazenamento Azure Data Lake Gen2.
+- Integração do Git para controle de versão.
+- Configurações de carga de trabalho do Spark para otimização de desempenho.
+
+O acesso é controlado por quatro funções: administrador, colaborador, membro e visualizador. Para controle mais detalhado, use permissões por item conforme a necessidade do negócio.
+
+### Descobrir dados com o catálogo do OneLake
+
+O catálogo do OneLake no Microsoft Fabric facilita o acesso e descoberta de dados dentro da organização. Os usuários visualizam apenas os itens compartilhados com eles e podem:
+
+- Restringir resultados por workspace ou domínio.
+- Navegar por categorias padrão.
+- Filtrar por palavra-chave ou tipo de item.
+
+### Criar itens utilizando as cargas de trabalho do Fabric
+
+Após criar um workspace habilitado para o Microsoft Fabric, você pode começar a criar e gerenciar itens conforme a carga de trabalho desejada. O Fabric oferece recursos para:
+
+- Engenharia de dados: criar e transformar dados com lakehouses.
+- Data Factory: ingerir, transformar e orquestrar dados.
+- Ciência de dados: aplicar machine learning para prever e detectar padrões.
+- Data Warehouse: unificar dados em armazéns tradicionais.
+- Bancos de dados: criar e gerenciar bancos de dados com ferramentas para inserir, consultar e extrair dados.
+- Soluções do setor: usar modelos prontos para diferentes áreas.
+- Inteligência em tempo real: processar, monitorar e analisar dados de streaming.
+- Power BI: criar relatórios e dashboards interativos.
+
+O Microsoft Fabric unifica ferramentas como Power BI, Synapse Analytics e Data Factory em uma única plataforma e dá suporte à arquitetura data mesh, com governança centralizada e propriedade descentralizada, simplificando os fluxos sem exigir acesso direto ao Azure.
+
+# Criar relatórios interativos usando o Copilot para Power BI
+
+O Power BI permite preparar e visualizar dados com relatórios interativos, mas iniciantes podem ter dificuldades. O Copilot para Power BI simplifica esse processo, ajudando a criar medidas, visuais e páginas de relatório de forma rápida. Este módulo ensina como usar o Copilot para tornar a análise e geração de relatórios mais fáceis e eficientes.
+
+## Prepare seus dados para uso com o Copilot para Power BIc
 
 # Preparar dados para análise com o Power BI
 
