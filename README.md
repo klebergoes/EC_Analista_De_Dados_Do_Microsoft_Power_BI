@@ -96,7 +96,39 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.4.1. Prepare seus dados para uso com o Copilot para Power BI](#Prepare-seus-dados-para-uso-com-o-Copilot-para-Power-BI)
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.4.1.1. Garantir a qualidade dos dados](#Garantir-a-qualidade-dos-dados)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.4.1.2. Preparar dados com o Power Query](#Preparar-dados-com-o-Power-Query)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.4.2. Use o Copilot para Power BI para modelar seus dados](#Use-o-Copilot-para-Power-BI-para-modelar-seus-dados)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.4.2.1. Conectar tabelas com relacionamentos](#Conectar-tabelas-com-relacionamentos)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.4.2.2. Criar medidas rápidas](#Criar-medidas-rápidas)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.4.2.3. Consulta com DAX](#Consulta-com-DAX)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.4.2.4. Criar medidas a partir de consultas DAX](#Criar-medidas-a-partir-de-consultas-DAX)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.4.3. Crie relatórios com o Copilot para Power BI](#Crie-relatórios-com-o-Copilot-para-Power-BI)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.4.3.1. Criar relatórios com o Power BI Desktop](#Criar-relatórios-com-o-Power-BI-Desktop)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.4.3.2. Criar relatórios com o Power BI Service](#Criar-relatórios-com-o-Power-BI-Service)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.4.3.3. Criar páginas com prompts personalizados](#Criar-página-com-prompts-personalizados)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.4.3.4. Considerações finais](#Considerações-finais)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.4.4. Criar resumos com o Copilot para Power BI](#Criar-resumos-com-o-Copilot-para-Power-BI)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.4.4.1. Resumir com o visual Narrativa](#Resumir-com-o-visual-Narrativa)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [1.4.4.2. Resumir no painel do Copilot](#Resumir-no-painel-do-Copilot)
+
 [2. Preparar dados para análise com o Power BI](#Preparar-dados-para-análise-com-o-Power-BI)
+
+&nbsp;&nbsp;&nbsp;&nbsp; [2.1. Obter dados de arquivos](#Obter-dados-de-arquivos)
 
 [3. Modelar dados com o Power BI](#Modelar-dados-com-o-Power-BI)
 
@@ -481,9 +513,124 @@ O Microsoft Fabric unifica ferramentas como Power BI, Synapse Analytics e Data F
 
 O Power BI permite preparar e visualizar dados com relatórios interativos, mas iniciantes podem ter dificuldades. O Copilot para Power BI simplifica esse processo, ajudando a criar medidas, visuais e páginas de relatório de forma rápida. Este módulo ensina como usar o Copilot para tornar a análise e geração de relatórios mais fáceis e eficientes.
 
-## Prepare seus dados para uso com o Copilot para Power BIc
+## Prepare seus dados para uso com o Copilot para Power BI
+
+O Microsoft Power BI permite criar relatórios interativos em três etapas principais: preparar e modelar os dados, visualizar e analisar e proteger e distribuir os relatórios. Essas etapas podem ser demoradas para iniciantes, mas o Copilot para Power BI ajuda a acelerar o processo ao:
+
+- Criar medidas com linguagem natural.
+- Adicionar sinônimos ao modelo para melhorar a experiência de Q&A.
+- Gerar visuais e páginas automaticamente.
+- Resumir o modelo de dados.
+
+Apesar disso, a limpeza e transformação dos dados ainda precisam ser feitas manualmente para garantir a precisão.
+
+### Garantir a qualidade dos dados
+
+A qualidade dos dados é essencial para criar relatórios precisos e confiáveis no Power BI, especialmente ao usar o Copilot. Sem dados de qualidade, os resultados podem ser comprometidos. É importante avaliar o modelo semântico, considerando aspectos como:
+
+- Completude: valores ausentes geram lacunas nos dados.
+- Validade: valores fora do esperado distorcem análises.
+- Consistência: dados incoerentes afetam visuais, especialmente de datas.
+- Exclusividade: duplicatas prejudicam a precisão.
+- Relacionamentos: ausência de ligações entre tabelas impede visuais corretos.
+- Cálculos DAX: fórmulas limitadas reduzem os insights.
+
+### Preparar dados com o Power Query
+
+O Power Query é essencial no Power BI Desktop para preparar o modelo semântico, sendo uma etapa inicial e fundamental, especialmente ao usar o Copilot. Ele ajuda a garantir a qualidade dos dados por meio de:
+
+- Criação de perfil dos dados (qualidade, distribuição e perfil das colunas)
+- Limpeza dos dados (corrigir inconsistências, valores nulos ou inesperados)
+- Transformação dos dados (nomes amigáveis, tipos corretos e formatações adequadas)
+
+## Use o Copilot para Power BI para modelar seus dados
+
+Dados adequadamente preparados são a base para insights de dados. Depois de limpar, transformar e moldar seus dados, você pode começar a criar o modelo semântico.
+
+### Conectar tabelas com relacionamentos
+
+Após preparar os dados, o próximo passo é criar relacionamentos entre as tabelas, o que permite filtrar e resumir informações nos relatórios. É possível usar a detecção automática de relacionamentos e o Copilot para revisar e identificar a necessidade de ajustes no modelo semântico.
+
+### Criar medidas rápidas
+
+Mesmo com as tabelas conectadas, pode ser necessário criar medidas DAX para responder aos requisitos de negócio. O DAX é uma linguagem funcional poderosa e versátil, usada para cálculos no Power BI, mas pode ser complexa no início por diferir de linguagens tradicionais baseadas em etapas.
+
+O Power BI oferece medidas rápidas, que facilitam a criação de cálculos personalizados com pouco esforço e ajudam a aprender DAX, atendendo às necessidades dos relatórios sem exigir conhecimento avançado.
+
+### Consulta com DAX
+
+Há quatro modos de exibição no Power BI Desktop: Relatório, Tabela, Modelo e Consulta DAX. No modo de exibição Consulta DAX, você pode selecionar Copilot na faixa de opções e usar linguagem natural para descrever o que deseja.
+
+### Criar medidas a partir de consultas DAX
+
+Criar medidas a partir de consultas DAX envolve usar consultas escritas em DAX para definir cálculos personalizados que podem ser reutilizados em relatórios do Power BI, permitindo análises dinâmicas e precisas.
+
+Como desenvolvedor de relatórios, você pode Atualizar o modelo com alterações para criar as medidas mais adequadas ao seu projeto.
+
+## Crie relatórios com o Copilot para Power BI
+
+Entender o valor dos dados bem preparados e criar um modelo semântico é essencial para relatórios eficazes. Após isso, é possível visualizar os dados e gerar insights que apoiam a tomada de decisões com base em dados.
+
+### Criar relatórios com o Power BI Desktop
+
+O Power BI Desktop é a principal ferramenta para desenvolver relatórios, permitindo conectar, transformar, modelar e visualizar dados. O Copilot pode auxiliar na criação de visuais e relatórios dentro desse ambiente.
+
+**Obs.: Você precisa estar conectado com uma conta que tenha acesso a um workspace antes de usar o Copilot.**
+
+No Power BI, o Copilot funciona de forma semelhante a outros produtos da Microsoft. Ao clicar no botão Copilot, abre-se um painel com sugestões e chat. Você pode, por exemplo, pedir para:
+- Criar uma nova página de relatório.
+- Sugerir conteúdo para uma nova página de relatório.
+- Responder a esta pergunta de dados... (em seguida, insira sua pergunta no chat).
+
+### Criar relatórios com o Power BI Service
+
+Ao publicar relatórios no Power BI Desktop, são criados dois itens no workspace:
+- O relatório é a representação visual que você criou na exibição de Relatório no Power BI Desktop.
+- O modelo semântico são os dados subjacentes, incluindo relacionamentos e medidas.
+
+Para criar relatórios por meio do serviço do Power BI, comece selecionando as reticências (…) do modelo semântico e escolha Criar relatório.
+
+Selecione o botão Copilot e veja uma experiência semelhante com solicitações sugeridas e campo de chat:
+- Criar uma nova página de relatório.
+- Sugerir conteúdo para uma nova página de relatório.
+
+### Criar páginas com prompts personalizados
+
+Você pode digitar solicitações personalizadas no Copilot com base nos seus dados e objetivos do relatório. Apesar de possíveis limitações, é possível pedir, por exemplo:
+
+- Uma página com os 10 produtos mais vendidos.
+- Um visual com as 3 cores mais vendidas.
+
+### Considerações finais
+
+Considere o Copilot como um rascunho inicial que precisa de revisão. Você pode manter os visuais ou ajustá-los (cores, rótulos etc.). Lembre-se:
+
+- O Copilot está em constante atualização.
+- Pode haver erros, então sempre revise o que ele gerar.
+
+## Criar resumos com o Copilot para Power BI
+
+Resumos ajudam a manter o público engajado ao oferecer uma visão clara e concisa, comunicando a mensagem principal, dando contexto e destacando pontos importantes na narrativa.
+
+### Resumir com o visual Narrativa
+
+O visual Narrativa no Power BI permite criar resumos personalizados com base nos dados dos visuais do relatório. É possível ajustar formatação, inserir prompts personalizados e escolher quais visuais incluir. O Copilot sugere:
+
+- Apresente um resumo executivo.
+- Responda a perguntas prováveis da liderança.
+- Crie uma lista de insights com marcadores.
+
+Disponível no Power BI Desktop e no Service, você pode comparar versões personalizadas e geradas pelo Copilot.
+
+### Resumir no painel do Copilot
+
+O painel do Copilot ajuda desenvolvedores a gerar ideias e consumidores a entender melhor os dados. Ele considera todos os dados do relatório, mesmo os ocultos por filtros. É possível solicitar resumos ou respostas para todo o relatório ou apenas para a página atual, conforme o escopo indicado.
 
 # Preparar dados para análise com o Power BI
+
+Você aprenderá a usar o Power Query para extrair dados de diferentes fontes de dados, escolher um modo de armazenamento e um tipo de conectividade. Você também aprenderá a criar o perfil, limpar e carregar dados no Power BI antes de modelar seus dados.
+
+# Obter dados de arquivos
 
 # Modelar dados com o Power BI
 
