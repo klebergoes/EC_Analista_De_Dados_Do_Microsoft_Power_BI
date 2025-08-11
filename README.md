@@ -128,7 +128,19 @@
 
 [2. Preparar dados para análise com o Power BI](#Preparar-dados-para-análise-com-o-Power-BI)
 
-&nbsp;&nbsp;&nbsp;&nbsp; [2.1. Obter dados de arquivos](#Obter-dados-de-arquivos)
+&nbsp;&nbsp;&nbsp;&nbsp; [2.1. Obter dados no Power BI](#Obter-dados-no-Power-BI)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.1.1. Obter dados de arquivos](#Obter-dados-de-arquivos)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.1.1.1. Localização do arquivo simples](#Localização-do-arquivo-simples)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.1.1.2. Conectar-se aos dados em um arquivo](#Conectar-se-aos-dados-em-um-arquivo)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.1.1.3. Selecionar os dados do arquivo a serem importados](#Selecionar-os-dados-do-arquivo-a-serem-importados)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.1.1.4. Alterar o arquivo de origem](#Alterar-o-arquivo-de-origem)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.1.2. Obter dados de fontes de dados relacionais](#Obter-dados-de-fontes-de-dados-relacionais)
 
 [3. Modelar dados com o Power BI](#Modelar-dados-com-o-Power-BI)
 
@@ -630,7 +642,49 @@ O painel do Copilot ajuda desenvolvedores a gerar ideias e consumidores a entend
 
 Você aprenderá a usar o Power Query para extrair dados de diferentes fontes de dados, escolher um modo de armazenamento e um tipo de conectividade. Você também aprenderá a criar o perfil, limpar e carregar dados no Power BI antes de modelar seus dados.
 
-# Obter dados de arquivos
+# Obter dados no Power BI
+
+## Obter dados de arquivos
+
+Organizações costumam exportar e armazenar dados em arquivos, como arquivos simples (.csv, .txt, largura fixa) ou planilhas do Excel (.xlsx). O Power BI Desktop permite importar dados de vários tipos de arquivos, incluindo os salvos localmente, usando a opção Obter dados.
+
+### Localização do arquivo simples
+
+A primeira etapa é determinar qual local de arquivo você quer usar:
+
+- Local: O arquivo não é movido para o Power BI e não permanece um link para ele. Em vez disso, um modelo semântico é criado no Power BI e os dados são carregados para ele.
+
+- OneDrive for Business: Esse método é eficaz para manter o arquivo e o seu modelo semântico, relatórios e painéis de controle do Power BI sincronizados.
+
+- OneDrive Pessoal: Semelhante ao OneDrive for Business, mas exige login na conta pessoal.
+
+- SharePoint – Sites de Equipe: Semelhante ao OneDrive for Business, mas com conexão via URL ou pasta raiz.
+
+### Conectar-se aos dados em um arquivo
+
+No Power BI, acesse Página Inicial > Obter dados, escolha o tipo de arquivo (ex.: Excel), localize-o e abra. Se necessário, autentique-se no serviço (como o OneDrive).
+
+### Selecionar os dados do arquivo a serem importados
+
+Após conectar o arquivo ao Power BI Desktop, o Navegador exibe as tabelas disponíveis. Você pode selecionar uma tabela para visualizar o conteúdo e garantir que os dados corretos sejam carregados no modelo do Power BI. Marque as desejadas e escolha:
+
+- Carregar → Envia direto para o modelo.
+  
+- Transformar Dados → Abre o Power Query para revisão e limpeza antes de carregar.
+
+### Alterar o arquivo de origem
+
+Durante o desenvolvimento, se o local do arquivo de origem mudar, você deve atualizar o caminho no Power BI para manter os relatórios atualizados. Isso pode ser feito via:
+
+- Configurações da fonte de dados
+  
+- Configurações de consulta
+
+- Editor Avançado no Power Query.
+
+Ao alterar o caminho, reconecte-se a um arquivo com a mesma estrutura, pois mudanças na estrutura (como renomear ou excluir colunas) podem quebrar o relatório.
+
+## Obter dados de fontes de dados relacionais
 
 # Modelar dados com o Power BI
 
