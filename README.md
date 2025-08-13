@@ -142,6 +142,16 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.1.2. Obter dados de fontes de dados relacionais](#Obter-dados-de-fontes-de-dados-relacionais)
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.1.2.1. Conectar-se a dados em um banco de dados relacional](#Conectar-se-a-dados-em-um-banco-de-dados-relacional)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.1.2.2. Selecionar dados para importar](#Selecionar-dados-para-importar)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.1.2.3. Importar dados escrevendo uma consulta SQL](#Importar-dados-escrevendo-uma-consulta-SQL)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.1.2.4. Alterar configurações da fonte de dados](#Alterar-configurações-da-fonte-de-dados)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.1.2.5. Escrever uma instrução SQL](#Escrever-uma-instrução-SQL)
+
 [3. Modelar dados com o Power BI](#Modelar-dados-com-o-Power-BI)
 
 [4. Criar elementos visuais e relatórios do Power BI](#Criar-elementos-visuais-e-relatórios-do-Power-BI)
@@ -685,6 +695,41 @@ Durante o desenvolvimento, se o local do arquivo de origem mudar, você deve atu
 Ao alterar o caminho, reconecte-se a um arquivo com a mesma estrutura, pois mudanças na estrutura (como renomear ou excluir colunas) podem quebrar o relatório.
 
 ## Obter dados de fontes de dados relacionais
+
+### Conectar-se a dados em um banco de dados relacional
+
+Você pode conectar-se a um banco de dados relacional no Power BI Desktop usando **Obter Dados** e **SQL Server (vamos usar como exemplo)**. Também pode ser usado o atalho de acesso rápido disponível ao lado do botão.
+
+A próxima etapa é informar o servidor e o banco de dados no SQL Server, escolhendo o modo de conectividade: Importação (padrão e mais usado) ou DirectQuery. As opções avançadas podem ser ignoradas por enquanto.
+
+Escolha o tipo de autenticação:
+- Windows
+- Banco de Dados
+- Conta Microsoft, insira usuário e senha e clique em Conectar.
+
+### Selecionar dados para importar
+
+Após conectar, o navegador mostra as tabelas do banco. Marque as desejadas e escolha Carregar (importa direto) ou Transformar Dados (abre no Power Query para ajustes).
+
+### Importar dados escrevendo uma consulta SQL
+
+Também é possível importar dados escrevendo uma consulta SQL. Basta informar servidor e banco, abrir Opções avançadas, digitar a instrução (ex.: SELECT ID, NAME, SALESAMOUNT FROM SALES) e confirmar.
+
+### Alterar configurações da fonte de dados
+
+Após criar e carregar dados no Power BI Desktop, você pode alterar as configurações de conexão a qualquer momento, como atualizar senhas, modificar a fonte de dados ou editar permissões.
+
+Para isso:
+
+- Na guia Página Inicial, selecione Transformar Dados > Configurações da fonte de dados.
+
+- Escolha a fonte desejada e clique com o botão direito ou use os botões de opção para atualizar.
+
+- Também é possível alterar detalhes no Power Query, selecionando a tabela e acessando Configurações da fonte de dados ou usando o painel Configurações de Consulta.
+
+- Após as alterações, selecione Fechar e Aplicar para atualizar o modelo do Power BI.
+
+### Escrever uma instrução SQL
 
 # Modelar dados com o Power BI
 
