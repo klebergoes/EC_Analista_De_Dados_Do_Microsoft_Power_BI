@@ -152,6 +152,12 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.1.2.5. Escrever uma instrução SQL](#Escrever-uma-instrução-SQL)
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.1.3. Criar relatórios dinâmicos com parâmetros](#Criar-relatórios-dinâmicos-com-parâmetros)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.1.3.1. Criar relatórios dinâmicos para valores individuais](#Criar-relatórios-dinâmicos-para-valores-individuais)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.1.3.2. Criar relatórios dinâmicos para vários valores](#Criar-relatórios-dinâmicos-para-vários-valores)
+
 [3. Modelar dados com o Power BI](#Modelar-dados-com-o-Power-BI)
 
 [4. Criar elementos visuais e relatórios do Power BI](#Criar-elementos-visuais-e-relatórios-do-Power-BI)
@@ -730,6 +736,76 @@ Para isso:
 - Após as alterações, selecione Fechar e Aplicar para atualizar o modelo do Power BI.
 
 ### Escrever uma instrução SQL
+
+Como mencionado anteriormente, SQL é útil no Power BI porque permite carregar apenas os dados necessários, escolhendo colunas, linhas, aplicando filtros, cálculos, junções e lógica diretamente na consulta antes de importar para o modelo.
+
+A melhor prática é usar views no banco em vez de consultas SQL diretas no Power BI, pois elas funcionam como tabelas, permitem a otimização via dobragem de consultas (Query Folding) no Power Query e garantem melhor desempenho e manutenção.
+
+## Criar relatórios dinâmicos com parâmetros
+
+Relatórios dinâmicos permitem que um único relatório atenda a diferentes necessidades, reduzindo o número de relatórios a criar e economizando recursos. Com parâmetros, os usuários podem filtrar e personalizar os dados exibidos, ganhando mais autonomia. No exemplo da equipe de vendas, cada membro pode filtrar o relatório para ver apenas seus próprios resultados e comparar com as metas.
+
+### Criar relatórios dinâmicos para valores individuais
+
+Para criar um relatório dinâmico, primeiro escreva sua consulta SQL. No Power BI Desktop, use Obter dados, conecte-se ao banco de dados (SQL Server, por ex.):
+
+1. Selecione **Opções avançadas**.
+
+2. Cole a consulta SQL na caixa **Instrução SQL** e selecione **OK**:
+```
+SELECT 
+    [SalesOrderID],
+    [OrderDate],
+FROM 
+    [TailwindTraders].[Sales].[SalesOrderHeader] s
+WHERE 
+    s.[SalesPersonID] = 279
+```
+Quando a conexão for estabelecida, os dados serão mostrados na janela de visualização.
+
+3. Selecione Editar para abrir os dados no Editor do Power Query
+   
+Em seguida, você criará o parâmetro seguindo estas etapas:
+
+1. Na guia **Página Inicial**, selecione **Gerenciar parâmetros > Novo parâmetro**.
+
+2. Na janela **Parâmetros**, altere o nome do parâmetro padrão para algo mais descritivo. Assim, a finalidade dele fica clara. Nesse caso, altere o nome para **SalesPerson**.
+   
+Selecione o **Texto** na lista **Tipo**, selecione **Qualquer valor** na lista **Valor sugerido** e então "OK".
+
+Uma nova consulta é mostrada para o parâmetro que você criou.
+
+Agora você precisa ajustar o código na consulta SQL para avaliar o novo parâmetro e torná-lo dinâmico:
+
+1. Clique com o botão direito do mouse em **Query1** e selecione **Editor avançado**.
+
+2. Substitua o valor existente na instrução de execução por um "E" comercial (e) seguido pelo nome do parâmetro **(SalesPerson)**, conforme ilustrado na imagem a seguir.
+```
+[Freight]#(lf), [TotalDue]#(lf) FROM [TailwindTraders].[Sales].[SalesOrderHeader] s#(lf) WHERE s.[SalesPersonID] = "&SalesPerson])
+```
+3. Verifique se não há nenhum erro exibido na parte inferior da janela e selecione **Concluído**.
+
+Embora você não veja nenhuma diferença na tela, o Power BI terá executado a consulta.
+
+4. Para confirmar que a consulta foi executada, você pode executar um teste selecionando a consulta de parâmetro e inserindo um novo valor na caixa **Valor Atual**.
+
+5. Um ícone de aviso pode ser exibido ao lado da consulta. Se esse for o caso, selecione essa consulta para ver a mensagem de aviso, que informará que a permissão é necessária para executar essa consulta de banco de dados nativo. Selecione **Editar Permissão** e **Executar**.
+
+Quando a consulta é executada com êxito, o parâmetro exibe o novo valor.
+
+6. Selecione **Fechar e Aplicar** para voltar para o editor de relatório.
+
+Agora você pode aplicar o parâmetro ao relatório:
+
+1. Selecione **Editar consultas > Editar parâmetros**.
+
+2. Na janela **Editar Parâmetros**, insira um novo valor e selecione **OK**.
+
+3. Selecione **Aplicar alterações** e execute a consulta nativa novamente.
+
+Agora, ao exibir os dados, você verá os dados do novo valor passados pelo parâmetro.
+
+### Criar relatórios dinâmicos para vários valores
 
 # Modelar dados com o Power BI
 
