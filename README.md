@@ -158,6 +158,8 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.1.3.2. Criar relatórios dinâmicos para vários valores](#Criar-relatórios-dinâmicos-para-vários-valores)
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.1.4. Obter dados de um banco de dados NoSQL](#Obter-dados-de-um-banco-de-dados-NoSQL)
+
 [3. Modelar dados com o Power BI](#Modelar-dados-com-o-Power-BI)
 
 [4. Criar elementos visuais e relatórios do Power BI](#Criar-elementos-visuais-e-relatórios-do-Power-BI)
@@ -806,6 +808,52 @@ Agora você pode aplicar o parâmetro ao relatório:
 Agora, ao exibir os dados, você verá os dados do novo valor passados pelo parâmetro.
 
 ### Criar relatórios dinâmicos para vários valores
+
+Crie no Excel uma tabela com uma coluna listando os valores desejados. Em seguida, utilize o Obter Dados no Power BI Desktop para conectar-se a essa planilha e prosseguir com as etapas de importação:
+
+1. Na janela **Navegador**, selecione **Transformar Dados** para abrir os dados no Editor do Power Query.
+
+2. Renomeie a coluna na tabela para algo mais descritivo.
+
+3. Altere o tipo de dados da coluna para **Texto** para que ele corresponda ao tipo de parâmetro e você evite problemas de conversão de dados.
+
+4. Na seção **Propriedades** da consulta, altere o nome da fonte de dados para algo mais descritivo. Neste exemplo, insira **SalesPersonID**.
+
+Em seguida, você precisa criar uma função que passe a nova consulta **SalesPersonID** para **Query1*:
+
+1. Clique com o botão direito do mouse em **Query1** e selecione **Criar função**.
+
+2. Insira um nome para a função e selecione **OK**.
+
+Sua nova função aparece no painel de **Consultas**.
+
+3. Para evitar que **Query1** apareça na lista de campos e cause confusão, basta desabilitar seu carregamento no relatório, clicando com o botão direito sobre ela e desmarcando **Habilitar carregamento**.
+
+4. Selecione a consulta **SalesPersonID** e, na guia **Adicionar Coluna**, use **Invocar função personalizada** para executar a função criada.
+
+5. Na janela **Invocar Função Personalizada**, selecione a função na lista **Consulta de função**.
+
+O **Nome da nova coluna** é atualizado automaticamente e a tabela que contém os valores que você vai passar pelo parâmetro é selecionada por padrão.
+
+6. Selecione **OK** e, se necessário, execute a consulta nativa.
+
+Uma nova coluna para sua função **GetSalesFromSalesPerson** aparece ao lado da coluna **SalesPersonID**.
+
+7. Selecione o ícone de duas setas no cabeçalho da nova coluna e marque as caixas de seleção das colunas que você deseja carregar. Esta seção é onde você determinará os detalhes que estarão disponíveis no relatório para cada valor (ID do vendedor).
+
+8. Desmarque a caixa de seleção **Usar o nome da coluna original como prefixo** na parte inferior da tela, pois você não precisa ver um prefixo com os nomes de coluna no relatório.
+
+9. Selecione **OK**.
+
+Você pode ver os dados das colunas selecionadas para cada valor (ID do vendedor). Se necessário, você poderá adicionar mais valores (IDs de vendedores) à coluna SalesPersonID na planilha do Excel ou alterar os valores existentes.
+
+10. Salve as alterações e retorne para o Editor do Power Query.
+
+11. Na guia **Página Inicial**, selecione **Atualizar Visualização** e execute a consulta nativa novamente (se necessário). Você deverá ver as vendas das novas IDs de vendedores que você adicionou à planilha.
+
+12. Selecione **Fechar e Aplicar** para retornar ao editor de relatório, em que você verá os novos nomes da coluna no painel Campos.
+
+## Obter dados de um banco de dados NoSQL
 
 # Modelar dados com o Power BI
 
