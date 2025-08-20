@@ -160,6 +160,26 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.1.4. Obter dados de um banco de dados NoSQL](#Obter-dados-de-um-banco-de-dados-NoSQL)
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.1.4.1. Conectar-se a um banco de dados NoSQL (Azure Cosmos DB)](#Conectar-se-a-um-banco-de-dados-NoSQL-(Azure-Cosmos-DB))
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.1.4.2. Importar um arquivo JSON](#Importar-um-arquivo-JSON)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.1.5. Obter dados de serviços online](#Obter-dados-de-serviços-online)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.1.5.1. Conectar-se a dados em um aplicativo](#Conectar-se-a-dados-em-um-aplicativo)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.1.5.2. Escolher os dados do aplicativo a serem importados](#Escolher-os-dados-do-aplicativo-a-serem-importados)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.1.6. Selecionar um modo de armazenamento](#Selecionar-um-modo-de-armazenamento)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.1.6.1. Modo Import](#Modo-Import)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.1.6.2. Modo DirectQuery](#Modo-DirectQuery)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.1.6.3. Modo Duplo (composto)](#Modo-Duplo-(composto))
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.1.7. Obter dados do Azure Analysis Services](#Obter-dados-do-Azure-Analysis-Services)
+
 [3. Modelar dados com o Power BI](#Modelar-dados-com-o-Power-BI)
 
 [4. Criar elementos visuais e relatórios do Power BI](#Criar-elementos-visuais-e-relatórios-do-Power-BI)
@@ -854,6 +874,52 @@ Você pode ver os dados das colunas selecionadas para cada valor (ID do vendedor
 12. Selecione **Fechar e Aplicar** para retornar ao editor de relatório, em que você verá os novos nomes da coluna no painel Campos.
 
 ## Obter dados de um banco de dados NoSQL
+
+Algumas organizações utilizam bancos de dados NoSQL, que são não relacionais, não usam tabelas e oferecem maior flexibilidade no armazenamento de dados.
+
+Vamos usar como exemplo o Cosmos DB (NoSQL), onde os dados são armazenados em documentos JSON. Esses dados precisam ser importados para um modelo semântico no Power BI para geração de relatórios.
+
+### Conectar-se a um banco de dados NoSQL (Azure Cosmos DB)
+
+No Power BI Desktop, use **Obter dados > Mais... > Azure > Azure Cosmos DB** para conectar-se. Informe a URL do endpoint, banco e coleção ou selecione via navegador. Na primeira conexão, insira a chave da conta obtida no portal do Azure (Chave Primária no painel Chaves Somente Leitura).
+
+### Importar um arquivo JSON
+
+Como os dados em **JSON** são aninhados, é preciso **extrair e normalizar** antes de usá-los no Power BI. Após conectar ao **Cosmos DB**, selecione a tabela, clique em **Editar** no Power Query e use o **botão de expansão** para escolher os campos desejados. Depois, confirme os dados, aplique as transformações e carregue no Power BI, onde eles ficam em formato tabular e podem ser relacionados a outras fontes para criar relatórios.
+
+## Obter dados de serviços online
+
+Organizações usam diversos aplicativos (ex.: SharePoint, OneDrive, Dynamics 365, Google Analytics), cada um gerando seus próprios dados. O Power BI integra essas fontes para criar relatórios e insights mais completos.
+
+### Conectar-se a dados em um aplicativo
+
+Vamos usar o **SharePoint Online** como exemplo. Vá em **Obter dados > Serviços Online > Lista do SharePoint Online**, insira a **URL do site** (não precisa ser o caminho completo), clique em **OK** e faça login com sua conta Microsoft. Depois, escolha a lista desejada para carregar.
+
+### Escolher os dados do aplicativo a serem importados
+
+Após conectar ao **SharePoint**, o **Navegador** exibirá as tabelas e entidades do site. Você pode escolher a lista desejada e optar por carregar diretamente no Power BI ou abrir no Power Query para transformar os dados antes do carregamento.
+
+## Selecionar um modo de armazenamento
+
+No Power BI, a forma mais comum é o **Import**, armazenando-os no arquivo do relatório. Porém, em casos de **restrições de segurança** ou **volumes muito grandes**, a importação não é viável. Nesses cenários, usa-se o **DirectQuery**, que consulta os dados diretamente na fonte e garante atualizações em tempo real. Há três modos de armazenamento disponíveis: **Import, DirectQuery** e **Duplo (composto)**, que podem ser escolhidos nas propriedades da tabela no modo Modelo.
+
+Vamos examinar mais de perto os diferentes tipos de Modos de Armazenamento:
+
+### Modo Import
+
+Cria uma **cópia local dos dados** no Power BI, permite **atualizações agendadas ou sob demanda** e é o **modo padrão** para criar relatórios.
+
+### Modo DirectQuery
+
+Permite consultar dados **diretamente na fonte** sem criar cópias locais, pois os dados não serão armazenados em cache, garantindo que os dados estejam sempre atualizados e respeitando as regras de segurança. É ideal para **grandes modelos** e evita problemas de desempenho (latência dos dados) ao carregar muitos dados no Power BI.
+
+### Modo Duplo (composto)
+
+Algumas tabelas são **importadas** e outras usam **DirectQuery**, permitindo que o Power BI escolha a forma mais eficiente de recuperar os dados para o relatório.
+
+## Obter dados do Azure Analysis Service
+
+
 
 # Modelar dados com o Power BI
 
