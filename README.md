@@ -204,6 +204,10 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.1.9.5. Erros de tipo de dados](#Erros-de-tipo-de-dados)
 
+&nbsp;&nbsp;&nbsp;&nbsp; [2.2. Limpar, transformar e carregar dados no Power BI](#Limpar,-transformar-e-carregar-dados-no-Power-BI)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.2.1. Formatar os dados iniciais](#Formatar-os-dados-iniciais)
+
 [3. Modelar dados com o Power BI](#Modelar-dados-com-o-Power-BI)
 
 [4. Criar elementos visuais e relatórios do Power BI](#Criar-elementos-visuais-e-relatórios-do-Power-BI)
@@ -1043,6 +1047,12 @@ Use esta consulta:
 SELECT CAST(CustomerPostalCode as varchar(10)) FROM Sales.Customers
 ```
 Definir o tipo correto na fonte de dados ajuda a evitar muitos erros no Power BI, que podem variar conforme o sistema de origem.
+
+# Limpar, transformar e carregar dados no Power BI
+
+## Formatar os dados iniciais
+
+
 
 # Modelar dados com o Power BI
 
