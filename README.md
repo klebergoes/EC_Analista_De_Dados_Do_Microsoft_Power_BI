@@ -180,6 +180,20 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.1.7. Obter dados do Azure Analysis Services](#Obter-dados-do-Azure-Analysis-Services)
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.1.7.1. Conectar-se a dados no Azure Analysis Services](#Conectar-se-a-dados-no-Azure-Analysis-Services)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.1.8. Corrigir problemas de desempenho](#Corrigir-problemas-de-desempenho)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.1.8.1. Otimizar o desempenho no Power Query](#Otimizar-o-desempenho-no-Power-Query)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.1.8.2. Dobragem de consultas](#Dobragem-de-consultas)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.1.8.3. Diagnóstico de consulta](#Diagnóstico-de-consulta)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.1.8.4. Outras técnicas para otimizar o desempenho](#Outras-técnicas-para-otimizar-o-desempenho)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.1.9. Resolver erros de importação de dados](#Resolver-erros-de-importação-de-dados)
+
 [3. Modelar dados com o Power BI](#Modelar-dados-com-o-Power-BI)
 
 [4. Criar elementos visuais e relatórios do Power BI](#Criar-elementos-visuais-e-relatórios-do-Power-BI)
@@ -919,7 +933,67 @@ Algumas tabelas são **importadas** e outras usam **DirectQuery**, permitindo qu
 
 ## Obter dados do Azure Analysis Service
 
+O Azure Analysis Services é um serviço PaaS que permite criar modelos semânticos tabulares na nuvem, unificando dados de várias fontes, definindo métricas e aplicando segurança. Ele facilita análises rápidas e ad hoc em ferramentas como o Power BI.
 
+A obtenção de dados do servidor do Azure Analysis Services é semelhante à obtenção de dados do SQL Server, pois você pode:
+
+- Autenticar-se no servidor.
+- Escolher o modelo que deseja usar.
+- Selecionar as tabelas que você precisa.
+
+As diferenças notáveis entre o Azure Analysis Services e o SQL Server são:
+
+- Os modelos do Analysis Services já têm cálculos criados.
+- Se você não precisar de uma tabela inteira, poderá consultar os dados diretamente. Em vez de usar a T-SQL (Transact-SQL) para consultar os dados, como você faria no SQL Server, você pode usar MDX (expressões MDX) ou DAX (Data Analysis Expressions).
+
+### Conectar-se a dados no Azure Analysis Services
+
+O **Azure Analysis Services** pode ser conectado ao **Power BI Desktop** pelo recurso *Obter Dados*. Você informa o servidor e o banco e escolhe:
+
+- Importar: traz os dados para dentro do Power BI.
+- Conexão em tempo real: usa o modelo e cálculos DAX já existentes no Azure, sem duplicar dados.
+
+Os modelos do Azure Analysis Services são compatíveis com o Power BI, e a conexão em tempo real garante que relatórios sejam atualizados assim que o serviço é atualizado, sem depender de agendamentos no Power BI.
+
+Assim como num banco relacional, você seleciona as tabelas que precisa e pode consultar o modelo via **DAX** ou **MDX**.
+
+📌 Melhor prática: concentrar a modelagem e medidas no **Azure Analysis Services** e usar **conexão em tempo real** no Power BI, para centralizar regras de negócio e simplificar a solução.
+
+## Corrigir problemas de desempenho
+
+O **Power BI** oferece a ferramenta **Performance Analyzer** para identificar e resolver problemas de desempenho em relatórios. Por exemplo, ao criar relatórios de Vendas com **DirectQuery** de várias tabelas SQL, alguns visuais ou filtros podem demorar mais para carregar. O Performance Analyzer ajuda a **diagnosticar quais consultas ou elementos estão lentos** e otimizar o relatório.
+
+### Otimizar o desempenho no Power Query
+
+O desempenho do Power Query depende principalmente da performance da fonte de dados. Cada fonte (como SQL Server) tem suas próprias técnicas de otimização, como índices, ajuste de plano de execução e compactação de dados. O Power Query aproveita essas otimizações usando uma técnica chamada dobragem de consultas (query folding), que transfere o processamento para a fonte sempre que possível.
+
+### Dobragem de consultas
+
+A dobragem de consultas (query folding) no Power Query otimiza o desempenho do Power BI ao fazer com que as transformações realizadas no editor sejam executadas diretamente na fonte de dados, em vez de sobrecarregar o Power BI.
+
+- Ela rastreia alterações como renomear colunas, mesclar dados ou filtrar linhas e converte essas ações em consultas nativas ou instruções SQL.
+- Benefícios: atualizações mais rápidas, suporte a DirectQuery e modo Duplo e melhor aproveitamento dos recursos do servidor de dados.
+- Nem todas as transformações permitem query folding (ex.: adicionar coluna de índice, mesclar tabelas de fontes diferentes ou alterar tipo de dado).
+- Em geral, transformações que podem ser convertidas em SQL com SELECT, WHERE, GROUP BY, JOIN, etc. suportam query folding.
+- Para verificar, use “Exibir Consulta Nativa” na última etapa aplicada; se disponível, a dobragem de consultas está ativa.
+
+### Diagnóstico de consulta
+
+O diagnóstico de consulta no Power Query ajuda a identificar gargalos de desempenho durante o carregamento e a transformação de dados, incluindo a execução de instruções SQL.
+
+- Para usar: no **Power Query → Ferramentas → Iniciar Diagnóstico**.
+- Após as transformações, selecione **Parar Diagnóstico**.
+- A opção **Diagnosticar Etapa** mostra o tempo gasto em cada etapa, permitindo identificar quais etapas são mais lentas e precisam de otimização.
+
+Essa ferramenta é útil para analisar desempenho de consultas, carregamento de modelos semânticos e atualizações de dados.
+
+### Outras técnicas para otimizar o desempenho
+
+- Processar dados na fonte original sempre que possível, evitando sobrecarregar o Power Query.
+- Usar consultas SQL nativas em DirectQuery, evitando procedimentos armazenados ou CTEs complexas.
+- Separar colunas de data e hora quando combinadas, melhorando a compactação e o desempenho no Power BI.
+
+## Resolver erros de importação de dados
 
 # Modelar dados com o Power BI
 
