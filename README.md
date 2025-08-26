@@ -208,6 +208,24 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.2.1. Formatar os dados iniciais](#Formatar-os-dados-iniciais)
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.2.1.1. Introdução ao Editor do Power Query](#Introdução-ao-Editor-do-Power-Query)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.2.1.2. Identificar cabeçalhos e nomes de colunas](#Identificar-cabeçalhos-e-nomes-de-colunas)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.2.1.3. Promover cabeçalhos](#Promover-cabeçalhos)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.2.1.4. Renomear colunas](#Renomear-colunas)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.2.1.5. Remover linhas superiores](#Remover-linhas-superiores)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.2.1.6. Remover colunas](#Remover-colunas)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.2.1.7. Transformar colunas em linhas](#Transformar-colunas-em-linhas)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.2.1.8. Dinamizar colunas](#Dinamizar-colunas)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.2.2. Simplificar a estrutura de dados](#Simplificar-a-estrutura-de-dados)
+
 [3. Modelar dados com o Power BI](#Modelar-dados-com-o-Power-BI)
 
 [4. Criar elementos visuais e relatórios do Power BI](#Criar-elementos-visuais-e-relatórios-do-Power-BI)
@@ -1051,6 +1069,66 @@ Definir o tipo correto na fonte de dados ajuda a evitar muitos erros no Power BI
 # Limpar, transformar e carregar dados no Power BI
 
 ## Formatar os dados iniciais
+
+O Editor do Power Query permite transformar dados no Power BI sem alterar a fonte original, realizando ações como renomear colunas, converter tipos, remover linhas e definir cabeçalhos, garantindo que os dados estejam prontos para relatórios.
+
+### Introdução ao Editor do Power Query
+
+Para começar a formatar os dados, abra o Editor do Power Query: Página Inicial → Transformar dados
+
+- Faixa de opções (parte superior): oferece guias e botões para adicionar transformações, configurar consultas e realizar diversas tarefas.
+
+- Painel de consultas (lado esquerdo): exibição de todas as consultas disponíveis (tabelas).
+
+- Exibição atual (centro): exibição de trabalho principal, que, por padrão, exibe uma visualização dos dados da consulta.
+
+- Configurações de consulta (lado direito): informações relevantes, como nome da consulta, etapas de consulta e vários indicadores.
+
+- Barra de status (parte inferior): informações da consulta, como tempo de execução, número de linhas e colunas, status de processamento e permite alterar o modo de exibição.
+
+### Identificar cabeçalhos e nomes de colunas
+
+O primeiro passo na formatação de dados é identificar a posição dos cabeçalhos e nomes de colunas. Se estiverem em linhas diferentes ou com nomes genéricos, os dados ficam difíceis de ler; ao localizar corretamente os cabeçalhos, é possível reorganizar e tornar os dados mais claros.
+
+### Promover cabeçalhos
+
+No Power Query, ao criar uma tabela, a primeira linha pode conter os nomes das colunas. Para corrigir, promova-a a cabeçalhos de duas maneiras:
+
+- Página Inicial → Usar Primeira Linha como Cabeçalhos
+
+- Botão suspenso da coluna 1 (lado esquerdo) → Usar Primeira Linha como Cabeçalhos.
+
+### Renomear colunas
+
+Para renomear, existem duas formas:
+
+- Clique com o botão direito no cabeçalho → selecione Renomear
+
+- Duplo clique no cabeçalho → edite o nome.
+
+### Remover linhas superiores
+
+Para eliminar linhas superiores em branco ou desnecessárias, use: Página Inicial → Remover Linhas → Remover Linhas Superiores.
+
+### Remover colunas
+
+Remover colunas desnecessárias é essencial e deve ser feito o quanto antes, inclusive na fonte de dados, para melhorar desempenho e foco no modelo. No Power Query, existem duas formas:
+
+- Selecione as colunas que deseja **excluir** e use: Página Inicial → Remover Colunas.
+  
+- Selecione as colunas que deseja **manter** e use: Página Inicial → Remover Outras Colunas.
+
+### Transformar colunas em linhas (Unpivot columns)
+
+Isso é especialmente útil ao importar dados do Excel e facilita a criação de medidas DAX.
+
+No Power BI, para transformar colunas em linhas (Unpivot), realce as colunas desejadas, selecione: Transformar → Transformar colunas em linhas (Unpivot Column).
+
+### Dinamizar colunas (Pivot columns)
+
+Para organizar dados simples e identificar padrões, use Transformar → Dinamizar Colunas (Pivot Column) para agregar valores (como Contagem, Soma, Média, etc.) por valores únicos de uma coluna.
+
+## Simplificar a estrutura de dados
 
 
 
