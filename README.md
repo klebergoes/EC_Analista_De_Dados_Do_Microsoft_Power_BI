@@ -194,6 +194,16 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.1.9. Resolver erros de importação de dados](#Resolver-erros-de-importação-de-dados)
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.1.9.1. O tempo limite da consulta expirou](#O-tempo-limite-da-consulta-expirou)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.1.9.2. Erro de Consulta do Power BI: O tempo limite expirou](#Erro-de-Consulta-do-Power-BI:-O-tempo-limite-expirou)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.1.9.3. Não foi possível localizar nenhum dado formatado como uma tabela](#Não-foi-possível-localizar-nenhum-dado-formatado-como-uma-tabela)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.1.9.4. Não foi possível encontrar o arquivo](#Não-foi-possível-encontrar-o-arquivo)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.1.9.5. Erros de tipo de dados](#Erros-de-tipo-de-dados)
+
 [3. Modelar dados com o Power BI](#Modelar-dados-com-o-Power-BI)
 
 [4. Criar elementos visuais e relatórios do Power BI](#Criar-elementos-visuais-e-relatórios-do-Power-BI)
@@ -994,6 +1004,45 @@ Essa ferramenta é útil para analisar desempenho de consultas, carregamento de 
 - Separar colunas de data e hora quando combinadas, melhorando a compactação e o desempenho no Power BI.
 
 ## Resolver erros de importação de dados
+
+Ao importar dados para o Power BI, você pode encontrar erros resultantes de fatores como:
+
+- Importações do Power BI provenientes de várias fontes de dados.
+- Cada fonte de dados pode ter dezenas (e, às vezes, centenas) de mensagens de erro diferentes.
+- Outros componentes podem causar erros, como discos rígidos, redes, serviços de software e sistemas operacionais.
+- Frequentemente, os dados podem não estar em conformidade com nenhum esquema específico.
+
+As seções a seguir abrangem algumas das mensagens de erro mais comuns que podem ser encontradas no Power BI.
+
+### O tempo limite da consulta expirou
+
+Em sistemas relacionais, vários usuários acessam os mesmos dados ao mesmo tempo. Para evitar que um único usuário monopolize os recursos, administradores configuram tempos limite de consulta (de segundos a minutos). Assim, ao puxar dados, como no SQL Server, pode ocorrer erro de timeout.
+
+### Erro de Consulta do Power BI: O tempo limite expirou
+
+O erro ocorre quando você tenta puxar muitos dados, pois a organização limita consultas pesadas para evitar lentidão no banco. Para resolver, reduza colunas ou linhas, use agregações, simplifique consultas ou divida em partes menores. Caso precise de toda a complexidade, extraia os dados em blocos separados e una-os depois no Power Query.
+
+### Não foi possível localizar nenhum dado formatado como uma tabela
+
+O erro ocorre quando o Power BI não encontra dados formatados como tabela no Excel. Para resolver, basta selecionar os dados na planilha, pressionar CTRL+T para criar uma tabela com cabeçalhos corretos e então importar novamente.
+
+### Não foi possível encontrar o arquivo
+
+O erro "Não foi possível localizar o arquivo" ocorre quando o arquivo foi movido ou teve permissões alteradas. Para corrigir, abra o Power Query, edite a consulta com erro e ajuste o caminho da origem para o novo local do arquivo.
+
+### Erros de tipo de dados
+
+Colunas em branco no Power BI podem ocorrer por erro na interpretação do tipo de dados. A solução depende da fonte; no SQL Server, por exemplo, pode-se converter o campo para o tipo correto diretamente na consulta.
+
+Em vez de usar esta consulta:
+```
+SELECT CustomerPostalCode FROM Sales.Customers
+```
+Use esta consulta:
+```
+SELECT CAST(CustomerPostalCode as varchar(10)) FROM Sales.Customers
+```
+Definir o tipo correto na fonte de dados ajuda a evitar muitos erros no Power BI, que podem variar conforme o sistema de origem.
 
 # Modelar dados com o Power BI
 
