@@ -226,6 +226,30 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.2.2. Simplificar a estrutura de dados](#Simplificar-a-estrutura-de-dados)
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.2.2.1. Renomear uma consulta](#Renomear-uma-consulta)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.2.2.2. Substituir valores](#Substituir-valores)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.2.2.3. Substituir valores nulos](#Substituir-valores-nulos)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.2.2.4. Remover duplicatas](#Remover-duplicatas)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.2.2.5. Práticas recomendadas para nomear tabelas, colunas e valores](#Práticas-recomendadas-para-nomear-tabelas,-colunas-e-valores)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.2.3. Avaliar e alterar os tipos de dados da coluna](#Avaliar-e-alterar-os-tipos-de-dados-da-coluna)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.2.3.1. Implicações de tipos de dados incorretos](#Implicações-de-tipos-de-dados-incorretos)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.2.3.2. Alterar o tipo de dados da coluna](#Alterar-o-tipo-de-dados-da-coluna)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.2.4. Combinar várias tabelas em uma só](#Combinar-várias-tabelas-em-uma-só)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.2.4.1. Acrescentar consultas](#Acrescentar-consultas)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.2.4.2. Mesclar consultas](#Mesclar-consultas)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.2.5. Criar o perfil de dados no Power BI](#Criar-o-perfil-de-dados-no-Power-BI)
+
 [3. Modelar dados com o Power BI](#Modelar-dados-com-o-Power-BI)
 
 [4. Criar elementos visuais e relatórios do Power BI](#Criar-elementos-visuais-e-relatórios-do-Power-BI)
@@ -1129,6 +1153,102 @@ No Power BI, para transformar colunas em linhas (Unpivot), realce as colunas des
 Para organizar dados simples e identificar padrões, use Transformar → Dinamizar Colunas (Pivot Column) para agregar valores (como Contagem, Soma, Média, etc.) por valores únicos de uma coluna.
 
 ## Simplificar a estrutura de dados
+
+No Power BI Desktop, após importar dados de várias fontes, é recomendado padronizar e simplificar os nomes de tabelas e colunas no Power Query, tornando-os mais claros e consistentes para o usuário. Além disso, é importante revisar as consultas (tabelas) e o conteúdo das colunas, corrigindo valores quando necessário.
+
+### Renomear uma consulta
+
+É recomendável renomear consultas com nomes pouco claros ou técnicos para algo mais amigável e compreensível pelos usuários. Por exemplo, uma tabela importada com o nome FactProductTable pode ser renomeada para Produtos, facilitando a interpretação pelos usuários. No Editor do Power Query, basta **selecionar a consulta no painel**, **clicar com o botão direito** e escolher **Renomear** para ajustar o nome.
+
+### Substituir valores
+
+Você pode usar o recurso *Substituir Valores* no Editor do Power Query para substituir qualquer valor por outro valor.
+
+Selecione: A coluna que contém os valores → Transformar → Substituir Valores.
+
+Na caixa **Valor a ser Localizado**, digite o nome do valor que pretende substituir e, em seguida, na caixa **Substituir por**, digite o nome do valor correto e selecione **OK**.
+
+### Substituir valores nulos
+
+Fontes de dados podem conter valores nulos. Se mantidos, eles podem distorcer cálculos, como médias. A solução é substituir valores nulos por um número que faça sentido, garantindo resultados mais precisos.
+
+### Remover duplicados
+
+No Power Query, é possível manter apenas valores únicos em uma coluna, como no caso de categorias repetidas. Selecione: A coluna que contém os valores → Clicar com o botão direito → Remover duplicados
+
+Antes de aplicar, recomenda-se copiar a tabela, permitindo comparar os resultados e utilizar tanto a versão original quanto a filtrada no modelo.
+
+### Práticas recomendadas para nomear tabelas, colunas e valores
+
+Não há regras fixas para nomes de tabelas, colunas e valores, mas é recomendável usar termos e abreviações comuns à sua organização. Prefira nomes descritivos, substitua sublinhados por espaços, seja consistente com abreviações e evite prefixos ou sufixos desnecessários. Ao definir valores, considere legibilidade nos relatórios, evitando textos muito longos, muito curtos ou siglas confusas.
+
+## Avaliar e alterar os tipos de dados da coluna
+
+Ao importar dados, o Power BI Desktop verifica as primeiras 1.000 linhas para detectar tipos de dados, mas erros podem ocorrer, especialmente em arquivos CSV ou Excel. Para evitar problemas de desempenho, recomenda-se revisar e corrigir os tipos de dados no Editor do Power Query, aplicar formatos adequados e ajustar o padrão de resumo das colunas antes de carregar os dados no modelo.
+
+### Implicações de tipos de dados incorretos
+
+Se o Power BI não detectar corretamente o tipo de dados, você poderá enfrentar problemas como impossibilidade de criar cálculos, hierarquias ou relacionamentos corretos. Por exemplo, uma coluna de data com tipo errado impede cálculos baseados em tempo, como “Pedidos Acumulados no Ano”, e impede a criação de hierarquias de datas para análises anual, mensal ou semanal.
+
+Exemplo: Quantity of Orders YTD = TOTALYTD(SUM('Sales'[OrderQty]), 'Sales'[OrderDate])
+
+```
+Couldn't load the data for this visual
+MdxScript(Model) (19, 40) Calculation error in measure 
+'Sales'[Quantity of Orders YTD]: A column specified in the call to 
+function 'TOTALYTD' is not of type DATE. This is not supported.
+
+Copy details
+Send a Frown        Close
+
+```
+### Alterar o tipo de dados da coluna
+
+O tipo de dados de uma coluna pode ser alterado no Editor do Power Query ou na exibição de Tabela do Power BI Desktop, sendo recomendado fazer a alteração no Power Query antes de carregar os dados.
+
+No Editor do Power Query, você pode alterar o tipo de dados da coluna de duas maneiras:
+
+- Selecionar a coluna → Transformar → Tipo de Dados
+
+- O outro método é selecionar o ícone de tipo de dados ao lado do cabeçalho da coluna e selecionar o tipo de dados correto na lista.
+
+## Combinar várias tabelas em uma só
+
+A capacidade de combinar consultas é eficiente porque permite **acrescentar (append)** ou **mesclar (merge)** diferentes tabelas ou consultas juntas.
+
+### Acrescentar consultas
+
+Ao acrescentar consultas, você está adicionando linhas de dados a outra tabela ou consulta.
+
+Para criar uma única tabela consolidada com dados das tabela1, tabela2 e tabela3, é necessário:
+
+1. Remover colunas desnecessárias, padronizar as tabelas para conter as mesmas colunas e garantir que as colunas relevantes tenham os mesmos nomes nas tabelas originais.
+
+2. Navegue: Página Inicial → Acrescentar Consultas. É possível selecionar **Acrescentar Consultas como Novas** ou **Acrescentar Consulta**.
+
+3. Abrirá uma janela onde é possível adicionar as tabelas que deseja acrescentar de **Tabelas Disponíveis** a **Tabelas para Acrescentar**.
+
+4. Selecione OK. Você será encaminhado para uma nova consulta que contém todas as linhas das três tabelas.
+
+### Mesclar consulta
+
+Ao mesclar consultas, você está combinando os dados de várias tabelas em uma só com base em uma coluna que é comum entre as tabelas. Esse processo é semelhante à cláusula JOIN no SQL.
+
+Para criar uma única tabela consolidada com dados das tabela1, tabela2 e tabela3, é necessário:
+
+1. Navegue: Página Inicial → Mesclar Consultas. É possível selecionar **Mesclar Consultas como Novas** ou **Mesclar Consultas**.
+
+2. Abrirá uma janela onde é possível escolher como unir as duas tabelas, um processo que também é semelhante às instruções JOIN no SQL
+  a. Left outer (tudo da primeira que combine com a segunda).
+  b. right outer (tudo da segunda que combine com a primeira).
+  c. full outer (todas as linhas de ambos).
+  d. inner (somente linhas que combinam).
+  e. left anti (tudo da primeira que não combine com a segunda).
+  f. right anti (tudo da segunda que não combine com a primeira).
+
+3. Selecione OK. Você será encaminhado para uma nova consulta que contém todas as colunas das tabelas.
+
+## Criar o perfil de dados no Power BI
 
 
 
