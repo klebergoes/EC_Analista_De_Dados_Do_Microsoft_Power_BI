@@ -250,6 +250,12 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.2.5. Criar o perfil de dados no Power BI](#Criar-o-perfil-de-dados-no-Power-BI)
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.2.5.1. Examinar as estruturas de dados](#Examinar-as-estruturas-de-dados)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.2.5.2. Localizar anomalias e estatísticas de dados](#Localizar-anomalias-e-estatísticas-de-dados)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.2.6. Usar o Editor Avançado para modificar o código M](#Usar-o-Editor-Avançado-para-modificar-o-código-M)
+
 [3. Modelar dados com o Power BI](#Modelar-dados-com-o-Power-BI)
 
 [4. Criar elementos visuais e relatórios do Power BI](#Criar-elementos-visuais-e-relatórios-do-Power-BI)
@@ -1250,7 +1256,33 @@ Para criar uma única tabela consolidada com dados das tabela1, tabela2 e tabela
 
 ## Criar o perfil de dados no Power BI
 
+A criação de perfil de dados é o processo de analisar os dados para identificar anomalias, entender sua estrutura e verificar estatísticas como contagem de linhas, distribuição, valores mínimo, máximo e média. Esse processo facilita a formatação, organização e compreensão da distribuição dos dados, reduzindo retrabalho na construção de relatórios. No Power BI, essa funcionalidade já está incorporada, permitindo explorar os dados de forma simples antes de criar os visuais.
 
+### Examinar as estruturas de dados
+
+Antes de analisar os dados no Power Query, é importante entender a estrutura em que eles estão organizados. No Power BI Desktop, a guia **Modelo** permite visualizar o modelo semântico, editar propriedades de colunas e tabelas, acessar o **Editor do Power Query** para transformações e gerenciar relacionamentos entre tabelas por meio da opção **Gerenciar Relacionamentos**.
+
+### Localizar anomalias e estatísticas de dados
+
+Ao acessar o Editor do Power Query, é possível identificar **anomalias** e entender a **distribuição dos dados** que foram importados em: Exibir → Visualização de Dados. 
+
+Para isso, utilizam-se recursos como:
+
+- Qualidade da Coluna: mostra porcentagens de valores válidos, inválidos e vazios.
+
+- Distribuição da Coluna: apresenta a frequência de valores distintos e exclusivos.
+
+- Perfil da Coluna: fornece estatísticas detalhadas (contagem de linhas, valores mínimo e máximo, nulos, zeros, média, desvio padrão etc.).
+
+Os gráficos de **Distribuição de Valores** ajudam a encontrar padrões ou inconsistências (frequência de dados).
+
+## Usar o Editor Avançado para modificar o código M
+
+No Power Query, cada transformação gera uma etapa, que pode ser reordenada, excluída ou editada. Essas etapas, criadas pela interface gráfica, são registradas em código M, visível e editável no **Editor Avançado** (Exibir → Editor Avançado).
+
+O código M é escrito de cima para baixo, onde etapas posteriores dependem das anteriores, por isso a ordem é importante. Cada etapa geralmente corresponde a uma ou duas linhas de código.
+
+Embora não seja necessário dominar o M para usar o Power Query, ele pode ser útil para ajustes manuais, como alterar nomes ou personalizar consultas. A última etapa definida é sempre o resultado final da consulta.
 
 # Modelar dados com o Power BI
 
