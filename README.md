@@ -256,6 +256,10 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.2.6. Usar o Editor Avançado para modificar o código M](#Usar-o-Editor-Avançado-para-modificar-o-código-M)
 
+&nbsp;&nbsp;&nbsp;&nbsp; [2.3. Escolher uma estrutura de modelo do Power BI](#Escolher-uma-estrutura-de-modelo-do-Power-BI)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.3.1. Descrever conceitos básicos do modelo do Power BI](#Descrever-conceitos-básicos-do-modelo-do-Power-BI)
+
 [3. Modelar dados com o Power BI](#Modelar-dados-com-o-Power-BI)
 
 [4. Criar elementos visuais e relatórios do Power BI](#Criar-elementos-visuais-e-relatórios-do-Power-BI)
@@ -1283,6 +1287,12 @@ No Power Query, cada transformação gera uma etapa, que pode ser reordenada, ex
 O código M é escrito de cima para baixo, onde etapas posteriores dependem das anteriores, por isso a ordem é importante. Cada etapa geralmente corresponde a uma ou duas linhas de código.
 
 Embora não seja necessário dominar o M para usar o Power Query, ele pode ser útil para ajustes manuais, como alterar nomes ou personalizar consultas. A última etapa definida é sempre o resultado final da consulta.
+
+# Escolher uma estrutura de modelo do Power BI
+
+## Descrever conceitos básicos do modelo do Power BI
+
+
 
 # Modelar dados com o Power BI
 
