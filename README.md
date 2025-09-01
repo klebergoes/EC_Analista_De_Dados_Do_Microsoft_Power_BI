@@ -260,6 +260,32 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.3.1. Descrever conceitos básicos do modelo do Power BI](#Descrever-conceitos-básicos-do-modelo-do-Power-BI)
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.3.1.1. Modelo de dados](#Modelo-de-dados)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.3.1.2. Conjunto de dados do Power BI](#Conjunto-de-dados-do-Power-BI)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.3.1.3. Consulta analítica](#Consulta-analítica)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.3.1.4. Modelo de tabela](#Modelo-de-tabela)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.3.1.5. Design do esquema em estrela](#Design-do-esquema-em-estrela)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.3.1.6. Modo de armazenamento de tabela](#Modo-de-armazenamento-de-tabela)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.3.1.7. Estrutura do modelo](#Estrutura-do-modelo)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.3.2. Determinar quando desenvolver um modelo de importação](#Determinar-quando-desenvolver-um-modelo-de-importação)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.3.2.1. Benefícios do modelo de importação](#Benefícios-do-modelo-de-importação)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.3.2.2. Limitações do modelo de importação](#Limitações-do-modelo-de-importação)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.3.2.3. Tamanho do modelo](#Tamanho-do-modelo)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.3.2.4. Atualização de dados](#Atualização-de-dados)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.3.3. Determinar quando desenvolver um modelo do DirectQuery](#Determinar-quando-desenvolver-um-modelo-do-DirectQuery)
+
 [3. Modelar dados com o Power BI](#Modelar-dados-com-o-Power-BI)
 
 [4. Criar elementos visuais e relatórios do Power BI](#Criar-elementos-visuais-e-relatórios-do-Power-BI)
@@ -1291,6 +1317,128 @@ Embora não seja necessário dominar o M para usar o Power Query, ele pode ser �
 # Escolher uma estrutura de modelo do Power BI
 
 ## Descrever conceitos básicos do modelo do Power BI
+
+Esta unidade descreve os seguintes termos:
+
+- Modelo de dados
+
+- Conjunto de dados do Power BI
+  
+- Consulta analítica
+  
+- Modelo de tabela
+  
+- Design do esquema em estrela
+  
+- Modo de armazenamento de tabela
+  
+- Estrutura do modelo
+
+### Modelo de dados
+
+O modelo de dados do Power BI é um recurso otimizado para análise, consultado principalmente via DAX (no Power BI) ou MDX (em relatórios paginados e na análise no Excel). Ele também é chamado de **modelo semântico**, mas geralmente referido apenas como **modelo**.
+
+### Conjunto de dados do Power BI
+
+Ao publicar um modelo do Power BI Desktop no service, ele se torna um **conjunto de dados**, que serve como fonte para relatórios e dashboards. Nem todos os conjuntos de dados vêm do Desktop — alguns conectam-se a modelos no AAS/SSAS ou a dados em tempo real (push, streaming ou híbridos). Este módulo foca apenas nos modelos criados no Power BI Desktop.
+
+### Consulta analítica
+
+Relatórios e dashboards do Power BI consultam um **conjunto de dados** por meio de uma **consulta analítica**, que gera resultados de fácil interpretação. 
+
+Essa consulta segue três fases sequenciais: 
+
+- Filtrar (às vezes chamado de segmentação): Restringe os dados a um subconjunto, mas os valores filtrados não aparecem no resultado. Pode ser aplicada em nível de relatório, página ou visual. Também ocorre via RLS (segurança em nível de linha) ou em medidas que aplicam filtros.
+  
+- Agrupar: Divide o resultado da consulta em grupos, funcionando também como um filtro. A diferença é que, nesse caso, os valores usados no filtro aparecem no resultado — por exemplo, ao agrupar por cliente, cada grupo mostra explicitamente o cliente correspondente.: 
+  
+- Resumir: Gera um valor único a partir dos dados, geralmente por meio de funções de agregação como soma, contagem, mínimo ou máximo. Pode ser simples (agregando uma coluna) ou mais complexo, quando definido por uma medida em DAX.
+
+### Modelo de tabela
+
+Um modelo do Power BI é um modelo tabular. Um modelo tabular é composto por uma ou mais tabelas de colunas. Ele também pode incluir relações, hierarquias e cálculos.
+
+### Design do esquema em estrela
+
+Para criar um modelo tabelar otimizado no Power BI, recomenda-se o esquema em estrela, com tabelas de dimensões (descrição de entidades como produtos, pessoas, tempo) e tabelas de fatos (eventos ou observações, com chaves de dimensão e medidas numéricas). A tabela de fatos fica no centro da estrela e as dimensões nas pontas; nas consultas analíticas, dimensões filtram ou agrupam e fatos são resumidos.
+
+### Modo de armazenamento de tabela
+
+Cada tabela do Power BI (exceto pelas tabelas calculadas) possui um modo de armazenamento:
+
+- Importação: dados são armazenados no modelo;
+
+- DirectQuery: consultas vão diretamente à fonte de dados;
+
+- Duplo: combina os dois, usando dados em cache quando eficiente e recorrendo à fonte quando necessário.
+
+### Estrutura do modelo
+
+O **modo de armazenamento** define a estrutura do modelo:
+
+Importação: todas as tabelas usam o modo Importação;
+
+DirectQuery: todas as tabelas usam DirectQuery e pertencem ao mesmo grupo de origem;
+
+Composto: contém tabelas de mais de um grupo de origem.
+
+## Determinar quando desenvolver um modelo de importação
+
+Um **modelo de importação** é formado por tabelas com modo de armazenamento **Importação** e pode incluir **tabelas calculadas** criadas com fórmulas **DAX**.
+
+### Benefícios do modelo de importação
+
+Os modelos de importação são os mais usados no Power BI porque oferecem flexibilidade e desempenho. Eles:
+
+- Suportam todas as fontes de dados;
+
+- Permitem integrar dados de diferentes origens;
+
+- Dão suporte completo a DAX e Power Query;
+
+- Permitem criar tabelas calculadas;
+
+- Oferecem melhor desempenho, já que os dados ficam em cache na memória e otimizados para consultas analíticas.
+
+Por isso, o Power BI Desktop usa Importação como padrão ao obter dados.
+
+### Limitações do modelo de importação
+
+Apesar dos benefícios, os modelos de importação têm limitações, principalmente quanto ao **tamanho do modelo** e à **atualização dos dados**.
+
+### Tamanho do modelo
+
+O Power BI impõe limites de tamanho para conjuntos de dados:
+
+- 1 GB em capacidades compartilhadas. Quando esse limite de tamanho for excedido, o conjunto de dados não será atualizado;
+
+- > 10 GB em capacidades dedicadas (também conhecida como capacidades Premium) com configuração de conjunto de dados grande.
+
+Para otimizar modelos e reduzir tamanho:
+
+- Remover colunas e linhas desnecessárias;
+
+- Agrupar e resumir dados;
+
+- Usar tipos de dados otimizados (numéricos);
+
+- Preferir colunas personalizadas no Power Query;
+
+- Desabilitar carga de consultas e data/hora automática;
+
+- Considerar DirectQuery para algumas tabelas.
+
+O limite refere-se ao tamanho compactado do modelo, não aos dados originais da fonte.
+
+### Atualização de dados
+
+Os dados importados no Power BI precisam ser atualizados periodicamente para refletir informações atuais. Para manter os dados atualizados, você configura a atualização de dados agendada ou os consumidores do relatório podem executar uma atualização sob demanda.
+
+**Atualização agendada:** Frequência de até 8 vezes/dia em capacidade compartilhada e até 48 vezes/dia em capacidade dedicada. Se a frequência de atualização não for suficiente, é possível usar DirectQuery, tabelas híbridas ou conjuntos de dados em tempo real.
+
+**Carga de atualização:** Por padrão, toda a tabela é recarregada, o que pode sobrecarregar o sistema de origem. Uma solução pode ser a atualização incremental, que atualiza apenas as partições necessárias, tornando o processo mais rápido e eficiente. Avançados podem personalizar particionamento usando scripts e XMLA no Power BI Premium.
+
+## Determinar quando desenvolver um modelo do DirectQuery
 
 
 
