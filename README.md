@@ -286,7 +286,27 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.3.3. Determinar quando desenvolver um modelo do DirectQuery](#Determinar-quando-desenvolver-um-modelo-do-DirectQuery)
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.3.3.1. Benefícios do modelo DirectQuery](#Benefícios-do-modelo-DirectQuery)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.3.3.2. Limitações do modelo DirectQuery](#Limitações-do-modelo-DirectQuery)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.3.3.3. Aprimorar o desempenho do modelo DirectQuery](#Aprimorar-o-desempenho-do-modelo-DirectQuery)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.3.4. Determinar quando desenvolver um modelo composto](#Determinar-quando-desenvolver-um-modelo-composto)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.3.4.1. Benefícios do modelo composto](#Benefícios-do-modelo-composto)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.3.4.2. Limitações do modelo composto](#Limitações-do-modelo-composto)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.3.4.3. Aumentar o desempenho do modelo DirectQuery usando dados de importação](#Aumentar-o-desempenho-do-modelo-DirectQuery-usando-dados-de-importação)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.3.4.4. Fornecer dados em tempo real de um modelo de importação](#Fornecer-dados-em-tempo-real-de-um-modelo-de-importação)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.3.5. Escolher uma estrutura de modelo](#Escolher-uma-estrutura-de-modelo)
+
 [3. Modelar dados com o Power BI](#Modelar-dados-com-o-Power-BI)
+
+&nbsp;&nbsp;&nbsp;&nbsp; [3.1. Configurar relacionamentos](#Configurar-relacionamentos)
 
 [4. Criar elementos visuais e relatórios do Power BI](#Criar-elementos-visuais-e-relatórios-do-Power-BI)
 
@@ -1440,9 +1460,143 @@ Os dados importados no Power BI precisam ser atualizados periodicamente para ref
 
 ## Determinar quando desenvolver um modelo do DirectQuery
 
+Um modelo **DirectQuery** é formado por tabelas configuradas nesse modo e ligadas a uma mesma fonte de dados.
 
+**- Importação:** inclui todas as tabelas importadas e calculadas (só pode haver um por modelo).
+
+**- DirectQuery:** inclui todas as tabelas DirectQuery relacionadas a uma fonte específica.
+
+Se o modelo tiver apenas um grupo de origem (importação ou DirectQuery), ele é simples. Quando há mais de um grupo de origem, ele se torna um modelo composto.
+
+Um grupo de origem é um conjunto de tabelas associadas a uma fonte.
+
+### Benefícios do modelo DirectQuery
+
+- Modelar fontes de dados grandes ou que mudam rapidamente:
+  - Não exige atualização de dados no Power BI, pois as consultas feitas no relatório são repassadas diretamente para a fonte de dados.
+  - É adequado para data warehouses, que seriam inviáveis de importar por completo devido seu tamanho. Permite consultas quase em tempo real quando os dados mudam com frequência.
+ 
+- Impor a RLS de origem:
+  - O DirectQuery pode aproveitar a RLS já definida no banco de dados de origem, evitando recriar regras no Power BI:
+    - Funciona apenas em alguns bancos relacionais.
+    - Requer configuração de logon único (SSO) para a fonte de dados.
+   
+  - Restrições de soberania de dados:
+    - Quando há restrições de segurança que impedem a saída de dados da organização, não é possível usar importação.
+   
+  - Criar conjuntos de dados especializados:
+    - O DirectQuery normalmente funciona com bancos relacionais, pois o Power BI traduz as consultas em SQL nativo.
+    - É possível conectar-se a um conjunto de dados do Power BI ou a um modelo do Azure Analysis Services e transformá-lo em um modelo local DirectQuery.
+      - O modelo original é chamado de remoto e o novo de local.
+      - Você pode encadear até três modelos dessa forma.
+      - Permite personalizar ou estender o modelo remoto (renomear objetos, criar medidas, colunas ou tabelas).
+      - Ao adicionar novas tabelas (importação ou DirectQuery), criam-se grupos de origem, tornando o modelo composto
+     
+### Limitações do modelo DirectQuery
+
+Principais limitações do DirectQuery:
+
+- **Fontes limitadas:** só funciona com principais bancos relacionais, além de conjuntos de dados do Power BI e modelos do Azure Analysis Services.
+  
+- **Transformações restritas:** nem todas do Power Query são suportadas, pois precisam ser convertidas em consultas nativas (ex.: dinamizar colunas não é possível).
+
+- **Desempenho:** consultas podem ser lentas se o banco não tiver otimização (índices, views materializadas) ou recursos suficientes.
+
+- **Impacto no sistema de origem:** consultas analíticas podem prejudicar o desempenho de outras operações, como OLTP.
+
+### Aprimorar o desempenho do modelo DirectQuery
+
+Quando há uma justificativa para desenvolver um modelo DirectQuery, você pode atenuar algumas limitações de duas maneiras:
+
+- Otimizações da fonte de dados:
+  - Criar índices e views materializadas no banco de dados.
+  - Garantir recursos suficientes para todas as cargas de trabalho.
+  - Trabalhar junto com o proprietário do banco, para que ele compreenda o impacto das consultas analíticas.
+ 
+- Tabelas de agregação definidas pelo usuário do DirectQuery:
+  - São tabelas de modelo especiais ocultas (de usuários, cálculos e RLS):
+    - Elas são ideais para consultas de maior granularidade em tabelas de fatos grandes.
+    - Para consultar views materializadas na fonte, ou modo importação/agregações automáticas.
+   
+## Determinar quando desenvolver um modelo composto
+
+Um modelo composto possui mais de um grupo de origem, geralmente um de importação e outro de DirectQuery. As vantagens e limitações de cada modo continuam valendo dentro do modelo composto.
+
+### Benefícios do modelo composto
+
+Há vários benefícios no desenvolvimento de um modelo composto.
+
+- Flexibilidade de design: combina diferentes modos de armazenamento, equilibrando dados importados e DirectQuery.
+
+- Melhora de desempenho: consultas a dados importados em cache são mais rápidas que consultas de passagem do DirectQuery.
+
+- Extensibilidade: permite estender modelos remotos (como conjuntos de dados do Power BI) com novas colunas, tabelas ou medidas, criando um modelo especializado a partir de um principal.
+
+### Limitações do modelo composto
+
+Há várias limitações relacionadas aos modelos compostos:
+
+- Tabelas de importação precisam de atualização periódica, pois podem ficar fora de sincronia com dados DirectQuery.
+
+- Combinar dados importados e DirectQuery exige que o Power BI consolide os resultados, podendo afetar o desempenho.
+  - Para melhorar, use tabelas de agregação de importação ou agregações automáticas e configure dimensões em modo duplo.
+ 
+- Encadeamento de modelos: alterações em modelos upstream podem impactar modelos downstream; é recomendado analisar o impacto antes.
+
+- Relações limitadas ocorrem entre tabelas de diferentes grupos de origem ou em cardinalidade muitos-para-muitos, podendo afetar cálculos e consultas.
+
+### Aumentar o desempenho do modelo DirectQuery usando dados de importação
+
+Quando há uma justificativa para desenvolver um modelo DirectQuery, você pode atenuar algumas limitações usando recursos específicos do Power BI que envolvem as tabelas de importação.
+
+- No modo de importação, é possível usar tabelas de agregação definidas pelo usuário ou agregações automáticas (recurso Premium) para:
+  - Direcionar consultas de fatos de maior granularidade para dados armazenados em cache, melhorando o desempenho.
+  - Aumentar ainda mais a performance definindo tabelas de dimensões relacionadas em modo duplo.
+ 
+- Modo de armazenamento duplo (combina importação e DirectQuery), permitindo que o Power BI escolha o modo mais eficiente para cada consulta:
+  - Sempre que possível, as consultas usam dados em cache, melhorando o desempenho.
+  - Funciona bem com tabelas de agregação de importação, permitindo que consultas de alta granularidade sejam atendidas inteiramente com dados armazenados em cache.
+  - Visuais de segmentação e filtros baseados em dimensões são renderizados mais rapidamente, usando dados em cache.
+
+### Fornecer dados em tempo real de um modelo de importação
+
+Ao configurar uma tabela de importação com atualização incremental, você pode habilitar **Obter os dados mais recentes em tempo real com DirectQuery**:
+
+O Power BI cria uma tabela híbrida, com partições de importação para dados antigos e uma partição DirectQuery para dados atuais.
+
+Consultas usam cache para dados antigos e DirectQuery para dados recentes.
+
+Esse recurso requer licença Premium.
+
+### Escolher uma estrutura de modelo
+
+- **Preferência pelo modelo de importação:** oferece mais flexibilidade, opções de design e desempenho rápido. Use técnicas de redução de dados para carregar menos informações.
+
+- **Modelo DirectQuery:** indicado para grandes volumes de dados ou quando é necessário quase tempo real.
+
+- **Modelo composto:**
+
+  - Melhora desempenho de consultas DirectQuery.
+
+  - Permite resultados quase em tempo real combinando importação e DirectQuery.
+
+  - Permite estender conjuntos de dados do Power BI ou modelos do Azure Analysis Services.
+
+  - Tabelas de agregação e tabelas de dimensões em modo duplo ajudam a atender consultas detalhadas do cache.
+
+- **Modelo híbrido:** tabela de importação com partição DirectQuery para dados atuais, fornecendo resultados quase em tempo real.
+
+- **Modelos especializados:** podem ser criados encadeando a modelos principais via DirectQuery, normalmente por analistas de negócios.
+
+- **Observação importante:** é possível converter uma tabela DirectQuery em importação, mas não o contrário.
 
 # Modelar dados com o Power BI
+
+Modelagem de dados é o processo de organizar e formatar dados para criar um modelo semântico com relacionamentos e cálculos em DAX, garantindo análises precisas e permitindo a criação de relatórios claros e impactantes no Power BI.
+
+## Configurar relacionamentos
+
+
 
 # Criar elementos visuais e relatórios do Power BI
 
