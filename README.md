@@ -308,6 +308,26 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp; [3.1. Configurar relacionamentos](#Configurar-relacionamentos)
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.1.1. Configurar opções de carregamento de dados](#Configurar-opções-de-carregamento-de-dados)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.1.2. Colunas](#Colunas)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.1.3. Noções básicas sobre cardinalidade](#Noções-básicas-sobre-cardinalidade)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.1.4. Noções básicas sobre direção do filtro cruzado](#Noções-básicas-sobre-direção-do-filtro-cruzado)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.1.5. Relacionamentos ativos x inativos](#Relacionamentos-ativos-x-inativos)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.1.6. Trabalhar com o diagrama do modelo](#Trabalhar-com-o-diagrama-do-modelo)
+
+&nbsp;&nbsp;&nbsp;&nbsp; [3.2. Configurar tabelas](#Configurar-tabelas)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.2.1. Configurar propriedades de tabela](#Configurar-propriedades-de-tabela)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.2.2. Marcar tabelas de datas](#Marcar-tabelas-de-datas)
+
+&nbsp;&nbsp;&nbsp;&nbsp; [3.3. Configurar colunas](#Configurar-colunas)
+
 [4. Criar elementos visuais e relatórios do Power BI](#Criar-elementos-visuais-e-relatórios-do-Power-BI)
 
 [5. Gerenciar espaços de trabalho e modelos semânticos no Power BI](#Gerenciar-espaços-de-trabalho-e-modelos-semânticos-no-Power-BI)
@@ -1595,6 +1615,96 @@ Esse recurso requer licença Premium.
 Modelagem de dados é o processo de organizar e formatar dados para criar um modelo semântico com relacionamentos e cálculos em DAX, garantindo análises precisas e permitindo a criação de relatórios claros e impactantes no Power BI.
 
 ## Configurar relacionamentos
+
+Quando o modelo tem várias tabelas, é preciso criar relacionamentos adequados entre elas. Esses relacionamentos permitem que filtros aplicados em uma tabela sejam propagados para outras, seguindo o caminho disponível. Assim, por exemplo, ao filtrar o campo Year da tabela Date, a tabela Sales é automaticamente filtrada, resumindo apenas as vendas daquele ano — comportamento esperado pelos autores de relatórios.
+
+### Configurar opções de carregamento de dados
+
+Antes de carregar dados no modelo, é importante revisar e ajustar as opções de **Carregamento de dados** do Power BI Desktop:
+
+- Clique em **Arquivo** (canto superior esquerdo).
+- Vá em **Opções e configurações**.
+- Clique em **Opções**.
+- No painel lateral, escolha a seção **Carregamento de dados**.
+
+Você pode permitir que o Power BI detecte, importe, atualize ou exclua relacionamentos automaticamente, ou então criá-los manualmente na janela **Gerenciar relacionamentos** ou na **exibição de Modelo**. 
+
+Em alguns casos, uma tabela pode permanecer sem relacionamento (tabela desconectada), sendo útil para cenários de teste de hipóteses ou uso de parâmetros de campo.
+
+### Colunas
+
+Cada relacionamento conecta uma coluna **de** a uma coluna **para**, que precisam ter o mesmo tipo de dado e valores correspondentes. 
+
+É necessário garantir que a coluna usada como chave em um dos lados tenha valores únicos. Quando a fonte usa chaves compostas, deve-se transformá-las em uma chave única. Caso os tipos de dados não coincidam, é possível ajustá-los no Power Query.
+
+### Noções básicas sobre cardinalidade
+
+Cada relacionamento tem um tipo de cardinalidade, que é:
+
+- Um para muitos (1:*)
+- Muitos para um (*:1)
+- Um para um (1:1)
+- Muitos para muitos (*:*)
+
+O Power BI define automaticamente a cardinalidade dos relacionamentos com base nos valores carregados, mas às vezes é preciso ajustá-la manualmente.
+
+**- Um para muitos / Muitos para um:** mais comuns, usados em esquemas estrela (dimensão → fato).
+
+**- Um para um:** relaciona tabelas com colunas únicas, mas geralmente é melhor mesclar no Power Query para simplificar o modelo.
+
+**- Muitos para muitos:** usado quando não há colunas exclusivas, permitindo relacionar tabelas em diferentes níveis de granularidade (ex.: categoria ↔ produto).
+
+Assim, escolher a cardinalidade correta garante relacionamentos consistentes e um modelo mais intuitivo.
+
+### Noções básicas sobre direção do filtro cruzado
+
+Um relacionamento de modelo define a direção do filtro cruzado, que controla como os filtros se propagam:
+
+- **Um para muitos / Muitos para um** → única ou ambas as direções.
+- **Um para um** → sempre ambas.
+- **Muitos para muitos** → única para uma tabela, ou ambas.
+
+A prática recomendada é evitar filtros em ambas as direções, pois pode afetar desempenho e confundir usuários.
+
+Exceção: cenários de análise muitos-para-muitos, onde uma tabela de transição (ex.: vendedores ↔ regiões) é usada para permitir a propagação correta dos filtros entre dimensões e fatos.
+
+### Relacionamentos ativos x inativos
+
+Entre duas tabelas só pode existir um relacionamento ativo para propagação de filtros. Outros relacionamentos podem ser criados, mas ficam inativos e só funcionam em cálculos DAX usando USERELATIONSHIP.
+Isso é comum em dimensões com múltiplas funções.
+
+### Trabalhar com o diagrama do modelo
+
+No diagrama do modelo, os relacionamentos aparecem como linhas que conectam as tabelas:
+
+- Criar: arrastar e soltar colunas.
+- Editar: clicar duas vezes no relacionamento.
+- Interpretação:
+  - Cardinalidade → ícones 1 (um) ou * (muitos).
+  - Direção do filtro cruzado → setas no meio da linha.
+  - Ativo → linha sólida; Inativo → linha pontilhada.
+  - Passar o cursor mostra quais colunas estão relacionadas.
+
+## Configurar tabelas
+
+O modelo pode ser aprimorado após conter as tabelas, colunas e relacionamentos necessários. Nesse ponto, é possível ajustar propriedades de objetos (tabelas e colunas) e criar novos elementos, como hierarquias, medidas e parâmetros, para enriquecer a análise.
+
+### Configurar propriedades de tabela
+
+No Power BI Desktop, você pode criar e configurar objetos de modelo usando a **faixa de opções**, o painel **Dados**, o diagrama de **Modelo** e o **Painel de Propriedades**. A exibição **Modelo** com o **Painel de Propriedades** é recomendada, pois permite seleção múltipla e atualizações em massa.
+
+Cada tabela de modelo possui:
+
+- Nome: herdado do Power Query, deve ser único e amigável.
+- Descrição: opcional, aparece ao passar o cursor sobre a tabela.
+- Sinônimos: nomes alternativos para melhorar o uso de Perguntas e Respostas ou Copilot.
+- Ocultação: tabelas podem ser ocultadas se não devem ser usadas diretamente pelos autores de relatório (ex.: tabelas de transição para relacionamentos muitos-para-muitos).
+
+### Marcar tabelas de datas
+
+O Power BI cria automaticamente tabelas de data/hora ocultas para colunas desse tipo, mas é recomendado **desabilitar esse recurso** e usar uma tabela de datas própria (existente ou calculada via DAX). Cada tabela de datas deve ter uma coluna de datas e ser **marcada como tabela de datas** para que funções de inteligência temporal do DAX funcionem corretamente. Ao marcar, o Power BI valida que a coluna tem **valores únicos, contínuos e sem em branco**.
+
+## Configurar colunas
 
 
 
