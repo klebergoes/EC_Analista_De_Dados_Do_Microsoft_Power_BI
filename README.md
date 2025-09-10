@@ -328,6 +328,26 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp; [3.3. Configurar colunas](#Configurar-colunas)
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.3.1. Configurar formatação de coluna](#Configurar-formatação-de-coluna)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.3.2. Definir ordem de classificação](#Definir-ordem-de-classificação)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.3.3. Categorizar dados](#Categorizar-dados)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.3.4. Definir sumarização](#Definir-sumarização)
+
+&nbsp;&nbsp;&nbsp;&nbsp; [3.3. Configurar hierarquias](#Configurar-hierarquias)
+
+&nbsp;&nbsp;&nbsp;&nbsp; [3.4. Configurar medidas](#Configurar-medidas)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.4.1. Usar medidas rápidas](#Usar-medidas-rápidas)
+
+&nbsp;&nbsp;&nbsp;&nbsp; [3.5. Configurar parâmetros](#Configurar-parâmetros)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.5.1. Criar um parâmetro de Intervalo numérico](#Criar-um-parâmetro-de-Intervalo-numérico)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.5.2. Criar um parâmetro de Campos](#Criar-um-parâmetro-de-Campos)
+
 [4. Criar elementos visuais e relatórios do Power BI](#Criar-elementos-visuais-e-relatórios-do-Power-BI)
 
 [5. Gerenciar espaços de trabalho e modelos semânticos no Power BI](#Gerenciar-espaços-de-trabalho-e-modelos-semânticos-no-Power-BI)
@@ -1706,7 +1726,70 @@ O Power BI cria automaticamente tabelas de data/hora ocultas para colunas desse 
 
 ## Configurar colunas
 
+No Power BI, as colunas podem ter propriedades como nome, descrição, sinônimos e visibilidade. É comum ocultar colunas usadas apenas em relacionamentos. Os nomes devem ser únicos e, quando visíveis, ter nomes amigáveis. Alterar o nome no Power BI gera uma etapa no Power Query. Também é possível organizar colunas em pastas de exibição para facilitar quando há muitos campos.
 
+### Configurar formatação de coluna
+
+Cada coluna tem um tipo de dados, definido no Power Query, que determina como os valores são armazenados. Alterar o tipo no Power BI cria uma nova etapa na consulta. Já a propriedade formato define apenas como os valores são exibidos nos visuais, como mostrar números decimais em forma de moeda.
+
+### Definir ordem de classificação
+
+No Power BI, a ordem natural de classificação (alfabética para texto e crescente para números/datas) pode não ser adequada. Para ajustar, usa-se a propriedade **Classificar por Coluna**, escolhendo outra coluna com valores apropriados para ordenação, como um número de ano e mês.
+
+### Categorizar dados
+
+A propriedade Categoria de dados descreve o conteúdo de uma coluna e ajuda o Power BI a tratá-la corretamente. É útil para dados espaciais (latitude/longitude) ou URLs. Para URLs, pode-se definir como URL da Web (mostrada como ícone de link) ou URL de Imagem (mostrada como imagem em visuais como tabela, matriz ou cartão).
+
+### Definir sumarização
+
+A propriedade **Resumir por** define como colunas numéricas são agregadas por padrão (Soma, Mín, Máx, Média, Contagem, Contagem Distinta ou Nenhum). Colunas resumíveis aparecem com o símbolo **Ʃ**, e os autores de relatório podem escolher a forma de resumo nos visuais.
+
+### Configurar hierarquias
+
+As hierarquias são opcionais e ajudam os autores de relatórios a entender os relacionamentos entre colunas de uma tabela. Elas permitem navegação estruturada entre níveis, como Year → Quarter → Month. Mesmo sem hierarquia, o mesmo resultado pode ser obtido, mas com mais esforço. Hierarquias podem ter propriedades como descrição, sinônimos, pasta de exibição e oculto.
+
+- Clique com o botão direito sobre a primeira coluna que será o nível mais alto da hierarquia.
+  - Escolha “Criar hierarquia”.
+  - Isso cria uma nova hierarquia com essa coluna como primeiro nível (geralmente chamada de “Hierarquia1”).
+
+- Adicione outros níveis à hierarquia:
+  - Clique com o botão direito nas próximas colunas que farão parte da hierarquia.
+  - Selecione “Adicionar ao Hierarquia” → escolha a hierarquia criada.
+  - A ordem define o caminho de navegação (nível mais alto → mais baixo).
+ 
+## Configurar medida
+
+Para sumarizações simples, os autores de relatório podem usar as agregações padrão nos visuais, mas cálculos mais complexos (como YTD ou lucro) exigem medidas.
+
+Uma medida é uma fórmula DAX nomeada adicionada a uma tabela, aparece com ícone de calculadora e deve ter nome único. Medidas podem ser simples (Soma, Média) ou complexas (ex.: Sales Amount − Product Cost). 
+
+Elas permitem cálculos avançados no modelo semântico. O Power BI também oferece Copilot ou Medidas rápidas para criar medidas sem escrever DAX manualmente.
+
+### Usar medidas rápidas
+
+As medidas rápidas permitem criar medidas selecionando um modelo de cálculo e arrastando campos; o Power BI gera a medida automaticamente. Como colunas, medidas podem ter descrição, sinônimos, pasta de exibição, oculto e formatação. A propriedade **Tabela inicial** define a tabela do modelo à qual a medida pertence. O Copilot pode gerar descrições automaticamente inspecionando a fórmula DAX.
+
+## Configurar parâmetros
+
+Um parâmetro no Power BI permite que usuários ajustem filtros ou cálculos sem alterar os dados originais. 
+
+Existem dois tipos: **Intervalo numérico** e **Campos**.
+
+### Criar um parâmetro de Intervalo numérico
+
+Um parâmetro de Intervalo numérico define tipo de dado, mínimo, máximo, incremento e valor padrão. 
+
+O Power BI cria uma **tabela calculada desconectada** e uma medida para filtrar a tabela. 
+
+Ele permite cenários de teste de hipóteses, como aplicar uma taxa de câmbio hipotética em medidas. No painel Dados, aparece com um **ponto de interrogação (?)**.
+
+Modelagem → Novo Parâmetro → Intervalo numérico.
+
+### Criar um parâmetro de Campos
+
+O parâmetro de Campos agrupa diferentes colunas para que o usuário escolha qual delas visualizar. 
+
+Ele pode ser usado em visuais ou segmentações. Exemplo: um parâmetro **Product Grouping** com Category, Subcategory, Product e Color permite que o consumidor selecione o campo, e o gráfico atualiza o eixo conforme a escolha.
 
 # Criar elementos visuais e relatórios do Power BI
 
