@@ -306,47 +306,67 @@
 
 [3. Modelar dados com o Power BI](#Modelar-dados-com-o-Power-BI)
 
-&nbsp;&nbsp;&nbsp;&nbsp; [3.1. Configurar relacionamentos](#Configurar-relacionamentos)
+&nbsp;&nbsp;&nbsp;&nbsp; [3.1. Configurar um modelo semântico](#Configurar-um-modelo-semântico)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.1.1. Configurar opções de carregamento de dados](#Configurar-opções-de-carregamento-de-dados)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.1.1. Configurar relacionamentos](#Configurar-relacionamentos)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.1.2. Colunas](#Colunas)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.1.1.1. Configurar opções de carregamento de dados](#Configurar-opções-de-carregamento-de-dados)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.1.3. Noções básicas sobre cardinalidade](#Noções-básicas-sobre-cardinalidade)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.1.1.2. Colunas](#Colunas)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.1.4. Noções básicas sobre direção do filtro cruzado](#Noções-básicas-sobre-direção-do-filtro-cruzado)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.1.1.3. Noções básicas sobre cardinalidade](#Noções-básicas-sobre-cardinalidade)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.1.5. Relacionamentos ativos x inativos](#Relacionamentos-ativos-x-inativos)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.1.1.4. Noções básicas sobre direção do filtro cruzado](#Noções-básicas-sobre-direção-do-filtro-cruzado)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.1.6. Trabalhar com o diagrama do modelo](#Trabalhar-com-o-diagrama-do-modelo)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.1.1.5. Relacionamentos ativos x inativos](#Relacionamentos-ativos-x-inativos)
 
-&nbsp;&nbsp;&nbsp;&nbsp; [3.2. Configurar tabelas](#Configurar-tabelas)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.1.1.6. Trabalhar com o diagrama do modelo](#Trabalhar-com-o-diagrama-do-modelo)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.2.1. Configurar propriedades de tabela](#Configurar-propriedades-de-tabela)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.1.2. Configurar tabelas](#Configurar-tabelas)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.2.2. Marcar tabelas de datas](#Marcar-tabelas-de-datas)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.1.2.1. Configurar propriedades de tabela](#Configurar-propriedades-de-tabela)
 
-&nbsp;&nbsp;&nbsp;&nbsp; [3.3. Configurar colunas](#Configurar-colunas)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.1.2.2. Marcar tabelas de datas](#Marcar-tabelas-de-datas)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.3.1. Configurar formatação de coluna](#Configurar-formatação-de-coluna)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.1.3. Configurar colunas](#Configurar-colunas)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.3.2. Definir ordem de classificação](#Definir-ordem-de-classificação)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.1.3.1. Configurar formatação de coluna](#Configurar-formatação-de-coluna)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.3.3. Categorizar dados](#Categorizar-dados)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.1.3.2. Definir ordem de classificação](#Definir-ordem-de-classificação)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.3.4. Definir sumarização](#Definir-sumarização)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.1.3.3. Categorizar dados](#Categorizar-dados)
 
-&nbsp;&nbsp;&nbsp;&nbsp; [3.3. Configurar hierarquias](#Configurar-hierarquias)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.1.3.4. Definir sumarização](#Definir-sumarização)
 
-&nbsp;&nbsp;&nbsp;&nbsp; [3.4. Configurar medidas](#Configurar-medidas)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.1.4. Configurar hierarquias](#Configurar-hierarquias)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.4.1. Usar medidas rápidas](#Usar-medidas-rápidas)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.1.5. Configurar medidas](#Configurar-medidas)
 
-&nbsp;&nbsp;&nbsp;&nbsp; [3.5. Configurar parâmetros](#Configurar-parâmetros)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.1.5.1. Usar medidas rápidas](#Usar-medidas-rápidas)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.5.1. Criar um parâmetro de Intervalo numérico](#Criar-um-parâmetro-de-Intervalo-numérico)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.1.6. Configurar parâmetros](#Configurar-parâmetros)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.5.2. Criar um parâmetro de Campos](#Criar-um-parâmetro-de-Campos)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.1.6.1. Criar um parâmetro de Intervalo numérico](#Criar-um-parâmetro-de-Intervalo-numérico)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.1.6.2. Criar um parâmetro de Campos](#Criar-um-parâmetro-de-Campos)
+
+&nbsp;&nbsp;&nbsp;&nbsp; [3.2. Escrever fórmulas DAX para modelos semânticos](#Escrever-fórmulas-DAX-para-modelos-semânticos)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.2.1. Noções básicas dos tipos de cálculo DAX](#Noções-básicas-dos-tipos-de-cálculo-DAX)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.2.1.1. Tabelas calculadas](#Tabelas-calculadas)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.2.1.2. Tabelas de datas](#Tabelas-de-datas)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.2.1.3. Dimensões com função múltipla](#Dimensões-com-função-múltipla)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.2.1.4. Análise de teste de hipóteses](#Análise-de-teste-de-hipóteses)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.2.1.5. Colunas calculadas](#Colunas-calculadas)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.2.1.6. Medidas](#Medidas)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.2.2. Escrever fórmulas DAX](#Escrever-fórmulas-DAX)
 
 [4. Criar elementos visuais e relatórios do Power BI](#Criar-elementos-visuais-e-relatórios-do-Power-BI)
 
@@ -1634,6 +1654,8 @@ Esse recurso requer licença Premium.
 
 Modelagem de dados é o processo de organizar e formatar dados para criar um modelo semântico com relacionamentos e cálculos em DAX, garantindo análises precisas e permitindo a criação de relatórios claros e impactantes no Power BI.
 
+# Configurar um modelo semântico
+
 ## Configurar relacionamentos
 
 Quando o modelo tem várias tabelas, é preciso criar relacionamentos adequados entre elas. Esses relacionamentos permitem que filtros aplicados em uma tabela sejam propagados para outras, seguindo o caminho disponível. Assim, por exemplo, ao filtrar o campo Year da tabela Date, a tabela Sales é automaticamente filtrada, resumindo apenas as vendas daquele ano — comportamento esperado pelos autores de relatórios.
@@ -1790,6 +1812,57 @@ Modelagem → Novo Parâmetro → Intervalo numérico.
 O parâmetro de Campos agrupa diferentes colunas para que o usuário escolha qual delas visualizar. 
 
 Ele pode ser usado em visuais ou segmentações. Exemplo: um parâmetro **Product Grouping** com Category, Subcategory, Product e Color permite que o consumidor selecione o campo, e o gráfico atualiza o eixo conforme a escolha.
+
+# Escrever fórmulas DAX para modelos semânticos
+
+Data Analysis Expressions (DAX) é uma linguagem de fórmulas para o Power BI que permite criar cálculos, adicionar lógica e aprimorar a análise de dados em seus relatórios e modelos semânticos.
+
+## Noções básicas dos tipos de cálculo DAX
+
+Ao usar DAX (Data Analysis Expressions), você pode adicionar três tipos de cálculo ao seu modelo semântico:
+
+- Tabelas calculadas
+- Colunas calculadas
+- Medidas
+
+Obs.: O DAX também pode ser usado para criar regras de RLS (segurança em nível de linha), aplicando filtros a tabelas do modelo. Porém, essas regras não são cálculos de modelo e não fazem parte deste módulo.
+
+### Tabelas calculadas
+
+Com DAX, é possível criar tabelas calculadas no modelo, duplicando, transformando ou gerando novos dados. 
+
+Elas são sempre importadas, aumentando o tamanho e o tempo de atualização, e não podem se conectar a fontes externas (para isso usa-se o Power Query). 
+
+São úteis em cenários como:
+- Tabelas de datas
+- Dimensões de múltipla função
+- Análises de teste de hipóteses
+
+### Tabelas de datas
+
+Tabelas de data são essenciais para aplicar inteligência temporal no DAX. Se a origem não tiver uma, é possível criar uma tabela calculada usando CALENDAR ou CALENDARAUTO para que as funções de tempo funcionem corretamente.
+
+### Dimensões com função múltipla
+
+Quando uma tabela atua como dimensão de múltipla função, ela pode ter vários relacionamentos com outra tabela, mas apenas um relacionamento é ativo (linha sólida) e propaga filtros por padrão. Os demais relacionamentos ficam inativos (linhas tracejadas) e só podem ser usados com USERELATIONSHIP em fórmulas.
+
+Uma alternativa de design é criar tabelas de datas separadas (por exemplo, Order Date e Ship Date) para permitir filtros independentes, podendo ser feitas com tabelas calculadas que duplicam a tabela Date.
+
+### Análise de teste de hipóteses
+
+O Power BI permite criar parâmetros de intervalo numérico, que geram tabelas calculadas desconectadas. Elas permitem que usuários selecionem valores (como uma taxa hipotética) que podem ser usados em medidas, mas não propagam filtros para outras tabelas do modelo.
+
+### Colunas calculadas
+
+Colunas calculadas DAX são fórmulas avaliadas linha a linha em uma tabela, retornando um valor por linha. Em modo importação, aumentam o tamanho do modelo e são recalculadas na atualização; em DirectQuery, são avaliadas pelo banco de dados ao consultar a tabela. No painel Dados, colunas calculadas têm um ícone especial.
+
+### Medidas
+
+Medidas DAX são fórmulas que resumem dados e retornam um único valor, **avaliadas no momento da consulta e não armazenadas no modelo**. Aparecem com ícone de calculadora e são chamadas de **medidas explícitas**. Já **medidas implícitas** são colunas resumidas automaticamente em visuais (símbolo ∑), permitindo soma, contagem, mínimo, máximo etc.
+
+## Escrever fórmulas DAX
+
+
 
 # Criar elementos visuais e relatórios do Power BI
 
