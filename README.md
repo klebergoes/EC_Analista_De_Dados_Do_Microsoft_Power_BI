@@ -368,6 +368,24 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.2.2. Escrever fórmulas DAX](#Escrever-fórmulas-DAX)
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.2.2.1. Funções DAX](#Funções-DAX)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.2.2.2. Operadores DAX](#Operadores-DAX)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.2.2.3. Referências a objetos de modelo](#Referências-a-objetos-de-modelo)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.2.2.4. Referências de tabela](#Referências-de-tabela)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.2.2.5. Referências de coluna](#Referências-de-coluna)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.2.2.6. Referências de medida](#Referências-de-medida)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.2.2.7. Variáveis DAX](#Variáveis-DAX)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.2.2.8. Espaço em branco](#Espaço-em-branco)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.2.3. Tipos de dados DAX](#Tipos-de-dados-DAX)
+
 [4. Criar elementos visuais e relatórios do Power BI](#Criar-elementos-visuais-e-relatórios-do-Power-BI)
 
 [5. Gerenciar espaços de trabalho e modelos semânticos no Power BI](#Gerenciar-espaços-de-trabalho-e-modelos-semânticos-no-Power-BI)
@@ -1861,6 +1879,145 @@ Colunas calculadas DAX são fórmulas avaliadas linha a linha em uma tabela, ret
 Medidas DAX são fórmulas que resumem dados e retornam um único valor, **avaliadas no momento da consulta e não armazenadas no modelo**. Aparecem com ícone de calculadora e são chamadas de **medidas explícitas**. Já **medidas implícitas** são colunas resumidas automaticamente em visuais (símbolo ∑), permitindo soma, contagem, mínimo, máximo etc.
 
 ## Escrever fórmulas DAX
+
+Todo cálculo de modelo (tabela, coluna ou medida) é definido pelo nome, seguido de =, e então pela fórmula DAX.
+
+Use o seguinte modelo para criar um cálculo de modelo:
+
+```
+<Calculation name> = <DAX formula>
+```
+
+Por exemplo, a definição da tabela calculada Ship Date que duplica os dados da tabela Date é:
+
+```
+Ship Date = 'Date'
+```
+
+Uma fórmula DAX sempre retorna um resultado: 
+- Tabelas calculadas retornam um objeto de tabela
+- Colunas e medidas calculadas retornam um valor escalar (único).
+
+As fórmulas são montadas usando:
+
+- Funções DAX
+- Operadores DAX
+- Referências a objetos de modelo
+- Valores constantes, como o número 24 ou o texto literal "FY" (abreviação de ano fiscal em inglês)
+- Variáveis DAX
+- Espaço em branco
+
+Dica:
+
+No Power BI Desktop, o IntelliSense auxilia na criação de fórmulas DAX, sugerindo funções, recursos do modelo, definições e descrições, facilitando a escrita rápida e precisa.
+
+### Funções DAX
+
+DAX é uma linguagem funcional, baseada em funções com argumentos. Fórmulas podem ter múltiplas chamadas e funções aninhadas. Os nomes de funções usam parênteses, com variáveis passadas dentro deles. 
+
+Observação:
+
+Algumas funções não exigem argumentos ou os têm como opcionais.
+
+### Operadores DAX
+
+As fórmulas utilizam operadores para realizar cálculos, comparações, manipular textos ou testar condições.
+
+### Referências a objetos de modelo
+
+As fórmulas podem referenciar apenas tabelas, colunas ou medidas, mas não hierarquias nem seus níveis (embora seja possível usar a coluna que compõe o nível).
+
+### Referências de tabela
+
+Ao referenciar uma tabela em uma fórmula, seu nome deve estar entre aspas simples.
+
+```
+Ship Date = 'Date'
+```
+
+As aspas simples no nome da tabela podem ser omitidas se:
+
+- O nome não tiver espaços.
+- O nome não for palavra reservada do DAX. Ex.: a tabela *Date* exige aspas, pois "Date" é uma função DAX.
+
+Na referência à tabela Airport, as aspas simples podem ser omitidas:
+
+```
+Arrival Airport = Airport
+```
+
+### Referências de coluna
+
+Ao referenciar uma coluna, seu nome deve ficar entre colchetes e pode ser precedido pelo nome da tabela:
+
+```
+Revenue = SUM([Sales Amount])
+```
+
+Para evitar ambiguidades, uma coluna pode ser referenciada com nome da tabela + coluna (coluna totalmente qualificada), exigido por algumas funções DAX.
+
+Dica:
+
+Para melhor legibilidade, recomenda-se sempre usar nome da tabela + coluna nas referências.
+
+A definição de medida de exemplo anterior pode ser reescrita como:
+
+```
+Revenue = SUM(Sales[Sales Amount])
+```
+
+### Referências de medida
+
+Ao referenciar uma medida, seu nome deve ficar entre colchetes, assim como nas colunas:
+
+```
+Profit = [Revenue] - [Cost]
+```
+
+No início, colunas e medidas podem parecer confusas por ambas usarem colchetes, mas com prática é possível identificar o tipo de objeto pelo contexto da fórmula.
+
+Dica:
+
+Embora medidas possam ter o nome da tabela na frente, isso é apenas organizacional. Ao contrário das colunas, não se recomenda preceder medidas com o nome da tabela, pois elas são a nível de modelo e não tabela.
+
+### Variáveis DAX
+
+As fórmulas podem declarar variáveis DAX para armazenar resultados.
+
+### Espaço em branco
+
+Espaços em branco (espaços, tabulações, quebras de linha) não afetam a lógica ou desempenho das fórmulas, mas melhoram a legibilidade. 
+
+Recomenda-se: usar espaços entre operadores, tabulações para funções aninhadas e quebras de linha para separar argumentos longos.
+
+Dica:
+
+Na barra de fórmulas, para inserir quebras de linha, pressione Shift+Enter. Pressionar apenas Enter confirma sua fórmula.
+
+Observe como a seguinte definição de medida é escrita em uma única linha e inclui cinco chamadas de função DAX:
+
+```
+Revenue YoY % = DIVIDE([Revenue] - CALCULATE([Revenue], SAMEPERIODLASTYEAR('Date'[Date])), CALCULATE([Revenue], SAMEPERIODLASTYEAR('Date'[Date])))
+```
+
+O exemplo a seguir é a mesma definição de medida, mas agora formatada, o que ajuda a facilitar a leitura e a compreensão:
+
+```
+Revenue YoY % =
+DIVIDE(
+    [Revenue]
+        - CALCULATE(
+            [Revenue],
+            SAMEPERIODLASTYEAR('Date'[Date])
+    ),
+    CALCULATE(
+        [Revenue],
+        SAMEPERIODLASTYEAR('Date'[Date])
+    )
+)
+```
+
+## Tipos de dados DAX
 
 
 
