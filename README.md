@@ -386,6 +386,10 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.2.3. Tipos de dados DAX](#Tipos-de-dados-DAX)
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.2.3.1. Tipo de dados BLANK](#Tipo-de-dados-BLANK)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.2.4. Trabalhar com funções DAX](#Trabalhar-com-funções-DAX)
+
 [4. Criar elementos visuais e relatórios do Power BI](#Criar-elementos-visuais-e-relatórios-do-Power-BI)
 
 [5. Gerenciar espaços de trabalho e modelos semânticos no Power BI](#Gerenciar-espaços-de-trabalho-e-modelos-semânticos-no-Power-BI)
@@ -2018,6 +2022,28 @@ DIVIDE(
 ```
 
 ## Tipos de dados DAX
+
+No modelo semântico, colunas e medidas possuem tipos de dados. Colunas podem ter o tipo definido no Power Query ou ser inferido pelo DAX em colunas calculadas. Medidas têm tipos de dados baseados no resultado do cálculo, podendo variar conforme o contexto de filtro.
+
+Os tipos de dados do modelo e do DAX estão relacionados, mas não são sempre iguais; cada tipo tem correspondência e limites de valores específicos:
+
+| Tipo de dados de modelo | Tipo de dados DAX      | Descrição                                                                                                                       |
+| ----------------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| Número inteiro          | Inteiro de 64 bits     | -2^63 a 2^63-1                                                                                                                 |
+| Número decimal          | Real de 64 bits        | Negativo: -1,79 x 10^308 a -2,23 x 10^-308 - zero (0) - positivo: 2,23 x 10^-308 a 1,79 x 10^308 - Limitado a 17 dígitos decimais   |
+| Booliano                | Booliano               | TRUE ou FALSE                                                                                                                   |
+| Texto                   | Cadeia de caracteres   | Cadeia de caracteres Unicode                                                                                                    |
+| Data                    | Data/hora              | Datas válidas são todas as datas posteriores a 1º de janeiro de 1900                                                            |                            
+| Moeda                   | Moeda                  | -9,22 x 10^14 a 9,22 x 10^14 - limitado a quatro dígitos decimais de precisão fixa                                                |
+| N/A                     | BLANK                  | Em alguns casos, é o equivalente a um NULL de banco de dados (SQL)                                                              |
+
+### Tipo de dados BLANK
+
+O tipo BLANK representa a ausência de valor (não é zero) e equivale a NULL. 
+
+Funções relacionadas: BLANK() retorna BLANK, e ISBLANK() verifica se uma expressão é BLANK.
+
+## Trabalhar com funções DAX
 
 
 
