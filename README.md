@@ -390,6 +390,34 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.2.4. Trabalhar com funções DAX](#Trabalhar-com-funções-DAX)
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.2.4.1. Funções originadas do Excel](#Funções-originadas-do-Excel)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.2.4.2. Funções não originadas do Excel](#Funções-não-originadas-do-Excel)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.2.4.3. Função DISTINCTCOUNT](#Função-DISTINCTCOUNT)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.2.4.4. Função DIVIDE](#Função-DIVIDE)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.2.5. Usar operadores DAX](#Usar-operadores-DAX)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.2.5.1. Operadores aritméticos](#Operadores-aritméticos)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.2.5.2. Operadores de comparação](#Operadores-de-comparação)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.2.5.3. Operador de concatenação de texto](#Operador-de-concatenação-de-texto)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.2.5.4. Operadores lógicos](#Operadores-lógicos)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.2.5.5. Precedência do operador](#Precedência-do-operador)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.2.5.5. Conversão implícita](#Conversão-implícita)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.2.6. Usar variáveis DAX](#Usar-variáveis-DAX)
+
+&nbsp;&nbsp;&nbsp;&nbsp; [3.3. Criar cálculos DAX em modelos semânticos](#Criar-cálculos-DAX-em-modelos-semânticos)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.3.1. Criar tabelas calculadas](#Criar-tabelas-calculadas)
+
 [4. Criar elementos visuais e relatórios do Power BI](#Criar-elementos-visuais-e-relatórios-do-Power-BI)
 
 [5. Gerenciar espaços de trabalho e modelos semânticos no Power BI](#Gerenciar-espaços-de-trabalho-e-modelos-semânticos-no-Power-BI)
@@ -2044,6 +2072,187 @@ O tipo BLANK representa a ausência de valor (não é zero) e equivale a NULL.
 Funções relacionadas: BLANK() retorna BLANK, e ISBLANK() verifica se uma expressão é BLANK.
 
 ## Trabalhar com funções DAX
+
+A biblioteca DAX contém centenas de funções, incluindo mais de 80 herdadas do Excel, facilitando a adoção pelos usuários. No entanto, o Power BI oferece funções exclusivas de modelagem, como:
+
+- Navegação em relacionamentos
+- Modificação de contexto de filtro
+- Iteradores
+- Inteligência de tempo
+- Funções de caminho
+
+### Funções originadas do Excel
+
+Algumas funções DAX são iguais às do Excel, como IF, que testa uma condição e retorna um valor se for TRUE e outro se for FALSE, seguindo a mesma sintaxe usada no Excel:
+
+```
+IF(<logical_test>, <value_if_true>[, <value_if_false>])
+```
+
+Dica: Um argumento de função é opcional quando, na documentação, ele é mostrado entre colchetes.
+
+No DAX, se logical_test for FALSE e não houver value_if_false, a função retorna BLANK.
+
+Diversas funções do Excel estão disponíveis, como SUM, COUNT, AVERAGE, MIN, MAX, entre outras. A diferença é que no DAX se usa colunas, e no Excel, intervalos de células.
+
+Além disso, funções matemáticas, de texto, data/hora, informações e lógicas também estão presentes, como ABS, ROUND, SQRT, LEN, LEFT, RIGHT, UPPER, DATE, YEAR, MONTH, NOW, ISNUMBER, TRUE, FALSE, AND, OR, NOT, IFERROR.
+
+### Funções-não-originadas-do-Excel
+
+Duas funções DAX úteis que não são específicas para modelagem e que não se originam do Excel são DISTINCTCOUNT e DIVIDE.
+
+### Função DISTINCTCOUNT
+
+Conta valores distintos em uma coluna, ignorando repetições. É útil em análises, pois diferencia entre o total de ocorrências (ex.: clientes) e o número de elementos únicos (ex.: clientes diferentes).
+
+### Função DIVIDE
+
+A função DIVIDE realiza divisões no DAX, recebendo numerador e denominador. Opcionalmente, permite definir um valor alternativo para retornar em casos de erro (como divisão por zero).
+
+```
+DIVIDE(<numerator>, <denominator>[, <alternate_result>])
+```
+
+A função DIVIDE trata automaticamente divisões por zero: retorna BLANK se não houver valor alternativo definido ou esse valor, caso seja informado. É mais eficiente e elegante que usar IF, pois já otimiza a verificação do denominador.
+
+Dica: use DIVIDE quando o denominador puder ser zero/BLANK; se for um valor constante, prefira o operador / para melhor desempenho.
+
+## Usar operadores DAX
+
+As fórmulas DAX podem usar operadores para realizar cálculos aritméticos, comparações, manipulação de textos e testes lógicos em expressões.
+
+### Operadores aritméticos
+
+A tabela a seguir lista os operadores aritméticos:
+
+- Adição (+)
+
+- Subtração (-)
+
+- Multiplicação (*)
+
+- Divisão (/)
+
+- Exponenciação (^)
+
+### Operadores de comparação
+
+Os operadores de comparação no DAX comparam dois valores e retornam TRUE ou FALSE:
+
+- Igual a (=)
+
+- Estritamente igual a (==)
+
+- Maior que (>)
+
+- Menor que (<)
+
+- Maior que ou igual a (>=)
+
+- Menor que ou igual a (<=)
+
+- Diferente de (<>)
+
+No DAX, operadores de comparação (exceto ==) tratam BLANK como zero, string vazia, 30/12/1899 ou FALSE. 
+
+Assim, [Revenue] = 0 é TRUE para zero ou BLANK, enquanto [Revenue] == 0 só é TRUE para zero.
+
+### Operador de concatenação de texto
+
+O operador & no DAX concatena dois valores de texto, unindo-os em uma única cadeia contínua:
+
+```
+Model Color = 'Product'[Model] & "-" & 'Product'[Color]
+```
+
+### Operadores lógicos
+
+Use operadores lógicos para combinar expressões que geram um único resultado:
+
+- &&: Retorna TRUE apenas se ambas as expressões forem TRUE; caso contrário, retorna FALSE.
+  
+- ||: Retorna TRUE se pelo menos uma das expressões for TRUE; retorna FALSE apenas se ambas forem FALSE.
+
+- IN: Compara cada valor em uma tabela e retorna TRUE se alguma condição for satisfeita. A sintaxe usa chaves para construir a tabela.
+
+- NOT: Inverte o estado de uma expressão Booliana (FALSE em TRUE, e vice-versa).
+
+### Precedência do operador
+
+Quando a fórmula DAX inclui vários operadores, o DAX usa regras para determinar a ordem de avaliação, que é conhecida como uma precedência de operador. As operações são ordenadas de acordo com a tabela a seguir:
+
+- Exponenciação (^)
+
+- Sinal (-)
+
+- Multiplicação e divisão (* e /)
+
+- NOT (NOT)
+
+- Adição e subtração (+ e -)
+
+- Concatenação de duas cadeias de caracteres de texto (e)
+
+- Comparação (=,==,<,>,<=,>=,<>)
+
+Operadores com a mesma precedência são avaliados da esquerda para a direita. 
+
+Para alterar a ordem, use parênteses. A precedência no DAX é, em geral, igual à do Excel.
+
+Por exemplo, considere a seguinte definição de coluna calculada:
+
+```
+Extended Amount = Sales[Order Quantity] * Sales[Unit Price] * 1 - [Unit Price Discount Pct]
+```
+
+### Conversão implícita
+
+No DAX, conversões de tipo geralmente são feitas automaticamente ao combinar diferentes tipos de dados. Porém, valores incompatíveis geram erro (ex.: multiplicar uma data).
+
+O BLANK é tratado como 0 em operações aritméticas e como "" em concatenações. Para evitar resultados inesperados, é recomendável testar fórmulas e usar IF ou ISBLANK quando necessário.
+
+## Usar variáveis DAX
+
+No DAX, você pode declarar variáveis em fórmulas usando a cláusula RETURN para referenciá-las.
+
+Vantagens das variáveis: 
+
+- Melhoram a legibilidade e manutenção
+  
+- Aumentam o desempenho (avaliadas apenas uma vez)
+  
+- Permitem testar partes de fórmulas complexas diretamente.
+
+Veja um exemplo:
+
+```
+Revenue YoY % =
+VAR RevenuePriorYear =
+    CALCULATE(
+        [Revenue],
+        SAMEPERIODLASTYEAR('Date'[Date])
+    )
+RETURN
+    DIVIDE(
+        [Revenue] - RevenuePriorYear,
+        RevenuePriorYear
+    )
+```
+
+Observe que a cláusula RETURN se refere à variável duas vezes. Essa fórmula aprimorada de definição de medida é executada em pelo menos metade do tempo, pois não precisa avaliar a receita do ano anterior duas vezes.
+
+# Criar cálculos DAX em modelos semânticos
+
+Ao criar um modelo semântico com Power Query, inicialmente ele só terá tabelas e colunas e provavelmente precisará de ajustes: relacionamentos, novas tabelas/colunas, hierarquias e cálculos.
+O DAX permite adicionar três tipos de cálculos para finalizar o modelo:
+
+- Tabelas calculadas: para datas, dimensões ou análise de hipóteses.
+
+- Colunas calculadas: adicionadas a tabelas existentes.
+
+- Medidas: realizam sumarizações sobre os dados.
+
+## Criar tabelas calculadas
 
 
 
