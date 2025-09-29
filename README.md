@@ -418,6 +418,16 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.3.1. Criar tabelas calculadas](#Criar-tabelas-calculadas)
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.3.1.1. Duplicar uma tabela](#Duplicar-uma-tabela)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.3.1.2. Configurar tabelas duplicadas](#Configurar-tabelas-duplicadas)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.3.1.3. Criar uma tabela de datas](#Criar-uma-tabela-de-datas)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.3.1.4. Marcar como uma tabela de datas](#Marcar-como-uma-tabela-de-datas)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.3.2. Criar colunas calculadas](#Criar-colunas-calculadas)
+
 [4. Criar elementos visuais e relatórios do Power BI](#Criar-elementos-visuais-e-relatórios-do-Power-BI)
 
 [5. Gerenciar espaços de trabalho e modelos semânticos no Power BI](#Gerenciar-espaços-de-trabalho-e-modelos-semânticos-no-Power-BI)
@@ -2254,8 +2264,67 @@ O DAX permite adicionar três tipos de cálculos para finalizar o modelo:
 
 ## Criar tabelas calculadas
 
+Uma tabela calculada é criada com uma fórmula DAX que retorna um objeto de tabela, permitindo duplicar ou transformar dados de modelo existentes para produzir uma nova tabela.
+
+### Duplicar uma tabela
+
+Um desafio comum de design na modelagem de dados é lidar com vários relacionamentos entre tabelas.
+
+Um exemplo é que uma tabela pode ter vários relacionamentos com a calendário, como data da ordem, data de remessa e data de conclusão. Resultando em três relacionamentos com a tabela calendário.
+
+No entanto, apenas um relacionamento pode estar ativo por vez, como indicado por uma linha sólida no diagrama. Os outros relacionamentos ficam inativos e são mostrados como linhas tracejadas.
+
+Para habilitar a filtragem por um coluna que esteja inativa, uma nova tabela pode ser criada duplicando-a (mesmas colunas e linhas) com a seguinte fórmula:
+
+```
+Ship Date = 'Date'
+```
+
+Quando a tabela original é atualizada, a tabela cópia também é recalculada para permanecer sincronizada, permitindo criar relacionamentos ativos extras.
+
+### Configurar tabelas duplicadas
+
+Ao criar uma tabela calculada duplicada, é preciso aplicar personalizações, como renomear colunas e ocultar campos desnecessários. 
+
+Essas tabelas ajudam em cenários com múltiplos relacionamentos, mas aumentam o tamanho do modelo e o tempo de atualização. 
+
+Observação: Existem alternativas mais eficientes que serão abordadas posteriormente.
+
+### Criar uma tabela de datas
+
+Um bom uso de tabelas calculadas é criar uma tabela de datas para aplicar inteligência temporal.
+
+Você pode criar uma tabela de datas calculadas usando a função CALENDARAUTO. Com CALENDARAUTO, o Power BI gera automaticamente um intervalo completo de datas com base nos dados do modelo.
+
+O argumento especifica o último mês do ano fiscal; por exemplo, passar 6 define junho como o fim do ano:
+
+```
+Due Date = CALENDARAUTO(6)
+```
+
+Dica: A função CALENDAR também pode ser usada para criar uma tabela de datas especificando uma data de início e uma data de término, seja como valores estáticos, seja como expressões baseadas em dados de modelo.
+
+Se a data mais antiga no modelo for 15 de outubro de 2021 e a mais recente for 15 de junho de 2022, a função retornará as datas de 1º de julho de 2021 a 30 de junho de 2022. Isso garante que a tabela inclua anos completos, o que é necessário para marcar uma tabela de datas.
+
+### Marcar como uma tabela de datas
+
+Após criar uma tabela de datas, é preciso marcá-la como tal no Power BI para usar funções de inteligência temporal. 
+
+O Power BI valida:
+
+- Valores exclusivos
+- Nenhum valor nulo
+- Valores contíguos de data (do início ao fim)
+- O mesmo carimbo de data/hora para cada valor nos tipos de dados Data/Hora
+
+Essa configuração se aplica a qualquer tabela de datas, importada ou criada no Power Query, ou a tabelas calculadas.
+
+Observação: Para usar inteligência temporal no Power BI, você pode usar a tabela automática ou criar uma tabela de datas personalizada; a automática é limitada e pouco personalizável, por isso a tabela personalizada é recomendada.
+
+## Criar colunas calculadas
 
 
+  
 # Criar elementos visuais e relatórios do Power BI
 
 # Fonte
