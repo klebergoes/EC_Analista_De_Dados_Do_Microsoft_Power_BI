@@ -428,6 +428,12 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.3.2. Criar colunas calculadas](#Criar-colunas-calculadas)
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.3.2.1. Criar colunas calculadas](#Criar-colunas-calculadas)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.3.2.2. Noções básicas sobre o contexto de linha](#Noções-básicas-sobre-o-contexto-de-linha)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.3.3. Noções básicas sobre medidas implícitas](#Noções-básicas-sobre-medidas-implícitas)
+
 [4. Criar elementos visuais e relatórios do Power BI](#Criar-elementos-visuais-e-relatórios-do-Power-BI)
 
 [5. Gerenciar espaços de trabalho e modelos semânticos no Power BI](#Gerenciar-espaços-de-trabalho-e-modelos-semânticos-no-Power-BI)
@@ -2323,8 +2329,50 @@ Observação: Para usar inteligência temporal no Power BI, você pode usar a ta
 
 ## Criar colunas calculadas
 
+O ideal é criar novas colunas na fonte de dados, mas, se necessário, é possível adicioná-las no Power BI via Power Query (colunas personalizadas) ou como colunas calculadas em DAX. Prefere-se o Power Query por ser mais eficiente, enquanto as colunas calculadas são indicadas apenas quando:
 
-  
+- Depender de dados de modelo resumidos.
+- Exige funções de modelagem especializadas disponíveis somente no DAX, como RELATED, RELATEDTABLE ou funções para hierarquias entre pai e filho.
+
+### Criar colunas calculadas
+
+Colunas calculadas em DAX retornam um valor escalar (único) por linha, mas aumentam o tamanho do modelo e podem deixar a atualização mais lenta. Por isso, devem ser usadas com cautela e substituídas por medidas sempre que possível.
+
+### Noções básicas sobre o contexto de linha
+
+Em uma coluna calculada, o Power BI avalia a fórmula no contexto de linha, ou seja, considerando apenas a linha atual da tabela:
+
+```
+ Due Fiscal Year =
+"FY"
+    & YEAR('Due Date'[Due Date])
+        + IF(
+            MONTH('Due Date'[Due Date]) <= 6,
+            1
+        )
+```
+
+O contexto de linha só afeta a tabela atual. Para buscar valores de outra tabela:
+
+- Use RELATED ou RELATEDTABLE se houver relacionamento (RELATED pega do lado 1; RELATEDTABLE pega do lado N).
+- Use LOOKUPVALUE se não houver relacionamento.
+
+Prefira RELATED, pois é mais eficiente que LOOKUPVALUE devido como o Power BI armazena e indexa dados.
+
+Veja um exemplo:
+
+```
+Discount Amount =
+(
+    Sales[Order Quantity]
+        * RELATED('Product'[List Price])
+) - Sales[Sales Amount]
+```
+
+## Noções básicas sobre medidas implícitas
+
+
+
 # Criar elementos visuais e relatórios do Power BI
 
 # Fonte
