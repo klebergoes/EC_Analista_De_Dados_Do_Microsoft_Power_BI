@@ -434,6 +434,30 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.3.3. Noções básicas sobre medidas implícitas](#Noções-básicas-sobre-medidas-implícitas)
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.3.3.1. Identificar medidas implícitas](#Identificar-medidas-implícitas)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.3.3.2. Resumir colunas não numéricas](#Resumir-colunas-não-numéricas)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.3.3.3. Considerações para medidas implícitas](#Considerações-para-medidas-implícitas)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.3.4. Criar medidas explícitas](#Criar-medidas-explícitas)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.3.4.1. Medidas simples](#Medidas-simples)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.3.4.2. Criar medidas compostas](#Criar-medidas-compostas)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.3.4.3. Usar medidas rápidas](#Usar-medidas-rápidas)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.3.4.4. Comparar medidas e colunas calculadas](#Comparar-medidas-e-colunas-calculadas)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.3.5. Usar funções de iterador](#Usar-funções-de-iteradors)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.3.5.1. Funções de iterador para resumo complexo](#Funções-de-iterador-para-resumo-complexo)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.3.5.2. Funções de iterador para resumo de maior granularidade](#Funções-de-iterador-para-resumo-de-maior-granularidade)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.3.5.3. Funções de iterador para resumo de maior granularidade](#Funções-de-iterador-para-resumo-de-maior-granularidade)
+
 [4. Criar elementos visuais e relatórios do Power BI](#Criar-elementos-visuais-e-relatórios-do-Power-BI)
 
 [5. Gerenciar espaços de trabalho e modelos semânticos no Power BI](#Gerenciar-espaços-de-trabalho-e-modelos-semânticos-no-Power-BI)
@@ -2071,15 +2095,15 @@ No modelo semântico, colunas e medidas possuem tipos de dados. Colunas podem te
 
 Os tipos de dados do modelo e do DAX estão relacionados, mas não são sempre iguais; cada tipo tem correspondência e limites de valores específicos:
 
-| Tipo de dados de modelo | Tipo de dados DAX      | Descrição                                                                                                                       |
-| ----------------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| Número inteiro          | Inteiro de 64 bits     | -2^63 a 2^63-1                                                                                                                 |
-| Número decimal          | Real de 64 bits        | Negativo: -1,79 x 10^308 a -2,23 x 10^-308 - zero (0) - positivo: 2,23 x 10^-308 a 1,79 x 10^308 - Limitado a 17 dígitos decimais   |
-| Booliano                | Booliano               | TRUE ou FALSE                                                                                                                   |
-| Texto                   | Cadeia de caracteres   | Cadeia de caracteres Unicode                                                                                                    |
-| Data                    | Data/hora              | Datas válidas são todas as datas posteriores a 1º de janeiro de 1900                                                            |                            
-| Moeda                   | Moeda                  | -9,22 x 10^14 a 9,22 x 10^14 - limitado a quatro dígitos decimais de precisão fixa                                                |
-| N/A                     | BLANK                  | Em alguns casos, é o equivalente a um NULL de banco de dados (SQL)                                                              |
+| Tipo de dados de modelo | Tipo de dados DAX      | Descrição                                                                                                                        |
+| ----------------------- | ---------------------- | -------------------------------------------------------------------------------------------------------------------------------  |
+| Número inteiro          | Inteiro de 64 bits     | -2^63 a 2^63-1                                                                                                                   |
+| Número decimal          | Real de 64 bits        | Negativo: -1,79 x 10^308 a -2,23 x 10^-308 - zero (0) - positivo: 2,23 x 10^-308 a 1,79 x 10^308 - Limitado a 17 dígitos decimais|
+| Booliano                | Booliano               | TRUE ou FALSE                                                                                                                    |
+| Texto                   | Cadeia de caracteres   | Cadeia de caracteres Unicode                                                                                                     |
+| Data                    | Data/hora              | Datas válidas são todas as datas posteriores a 1º de janeiro de 1900                                                             |
+| Moeda                   | Moeda                  | -9,22 x 10^14 a 9,22 x 10^14 - limitado a quatro dígitos decimais de precisão fixa                                               |
+| N/A                     | BLANK                  | Em alguns casos, é o equivalente a um NULL de banco de dados (SQL)                                                               |
 
 ### Tipo de dados BLANK
 
@@ -2370,6 +2394,268 @@ Discount Amount =
 ```
 
 ## Noções básicas sobre medidas implícitas
+
+No Power BI, existem dois tipos de medidas: implícitas e explícitas.
+
+- Implícitas: criadas automaticamente pelos visuais para resumir dados (ex.: soma, média).
+- Explícitas: criadas manualmente pelo usuário com fórmulas DAX personalizadas.
+
+### Identificar medidas implícitas
+
+Como um modelador de dados, você controla como uma coluna é resumida definindo a propriedade **Sumarização**. Você pode escolher **Não resumir** ou selecionar uma função de agregação específica. Se você definir uma coluna como **Não resumir**, o símbolo de sigma desaparecerá do painel Dados.
+
+No painel **Dados**, uma coluna com o símbolo de sigma (∑) mostra dois fatos:
+
+- A coluna é numérica.
+- Os valores são resumidos quando usados em um visual que dá suporte ao resumo.
+
+As medidas implícitas permitem que o autor de relatório comece com uma técnica de resumo padrão e depois a modifique de acordo com os requisitos do visual. As colunas numéricas oferecem a maior variedade de funções de agregação para escolha, incluindo:
+
+- Soma
+- Média
+- Mínimo
+- Máximo
+- Contagem (Distinta)
+- Contagem
+- Desvio padrão
+- Variação
+- Mediana
+
+### Resumir colunas não numéricas
+
+Colunas não numéricas (texto, datas e booleanas) também podem ser agregadas em visuais, mesmo sem o símbolo de sigma (∑).
+
+- Texto: Primeiro, Último, Contagem, Contagem distinta
+- Data: Mais antigo, Mais recente, Contagem, Contagem distinta
+
+### Considerações para medidas implícitas
+
+As medidas implícitas são fáceis de usar e flexíveis, permitindo resumir dados rapidamente sem usar DAX.
+
+A maior limitação é que as medidas implícitas só funcionam para cenários simples. Elas podem resumir valores de coluna usando uma única função de agregação, mas não podem lidar com cálculos mais complexos. Para cálculos complexos, como proporções ou comparações, é necessário criar medidas explícitas com DAX.
+
+## Criar medidas explícitas
+
+As medidas explícitas são criadas com fórmulas DAX que retornam um único valor. Elas não armazenam valores no modelo, sendo calculadas dinamicamente durante a consulta. Para obter resultados, precisam usar funções de agregação, pois não podem referenciar diretamente tabelas ou colunas.
+
+### Medidas simples
+
+Uma medida simples agrega os valores de uma única coluna, como uma medida implícita.
+
+A fórmula a seguir cria uma medida chamada Revenue. Essa medida usa a função SUM para totalizar os valores na coluna Sales Amount:
+
+```
+Revenue =
+SUM(Sales[Sales Amount])
+```
+
+Na faixa de opções contextual **Ferramentas de medida**, você pode formatar a medida, definir o tipo de dados e alterar a tabela inicial. A tabela inicial refere-se ao local onde a medida é mostrada na visualização do painel de dados.
+
+Dica: É uma boa prática definir as opções de formatação diretamente após criar uma medida. Isso garante que seus valores pareçam consistentes em todos os visuais do relatório.
+
+Considere que talvez você precise de uma medida para calcular **Profit (Lucro)**, conforme mostrado no código a seguir:
+
+```
+Profit =
+SUM(Sales[Profit Amount])
+```
+
+No exemplo, Profit Amount é uma coluna calculada, mas isso não é ideal. Criar uma medida para calcular o lucro diretamente economiza espaço no modelo e melhora o desempenho nas atualizações.
+
+O código a seguir cria duas medidas: **Order Line Count** usando **COUNT** e **Order Count** usando **DISTINCTCOUNT**. **COUNT** conta todos os valores não nulos, enquanto **DISTINCTCOUNT** conta apenas valores únicos, garantindo a contagem correta de pedidos quando há linhas duplicadas.
+
+```
+Order Line Count =
+COUNT(Sales[SalesOrderLineKey])
+
+Order Count =
+DISTINCTCOUNT('Sales Order'[Sales Order])
+```
+
+Você também pode escrever a medida Order Line Count usando COUNTROWS, que conta o número de linhas em uma tabela:
+
+```
+Order Line Count =
+COUNTROWS(Sales)
+```
+
+### Criar medidas compostas
+
+Uma medida composta é criada a partir de outras medidas. Por exemplo, a medida Profit pode ser redefinida usando medidas existentes, substituindo a necessidade de uma coluna calculada.
+
+```
+Profit =
+[Revenue] - [Cost]
+```
+
+Remover a coluna calculada **Profit Amount** otimiza o modelo, reduzindo seu tamanho e acelerando a atualização dos dados, pois a medida Profit já calcula o resultado necessário a partir de outras medidas.
+
+### Usar medidas rápidas
+
+As medidas rápidas permitem criar cálculos comuns sem escrever DAX manualmente, pois o Power BI gera a fórmula para você.
+
+Por exemplo, você pode usar uma Medida rápida para criar uma medida **Profit Margin** seguindo estas etapas:
+
+- Selecione **Medida rápida** na faixa de opções **Ferramentas de tabela**.
+- Escolha **Operações matemáticas > Divisão**.
+- Adicione a medida **Profit** em **Numerador** e **Revenue** em **Denominador**.
+
+A nova medida aparece no painel Dados e você pode revisar sua fórmula DAX:
+
+```
+Profit Margin = 
+DIVIDE([Profit], [Revenue])
+```
+
+### Comparar medidas e colunas calculadas
+
+Para iniciantes, medidas e colunas calculadas podem parecer confusas, pois ambas usam DAX no modelo semântico, mas têm comportamentos diferentes:
+
+|                         | Colunas calculadas                                                    | Medidas                                                                           |
+| ----------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------------------  |
+| Finalidade              | Adiciona uma nova coluna a uma tabela                                 | Define como resumir dados de modelo                                               |
+| Avaliação               | Avaliada usando contexto de linha no momento da atualização dos dados | Avaliada usando o contexto de filtro no momento da consulta                       |
+| Armazenamento           | Armazena um valor para cada linha na tabela (modo de importação)      | Nunca armazena valores no modelo                                                  |
+| Uso em visuais          | Pode filtrar, agrupar ou resumir dados (como medidas implícitas)      | Projetada especificamente para resumir dados                                      |
+| Impacto do desempenho   | Pode aumentar o uso de memória e o tamanho do modelo                  | Mais eficiente; melhor desempenho em modelos grandes                              |
+| Ideal para              | Novos campos para divisão ou relacionamentos                          | Cálculos dinâmicos baseados em filtros                                            |
+
+## Usar funções de iterador
+
+As funções de iterador avaliam uma expressão linha a linha em uma tabela, oferecendo mais controle sobre resumos de dados.
+
+As funções de resumo de coluna única, como SUM, COUNT, MIN e MAX, têm funções de iterador equivalentes com um sufixo "X", como SUMX, COUNTX, MINX e MAXX. As funções de iterador especializadas também existem para filtragem (ex.: FILTER), classificação (ex.: RANKX) e cálculos semiaditivos ao longo do tempo (ex.: DATESYTD, TOTALYTD, DATESMTD, TOTALMTD, DATESQTD, TOTALQTD).
+
+Cada função de iterador precisa de:
+
+- Uma tabela (do modelo ou resultado de uma expressão).
+- Uma expressão que retorne um único valor por linha.
+
+As funções de resumo de coluna única, como SUM, atuam como abreviação. O Power BI converte SUM internamente em SUMX. Por exemplo, ambas as medidas a seguir retornam o mesmo resultado e têm o mesmo desempenho:
+
+```
+Revenue = SUM(Sales[Sales Amount])
+```
+
+```
+Revenue =
+SUMX(
+    Sales,
+    Sales[Sales Amount]
+)
+```
+
+As funções de iterador calculam uma expressão linha a linha usando o contexto de linha e, em seguida, aplicam o contexto de filtro da tabela. Por exemplo, um filtro de FY2020 fará com que apenas as vendas desse ano sejam consideradas.
+
+Importante: O uso de funções de iterador com tabelas grandes e expressões complexas pode diminuir o desempenho. Funções como **SEARCH** e **LOOKUPVALUE** podem ser caras. Quando possível, use **RELATED** para melhorar o desempenho.
+
+### Funções de iterador para resumo complexo
+
+As funções de iterador permitem agregar mais de uma única coluna. Por exemplo, uma medida de receita pode multiplicar a quantidade da ordem, o preço unitário e um fator de desconto para cada linha e, em seguida, somar os resultados.
+
+```
+Revenue =
+SUMX(
+    Sales,
+    Sales[Order Quantity] * Sales[Unit Price] * (1 - Sales[Unit Price Discount Pct])
+)
+```
+
+As funções de iterador também podem fazer referência a tabelas relacionadas. A medida de desconto pode usar a função RELATED para acessar o preço de lista na tabela de produtos:
+
+```
+Discount =
+SUMX(
+    Sales,
+    Sales[Order Quantity]
+    * (
+        RELATED('Product'[List Price]) - Sales[Unit Price]
+    )
+)
+```
+
+### Funções de iterador para resumo de maior granularidade
+
+As funções de iterador permitem resumir dados em diferentes níveis de granularidade. 
+
+Por exemplo, usando AVERAGEX na tabela Sales, é possível calcular a receita média por item de linha, considerando cada linha individual dentro do contexto de filtro:
+
+```
+Revenue Avg Order Line =
+AVERAGEX(
+    Sales,
+    Sales[Order Quantity] * Sales[Unit Price] * (1 - Sales[Unit Price Discount Pct])
+)
+```
+
+Para calcular a receita média por ordem de venda, use VALUES para obter números de pedido únicos e depois AVERAGEX para iterar sobre cada ordem, calculando a média da receita total por pedido.
+
+```
+Revenue Avg Order =
+AVERAGEX(
+    VALUES('Sales Order'[Sales Order]),
+    [Revenue]
+)
+```
+
+A função VALUES retorna as ordens de venda exclusivas com base no contexto de filtro atual, portanto, AVERAGEX itera em cada ordem de venda para cada mês.
+
+### Classificando com funções de iterador
+
+A função RANKX atribui classificações iterando em uma tabela e avaliando uma expressão por linha. 
+
+A ordem pode ser crescente ou decrescente e empates são ignorados. 
+
+Por exemplo, é usada para classificar produtos por quantidade usando ALL para considerar todos os produtos.
+
+```
+Product Quantity Rank =
+RANKX(
+    ALL('Product'[Product]),
+    [Quantity]
+)
+```
+
+Dois produtos empatam em segundo lugar, então, o próximo produto é classificado em quarto lugar e a posição 3ª é ignorada.
+
+1 - 2 - 2 - 4
+
+Você também pode usar a classificação densa, que atribui a próxima classificação após um empate sem pular números. Para usar a classificação densa, a medida pode incluir o argumento DENSE:
+
+```
+Product Quantity Rank =
+RANKX(
+    ALL('Product'[Product]),
+    [Quantity],
+    ,
+    ,
+    DENSE
+)
+```
+
+Agora, após dois produtos empatarem em segundo lugar, o próximo produto é o terceiro colocado e a numeração continua sequencialmente sem pular a 3ª posição.
+
+1 - 2 - 2 - 3
+
+Para evitar classificar o total, a medida pode usar a função HASONEVALUE para retornar BLANK, a menos que um único produto seja filtrado.
+
+```
+Product Quantity Rank =
+IF(
+    HASONEVALUE('Product'[Product]),
+    RANKX(
+        ALL('Product'[Product]),
+        [Quantity],
+        ,
+        ,
+        DENSE
+    )
+)
+```
+
+A função HASONEVALUE verifica se uma coluna, como Produto, possui apenas um valor no contexto de filtro, sendo falsa no total geral. 
+
+As funções de iterador permitem resumir, agregar e classificar dados de forma detalhada, suportando cálculos complexos no Power BI.
 
 
 
