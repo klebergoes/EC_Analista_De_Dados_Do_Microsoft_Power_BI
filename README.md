@@ -458,6 +458,10 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.3.5.3. Funções de iterador para resumo de maior granularidade](#Funções-de-iterador-para-resumo-de-maior-granularidade)
 
+&nbsp;&nbsp;&nbsp;&nbsp; [3.4. Modificar contexto de filtro DAX em modelos semânticos](#Modificar-contexto-de-filtro-DAX-em-modelos-semânticos)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.4.1. Noções básicas sobre o contexto de filtro](#Noções-básicas-sobre-o-contexto-de-filtro)
+
 [4. Criar elementos visuais e relatórios do Power BI](#Criar-elementos-visuais-e-relatórios-do-Power-BI)
 
 [5. Gerenciar espaços de trabalho e modelos semânticos no Power BI](#Gerenciar-espaços-de-trabalho-e-modelos-semânticos-no-Power-BI)
@@ -2656,6 +2660,16 @@ IF(
 A função HASONEVALUE verifica se uma coluna, como Produto, possui apenas um valor no contexto de filtro, sendo falsa no total geral. 
 
 As funções de iterador permitem resumir, agregar e classificar dados de forma detalhada, suportando cálculos complexos no Power BI.
+
+# Modificar contexto de filtro DAX em modelos semânticos
+
+O contexto de filtro descreve os filtros que são aplicados durante a avaliação de uma medida ou expressão de medida.
+
+Os filtros podem ser aplicados diretamente em colunas (como Fiscal Year = FY2020) ou indiretamente, quando se propagam por relacionamentos entre tabelas — por exemplo, um filtro na tabela Date afeta a tabela Sales.
+
+As colunas e tabelas calculadas não são avaliadas em contexto de filtro, mas sim em contexto de linha, podendo fazer a transição para contexto de filtro se a fórmula exigir agregação.
+
+## Noções básicas sobre o contexto de filtro
 
 
 
