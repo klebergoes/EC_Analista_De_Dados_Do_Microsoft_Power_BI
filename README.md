@@ -462,6 +462,16 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.4.1. Noções básicas sobre o contexto de filtro](#Noções-básicas-sobre-o-contexto-de-filtro)
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.4.2. Modificar contexto de filtro](#Modificar-contexto-de-filtro)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.4.2.1. Aplicar filtros de expressão booliana](#Aplicar-filtros-de-expressão-booliana)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.4.2.2. Aplicar filtros de expressão de tabela](#Aplicar-filtros-de-expressão-de-tabela)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.4.2.3. Comportamento do filtro](#Comportamento-do-filtro)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.4.3. Usar funções modificadoras de filtro](#Usar-funções-modificadoras-de-filtro)
+
 [4. Criar elementos visuais e relatórios do Power BI](#Criar-elementos-visuais-e-relatórios-do-Power-BI)
 
 [5. Gerenciar espaços de trabalho e modelos semânticos no Power BI](#Gerenciar-espaços-de-trabalho-e-modelos-semânticos-no-Power-BI)
@@ -2670,6 +2680,142 @@ Os filtros podem ser aplicados diretamente em colunas (como Fiscal Year = FY2020
 As colunas e tabelas calculadas não são avaliadas em contexto de filtro, mas sim em contexto de linha, podendo fazer a transição para contexto de filtro se a fórmula exigir agregação.
 
 ## Noções básicas sobre o contexto de filtro
+
+Os filtros no Power BI podem ser aplicados no design do relatório (por meio do painel de filtros, segmentações de dados ou agrupamentos em visuais) e durante a interação do usuário (como cliques em gráficos ou ajustes manuais de filtros).
+
+Esses filtros determinam o contexto de filtro, que define quais dados são considerados em cada cálculo. Compreender esse contexto é essencial para criar fórmulas DAX corretas, pois muitas vezes é preciso adicionar, modificar ou remover filtros para obter o resultado desejado.
+
+Considere um exemplo para calcular a **receita percentual por região**, a medida deve **dividir a receita da região atual pela receita total de todas as regiões**. O **numerador** usa o **contexto de filtro atual (a região selecionada no visual)**, enquanto o **denominador** precisa **remover o filtro de região** para considerar o total geral. Assim, a fórmula modifica o contexto de filtro apenas no denominador para obter a proporção correta.
+
+| Region    | Revenue       | Revenue % Total Region |
+| --------- | --------------| -----------------------|
+| Australia | 10,655,335.96 | 39.45%                 |
+| Canada    | 16,355,770.46 | 60.55%                 |
+| Total     | 27,011,106.40 | 100.00%                |
+
+Dica: A chave para escrever medidas complexas é entender estes conceitos:
+
+- Como funciona o contexto de filtro.
+- Quando e como modificar ou remover filtros para obter um resultado necessário.
+- Como escrever uma fórmula para modificar com precisão e eficiência o contexto de filtro.
+
+## Modificar contexto de filtro
+
+Você pode usar a função CALCULATE para modificar o contexto de filtro em suas fórmulas. A sintaxe da função CALCULATE é a seguinte:
+
+```
+CALCULATE(<expression>, [[<filter1>], <filter2>]…)
+```
+
+A função recebe uma expressão escalar (que retorna um único valor), como uma medida ou cálculo, e um ou mais filtros.
+
+Esses filtros podem ser condições lógicas, tabelas filtradas ou funções que modificam o contexto de filtro.
+
+Quando há vários filtros, todos são aplicados simultaneamente — ou seja, devem ser verdadeiros ao mesmo tempo (AND).
+
+Observação: A função CALCULATETABLE tem a mesma funcionalidade que a função CALCULATE, com a diferença de que ela modifica o contexto de filtro aplicado a uma expressão que retorna um objeto de tabela. 
+
+### Aplicar filtros de expressão booliana
+
+Um filtro de expressão booliana é uma expressão avaliada como TRUE ou FALSE. Os filtros boolianos devem obedecer às seguintes regras:
+
+- Eles podem fazer referência apenas a uma coluna.
+- Eles não podem fazer referência a medidas.
+- Eles não podem usar funções que verificam ou retornam uma tabela que inclua funções de agregação como SUM.
+
+Veja:
+
+```
+Revenue Red =
+CALCULATE(
+    [Revenue],
+    'Product'[Color] = "Red"
+)
+```
+
+Neste próximo exemplo, a medida a seguir filtra a medida Revenue por várias cores. Observe o uso do operador IN seguido de uma lista de valores de cor:
+
+```
+Revenue Red or Blue =
+CALCULATE(
+    [Revenue],
+    'Product'[Color] IN {"Red", "Blue"}
+)
+```
+
+A medida a seguir filtra a medida Revenue por produtos caros. Produtos caros são aqueles com um preço de tabela superior a 1.000 dólares americanos:
+
+```
+Revenue Expensive Products =
+CALCULATE(
+    [Revenue],
+    'Product'[List Price] > 1000
+)
+```
+
+### Aplicar filtros de expressão de tabela
+
+Um filtro de expressão de tabela usa uma tabela ou expressão que retorna tabela como filtro.
+
+Funções como FILTER permitem criar condições complexas, avaliando cada linha da tabela e retornando apenas as linhas onde a expressão é TRUE.
+
+O resultado é uma tabela com a mesma estrutura da original, mas apenas com as linhas que atendem à condição.
+
+A função FILTER seleciona as linhas da tabela Product cujo preço de lista é maior que o dobro do custo padrão, e a medida Revenue é calculada apenas para esses produtos:
+
+```
+Revenue High Margin Products =
+CALCULATE(
+    [Revenue],
+    FILTER(
+        'Product',
+        'Product'[List Price] > 'Product'[Standard Cost] * 2
+    )
+)
+```
+
+No CALCULATE, todas as expressões de filtro são filtros de tabela; filtros boolianos são apenas uma notação abreviada, convertida internamente em filtros de tabela pelo Power BI:
+
+```
+Revenue Red =
+CALCULATE(
+    [Revenue],
+    FILTER(
+        'Product',
+        'Product'[Color] = "Red"
+    )
+)
+```
+
+### Comportamento do filtro
+
+Ao usar CALCULATE, podem ocorrer dois comportamentos:
+
+- Se as colunas (ou tabelas) não estiverem no contexto de filtro, novos filtros serão adicionados ao contexto de filtro para avaliar a expressão CALCULATE.
+
+- Se as colunas (ou tabelas) já estiverem no contexto de filtro, os filtros existentes serão substituídos pelos novos filtros para avaliar a expressão CALCULATE.
+
+Os exemplos a seguir mostram como funciona a adição de expressões de filtro à função CALCULATE (lembrando que nenhum filtro é aplicado ao visual de tabela).
+
+Inserção da medida **Revenue Red** a um visual de tabela que agrupa por região e exibe a receita:
+
+| Region    | Revenue        | Revenue Red   |
+| --------- | ---------------| --------------|
+| Australia | $10,655,335.96 | $2,681,324.79 |
+| Canada    | $16,355,770.46 | $3,573,412.99 |
+| Total     | $27,011,106.40 | $6,254,737.78 |
+
+Como nenhum filtro é aplicado à coluna Color da tabela Product, a avaliação da medida adiciona um novo filtro ao contexto de filtro. Na primeira linha, o valor de US$ 2.681.324,79 é para os produtos vermelhos que foram vendidos na região australiana.
+
+Alternar a primeira coluna do visual de tabela de Region para Color produz um resultado diferente, pois a coluna Color na tabela Product agora está no contexto de filtro.
+
+| Color     | Revenue        | Revenue Red   |
+| --------- | ---------------| --------------|
+| Preto     | $38,236,124.06 |               |
+| Vermelho  | $6,254,737.78  | $6,254,737.78 |
+| Total     | $44,490,861.80 | $6,254,737.78 |
+
+## Usar funções modificadoras de filtro
 
 
 
