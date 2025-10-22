@@ -472,6 +472,16 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.4.3. Usar funções modificadoras de filtro](#Usar-funções-modificadoras-de-filtro)
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.4.3.1. Remover filtros](#Remover-filtros)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.4.3.2. Preservar filtros](#Preservar-filtros)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.4.3.3. Usar relacionamentos inativos](#Usar-relacionamentos-inativos)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.4.3.4. Modificar o comportamento do relacionamento](#Modificar-o-comportamento-do-relacionamento)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.4.4. Examinar contexto de filtro](#Examinar-contexto-de-filtro)
+
 [4. Criar elementos visuais e relatórios do Power BI](#Criar-elementos-visuais-e-relatórios-do-Power-BI)
 
 [5. Gerenciar espaços de trabalho e modelos semânticos no Power BI](#Gerenciar-espaços-de-trabalho-e-modelos-semânticos-no-Power-BI)
@@ -2817,6 +2827,134 @@ Alternar a primeira coluna do visual de tabela de Region para Color produz um re
 
 ## Usar funções modificadoras de filtro
 
+Ao usar a função CALCULATE, é possível passar funções de modificação de filtro, que permitem que você faça mais do que apenas adicionar filtros.
+
+### Remover filtros
+
+A função REMOVEFILTERS é usada dentro do CALCULATE para remover filtros do contexto de filtro, podendo eliminar filtros de colunas específicas ou de toda uma tabela.
+
+Observação: A função REMOVEFILTERS é uma versão mais recente do DAX. Antes dela, usavam-se ALL, ALLEXCEPT e ALLNOBLANKROW para remover filtros. Essas funções também retornam tabelas de valores distintos, por isso ainda aparecem em exemplos e documentações antigas.
+
+No exemplo a seguir, a medida **Revenue Total Region** avalia a medida de **Revenue**, mas faz isso removendo filtros da tabela **Sales Territory**, ou seja, inserir a coluna Sales Territory não aplicará contexto de filtro.
+
+```
+Revenue Total Region = CALCULATE([Revenue], REMOVEFILTERS('Sales Territory'))
+```
+
+Veja o resultadoo. O visual abaixo agrupado por três colunas da tabela Sales Territory nas linhas: Group, Country e Region:
+
+| **Group**     | **Country**    | **Region**     | **Revenue**         | **Revenue Total Region** |
+|---------------|----------------|----------------|---------------------|--------------------------|
+| Europe        | France         | France         | $7,251,555.65       | R$ 109,809,274.203       |
+| Europe        | Germany        | Germany        | $4,878,300.38       | R$ 109,809,274.2035      |
+| Europe        | United Kingdom | United Kingdom | $7,670,721.04       | R$ 109,809,274.203       |
+| North America | Canada         | Canada         | $16,355,770.46      | R$ 109,809,274.203       |
+| North America | United States  | Central        | $7,909,009.01       | R$ 109,809,274.203       |
+| North America | United States  | Northeast      | $6,939,374.48       | R$ 109,809,274.203       |
+| North America | United States  | Northwest      | $16,084,942.55      | R$ 109,809,274.203       |
+| North America | United States  | Southeast      | $7,879,655.07       | R$ 109,809,274.203       |
+| North America | United States  | Southwest      | $24,184,609.60      | R$ 109,809,274.203       |
+| Pacific       | Australia      | Australia      | $10,655,335.96      | R$ 109,809,274.203       |
+| **Total**     |                |                | **$109,809,274.20** | **R$ 109,809,274.203**   |
+
+O exemplo mostra que, embora o resultado isolado não seja útil, ele serve como denominador para calcular percentuais do total geral. Assim, a medida é redefinida com novo nome, uso de duas variáveis e formatação em porcentagem com duas casas decimais:
+
+```
+Revenue % Total Region =
+VAR CurrentRegionRevenue = [Revenue]
+VAR TotalRegionRevenue =
+    CALCULATE(
+        [Revenue],
+        REMOVEFILTERS('Sales Territory')
+    )
+RETURN
+    DIVIDE(
+        CurrentRegionRevenue,
+        TotalRegionRevenue
+    )
+```
+
+Veja com ficou com a nova medida **Revenue % Total Region**:
+
+| **Group**     | **Country**    | **Region**     | **Revenue**         | **Revenue % Total Region** |
+|---------------|----------------|----------------|---------------------|----------------------------|
+| Europe        | France         | France         | $7,251,555.65       | 6,60 %                     |
+| Europe        | Germany        | Germany        | $4,878,300.38       | 4,44%                      |
+| Europe        | United Kingdom | United Kingdom | $7,670,721.04       | 6,99%                      |
+| North America | Canada         | Canada         | $16,355,770.46      | 14,89%                     |
+| North America | United States  | Central        | $7,909,009.01       | 7,20%                      |
+| North America | United States  | Northeast      | $6,939,374.48       | 6,32%                      |
+| North America | United States  | Northwest      | $16,084,942.55      | 14,65%                     |
+| North America | United States  | Southeast      | $7,879,655.07       | 7,18%                      |
+| North America | United States  | Southwest      | $24,184,609.60      | 22,2%                      |
+| Pacific       | Australia      | Australia      | $10,655,335.96      | 9,70%                      |
+| **Total**     |                |                | **$109,809,274.20** | **100%**                   |
+
+Observação: Modelos tabulares não suportam hierarquias com diferentes níveis. Por isso, é comum repetir o valor do nível pai quando faltar um nível abaixo — como usar “Austrália” também como região. É melhor ter um valor válido do que deixar o campo em branco.
+
+### Preservar filtros
+
+Você pode usar a função KEEPFILTERS como uma expressão de filtro na função CALCULATE para preservar os filtros.
+
+Veja este exemplo:
+
+```
+Revenue Red =
+CALCULATE(
+    [Revenue],
+    KEEPFILTERS('Product'[Color] = "Red")
+)
+```
+
+| **Color**      | **Revenue**        | **Revenue Red**   |
+|----------------|--------------------|-------------------|
+| Black          | $38,236,124.06     |                   |
+| Blue           | $9,602,850.97      |                   |
+| Multi          | $649,030.25        |                   |
+| NA             | $1,099,303.91      |                   |
+| Red            | $21,597,890.81     | $21,597,890.81    |
+| Silver         | $19,777,339.95     |                   |
+| Silver/Black   | $147,483.91        |                   |
+| White          | $29,745.13         |                   |
+| Yellow         | $18,669,505.22     |                   |
+| **Total**      | **$109,809,274.20**| **$21,597,890.81**|
+
+No visual de tabela, apenas a cor vermelha apresenta valor na medida Revenue Red. Isso ocorre porque a expressão de filtro preserva os filtros existentes na coluna Color, e os filtros de cores diferentes (como preto) resultam em BLANK, já que não podem ser TRUE ao mesmo tempo. Assim, apenas a interseção dos filtros que correspondem a vermelho retorna valor.
+
+### Usar relacionamentos inativos
+
+Relacionamentos inativos só propagam filtros se usados dentro de USERELATIONSHIP no CALCULATE. Ao ativar um relacionamento inativo, o ativo correspondente é desativado automaticamente. Exemplo:
+
+```
+Revenue Shipped =
+CALCULATE (
+    [Revenue],
+    USERELATIONSHIP('Date'[DateKey], Sales[ShipDateKey])
+)
+```
+
+### Modificar o comportamento do relacionamento
+
+Com CROSSFILTER dentro do CALCULATE, é possível alterar dinamicamente a direção do filtro de um relacionamento ou até desativá-lo, oferecendo controle avançado sobre o modelo.
+
+## Examinar contexto de filtro
+
+A função VALUES permite que as fórmulas determinem quais valores estão no contexto de filtro.
+
+A sintaxe da função VALUES é a seguinte:
+
+```
+VALUES(<TableNameOrColumnName>)
+```
+
+A função VALUES retorna **sempre uma tabela: se recebe uma tabela, retorna suas linhas no contexto de filtro; se recebe uma coluna, retorna os valores únicos.** Identico ao DISTINCT, porém pode retornar linha em branco também.
+
+Para testar um valor específico, use HASONEVALUE ou SELECTEDVALUE para verificar se há apenas uma linha no contexto.
+
+A função HASONEVALUE retornará TRUE quando uma determinada referência de coluna tiver sido filtrada para um único valor.
+
+
+*Retornar estudo da HASONEVALUE*
 
 
 # Criar elementos visuais e relatórios do Power BI
