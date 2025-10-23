@@ -482,6 +482,12 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.4.4. Examinar contexto de filtro](#Examinar-contexto-de-filtro)
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.4.5. Realizar a transição de contexto](#Realizar-a-transição-de-contexto)
+
+&nbsp;&nbsp;&nbsp;&nbsp; [3.5. Usar funções de inteligência de dados temporais DAX em modelos semânticos](#Usar-funções-de-inteligência-de-dados-temporais-DAX-em-modelos-semânticos)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.5.1. Usar funções de inteligência de dados temporais DAX](#Usar-funções-de-inteligência-de-dados-temporais-DAX)
+
 [4. Criar elementos visuais e relatórios do Power BI](#Criar-elementos-visuais-e-relatórios-do-Power-BI)
 
 [5. Gerenciar espaços de trabalho e modelos semânticos no Power BI](#Gerenciar-espaços-de-trabalho-e-modelos-semânticos-no-Power-BI)
@@ -2951,10 +2957,226 @@ A função VALUES retorna **sempre uma tabela: se recebe uma tabela, retorna sua
 
 Para testar um valor específico, use HASONEVALUE ou SELECTEDVALUE para verificar se há apenas uma linha no contexto.
 
-A função HASONEVALUE retornará TRUE quando uma determinada referência de coluna tiver sido filtrada para um único valor.
+A função HASONEVALUE retornará TRUE quando uma determinada referência de coluna tiver sido filtrada para um único valor. Uma expressão equivalente para HASONEVALUE() é *COUNTROWS(VALUES(<columnName>)) = 1*. ONEVALUE falha quando o cálculo ocorre em um contexto agregado (como total, subtotal ou cartão com vários países)
 
+SELECTEDVALUE retorna o valor único de uma coluna no contexto; se houver vários valores, retorna BLANK ou um valor alternativo definido pelo usuário.
 
-*Retornar estudo da HASONEVALUE*
+A medida a seguir, calcula a comissão de vendas, à tabela Sales. A taxa de comissão é de 10% da receita para todos os países/regiões, exceto os Estados Unidos. Na Estados Unidos, os vendedores recebem 15% de comissão:
+
+```
+Sales Commission =
+[Revenue]
+    * IF(
+        HASONEVALUE('Sales Territory'[Country]),
+        IF(
+            VALUES('Sales Territory'[Country]) = "United States",
+            0.15,
+            0.1
+        )
+    )
+```
+
+| Region         | Revenue             | Sales Commission |
+|----------------|---------------------|------------------|
+| Australia      | $10,655,335.96      | $1,065,533.60    |
+| Canada         | $16,355,770.46      | $1,635,577.05    |
+| Central        | $7,909,009.01       | $1,186,351.35    |
+| France         | $7,251,555.65       | $725,155.56      |
+| Germany        | $4,878,300.38       | $487,830.04      |
+| Northeast      | $6,939,374.48       | $1,040,906.17    |
+| Northwest      | $16,084,942.55      | $2,412,741.38    |
+| Southeast      | $7,879,655.07       | $1,181,948.26    |
+| Southwest      | $24,184,609.60      | $3,627,691.44    |
+| United Kingdom | $7,670,721.04       | $767,072.10      |
+| **Total**      | **$109,809,274.20** |                  |
+
+O resultado da medida Sales Commission é BLANK porque há vários países no contexto de filtro, fazendo HASONEVALUE retornar FALSE. Como a medida é multiplicada por BLANK, o total também fica BLANK.
+
+Três outras funções que podem ser usadas para testar o estado do filtro são:
+
+- ISFILTERED: retorna TRUE quando uma referência de coluna passada é filtrada diretamente.
+  
+- ISCROSSFILTERED: retorna TRUE quando uma referência de coluna passada é filtrada indiretamente. Uma coluna é cruzada por filtro quando um filtro que é aplicado a outra coluna na mesma tabela, ou em uma tabela relacionada, afeta a coluna de referência ao filtrá-la.
+  
+- ISINSCOPE: retorna TRUE quando uma referência de coluna passada corresponde a um nível em uma hierarquia de níveis.
+
+Veja o que ISFILTERED e ISCROSSFILTERED retornam:
+
+```
+EVALUATE
+CALCULATETABLE (
+    {
+        ( "ISFILTERED Sales[Quantity]",         ISFILTERED ( Sales[Quantity] ) ),
+        ( "ISFILTERED Product[Color]",          ISFILTERED ( Product[Color] ) ),
+        ( "ISCROSSFILTERED Sales",              ISCROSSFILTERED ( Sales ) ),
+        ( "ISCROSSFILTERED Product[Category]",  ISCROSSFILTERED ( Product[Category] ) ),
+        ( "ISCROSSFILTERED Product",            ISCROSSFILTERED ( Product ) )
+    },
+    Sales[Quantity] = 1
+)
+```
+
+| Value1                            | Value2  |
+|-----------------------------------|---------|
+| ISFILTERED Sales[Quantity]        | true    |
+| ISFILTERED Product[Color]	        | false   |
+| ISCROSSFILTERED Sales	            | true    |
+| ISCROSSFILTERED Product[Category]	| false   |
+| ISCROSSFILTERED Product	          | false   |
+
+Aplicação de ISINSCOPE no Revenue % Total Country, seja que o valor de Revenue % Total Country não aparece nos totais:
+
+```
+Revenue % Total Country =
+VAR CurrentRegionRevenue = [Revenue]
+VAR TotalCountryRevenue =
+    CALCULATE(
+        [Revenue],
+        REMOVEFILTERS('Sales Territory'[Region])
+    )
+RETURN
+    IF(
+        ISINSCOPE('Sales Territory'[Region]),
+        DIVIDE(
+            CurrentRegionRevenue,
+            TotalCountryRevenue
+        )
+    )
+```
+
+| Group         | Country       | Region     | Revenue              | Revenue % Total Country |
+|----------------|---------------|-------------|--------------------|-------------------------|
+| North America  | Canada        | Canada      | $16,355,770.46     | 100.00%                 |
+|                |               | **Total**   | **$16,355,770.46** |                         |
+|                | United States | Central     | $7,909,009.01      | 12.55%                  |
+|                |               | Northeast   | $6,939,374.48      | 11.02%                  |
+|                |               | Northwest   | $16,084,942.55     | 25.53%                  |
+|                |               | Southeast   | $7,879,655.07      | 12.51%                  |
+|                |               | Southwest   | $24,184,609.60     | 38.39%                  |
+|                |               | **Total**   | **$62,997,590.72** |                         |
+|                | **Total**     |             | **$79,353,361.18** |                         |
+
+## Realizar a transição de contexto
+
+Quando uma medida é avaliada no contexto de linha (como em uma coluna calculada ou função iteradora), ela considera apenas os dados daquela linha. No exemplo, uma coluna calculada classifica os clientes como “Baixo” se a receita for menor que US$ 2.500, e “Alto” caso contrário.
+
+```
+Customer Segment =
+VAR CustomerRevenue = SUM(Sales[Sales Amount])
+RETURN
+    IF(CustomerRevenue < 2500, "Low", "High")
+```
+
+| Customer            | Customer Segment  |
+|---------------------|-------------------|
+| Russell Xie         | High              |
+| Savannah Baker	    | High              |
+| Maurice Tang	      | High              |
+| Emily Wood	        | High              |
+| Meghan Hernandez	  | High              |
+
+A coluna calculada deu “High” para todos porque SUM(Sales[Sales Amount]) foi avaliada no contexto de tabela (somando tudo), não no contexto de cada cliente. Para forçar a transição de contexto (aplicar o cliente da linha como filtro), use CALCULATE—assim o SUM será avaliado por cliente.
+
+Modifique a definição de coluna calculada, de maneira que ela produza o resultado correto:
+
+```
+Customer Segment =
+VAR CustomerRevenue = CALCULATE(SUM(Sales[Sales Amount]))
+RETURN
+    IF(CustomerRevenue < 2500, "Low", "High")
+```
+
+| Customer            | Customer Segment  |
+|---------------------|-------------------|
+| Russell Xie         | High              |
+| Savannah Baker	    | Low               |
+| Maurice Tang	      | High              |
+| Emily Wood	        | High              |
+| Meghan Hernandez	  | Low               |
+
+A função CALCULATE provoca transição de contexto, aplicando valores da linha como filtros. Quando há uma coluna exclusiva (como CustomerKey), basta filtrar essa coluna para que a transição ocorra, ou seja, aplica como filtro automaticamente na tabela relacionada (como Vendas).
+
+Ao usar medidas dentro de uma expressão avaliada no contexto de linha, a transição acontece automaticamente, não sendo necessário passar a medida para o CALCULATE. Por isso, uma coluna calculada que referencia a medida Revenue ainda retorna o resultado correto:
+
+```
+Customer Segment = 
+VAR CustomerRevenue = [Revenue]
+RETURN
+    IF(CustomerRevenue < 2500, "Low", "High")
+```
+
+Para criar a medida Sales Commission, use uma função iteradora para percorrer todas as regiões no contexto de filtro. Dentro da iteradora, utilize CALCULATE para realizar a transição de contexto da linha para o filtro. Não é preciso verificar se há um único valor na coluna Country, porque a iteração já garante que cada região pertença a apenas um país/região:
+
+```
+Sales Commission =
+SUMX(
+    VALUES('Sales Territory'[Region]),
+    CALCULATE(
+        [Revenue]
+        * IF(
+            VALUES('Sales Territory'[Country]) = "United States",
+            0.15,
+            0.1
+        )
+    )
+)
+```
+
+| Region         | Revenue             | Sales Commission   |
+|----------------|---------------------|--------------------|
+| Australia      | $10,655,335.96      | $1,065,533.60      |
+| Canada         | $16,355,770.46      | $1,635,577.05      |
+| Central        | $7,909,009.01       | $1,186,351.35      |
+| France         | $7,251,555.65       | $725,155.56        |
+| Germany        | $4,878,300.38       | $487,830.04        |
+| Northeast      | $6,939,374.48       | $1,040,906.17      |
+| Northwest      | $16,084,942.55      | $2,412,741.38      |
+| Southeast      | $7,879,655.07       | $1,181,948.26      |
+| Southwest      | $24,184,609.60      | $3,627,691.44      |
+| United Kingdom | $7,670,721.04       | $767,072.10        |
+| **Total**      | **$109,809,274.20** | **$14,130,806.96** |
+
+# Usar funções de inteligência de dados temporais DAX em modelos semânticos
+
+Inteligência de dados temporais refere-se a cálculos ao longo do tempo (datas, meses, trimestres, anos) e raramente a horas ou minutos. 
+
+Em DAX, ela consiste em modificar o contexto de filtro para realizar cálculos baseados em datas.
+
+Por exemplo, o ano financeiro começa em 1º de julho e termina em 30 de junho do ano seguinte. Eles produzem um visual de tabela que exibe a receita mensal e a receita desde o início do ano:
+
+| Year        | Revenue            | Revenue YTD         |
+|-------------|--------------------|---------------------|
+| **FY2018**  | **$23,860,891.17** | **$23,860,891.17**  |
+| 2017 Jul    | $1,423,357.32      | $1,423,357.32       |
+| 2017 Aug    | $2,057,902.45      | $3,481,259.78       |
+| 2017 Sep    | $2,523,947.55      | $6,005,207.32       |
+| 2017 Oct    | $561,681.48        | $6,566,888.80       |
+| 2017 Nov    | $4,764,920.16      | $11,331,808.96      |
+| 2017 Dec    | $596,746.56        | $11,928,555.52      |
+| 2018 Jan    | $1,327,674.63      | $13,256,230.15      |
+| 2018 Feb    | $3,936,463.31      | $17,192,693.45      |
+| 2018 Mar    | $700,873.18        | $17,893,566.64      |
+| 2018 Apr    | $1,519,275.24      | $19,412,841.88      |
+| 2018 May    | $2,960,378.09      | $22,373,219.97      |
+| 2018 Jun    | $1,487,671.19      | $23,860,891.17      |
+| **FY2019**  | **$34,070,108.50** | **$34,070,108.50**  |
+| 2018 Jul    | $2,939,691.00      | $2,939,691.00       |
+| 2018 Aug    | $3,964,801.20      | $6,904,492.20       |
+| 2018 Sep    | $3,287,605.93      | $10,192,098.13      |
+
+O contexto de filtro em DAX determina quais datas são consideradas nos cálculos. Por exemplo, para agosto de 2017, o contexto inclui as 31 datas do mês, mas uma medida de receita acumulada no ano ajusta o filtro para o período de 1º de julho a 31 de agosto de 2017.
+
+A inteligência de dados temporais altera o contexto de filtro para cálculos relacionados ao tempo, permitindo responder a perguntas como:
+
+- Receita acumulada no ano, trimestre ou mês.
+- Receita do mesmo período do ano anterior.
+- Crescimento da receita em relação ao ano passado.
+- Número de novos clientes por mês.
+- Valor de estoque disponível.
+- O módulo ensina a criar medidas DAX usando essas técnicas para análises temporais.
+
+## Usar funções de inteligência de dados temporais DAX
+
 
 
 # Criar elementos visuais e relatórios do Power BI
