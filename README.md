@@ -196,7 +196,7 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.1.9.1. O tempo limite da consulta expirou](#O-tempo-limite-da-consulta-expirou)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.1.9.2. Erro de Consulta do Power BI: O tempo limite expirou](#Erro-de-Consulta-do-Power-BI:-O-tempo-limite-expirou)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.1.9.2. Erro de Consulta do Power BI: O tempo limite expirou](#Erro-de-Consulta-do-Power-BI-O-tempo-limite-expirou)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [2.1.9.3. Não foi possível localizar nenhum dado formatado como uma tabela](#Não-foi-possível-localizar-nenhum-dado-formatado-como-uma-tabela)
 
@@ -487,6 +487,22 @@
 &nbsp;&nbsp;&nbsp;&nbsp; [3.5. Usar funções de inteligência de dados temporais DAX em modelos semânticos](#Usar-funções-de-inteligência-de-dados-temporais-DAX-em-modelos-semânticos)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.5.1. Usar funções de inteligência de dados temporais DAX](#Usar-funções-de-inteligência-de-dados-temporais-DAX)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.5.1.1. Requisito de tabela de datas](#Requisito-de-tabela-de-datas)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.5.1.2. Resumos ao longo do tempo](#Resumos-ao-longo-do-tempo)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.5.1.3. Comparações ao longo do tempo](#Comparações-ao-longo-do-tempo)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.5.2. Cálculos adicionais de inteligência de dados temporais](#Cálculos-adicionais-de-inteligência-de-dados-temporais)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.5.2.1. Calcular novas ocorrências](#Calcular-novas-ocorrências)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.5.2.2. Cálculos de instantâneo](#Cálculos-de-instantâneo)
+
+&nbsp;&nbsp;&nbsp;&nbsp; [3.6. Criar cálculos visuais no Power BI Desktop](#Criar-cálculos-visuais-no-Power-BI-Desktop)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.6.1. Entender os cálculos visuais](#Entender-os-cálculos-visuais)
 
 [4. Criar elementos visuais e relatórios do Power BI](#Criar-elementos-visuais-e-relatórios-do-Power-BI)
 
@@ -3176,6 +3192,203 @@ A inteligência de dados temporais altera o contexto de filtro para cálculos re
 - O módulo ensina a criar medidas DAX usando essas técnicas para análises temporais.
 
 ## Usar funções de inteligência de dados temporais DAX
+
+O DAX possui funções específicas de inteligência de tempo que facilitam a modificação automática do contexto de filtro de datas, evitando a necessidade de usar CALCULATE manualmente para ajustar esses filtros.
+
+Observação: As funções de inteligência de tempo do DAX funcionam bem com períodos padrão (ano, trimestre, mês), mas não com períodos irregulares, como meses fiscais ou semanas. Nesses casos, é preciso usar CALCULATE com filtros de data personalizados.
+
+### Requisito de tabela de datas
+
+Para usar funções de inteligência de tempo no DAX, é necessário ter uma tabela de datas marcada como tal no modelo. Essa tabela deve ter:
+- Conter valores exclusivos.
+- Abranger anos inteiros.
+- Estar livre de valores BLANKs.
+- Não ter datas ausentes.
+
+### Resumos ao longo do tempo
+
+Um grupo de funções de inteligência de dados temporais do DAX foca em resumos ao longo do tempo:
+
+- DATESYTD retorna as datas do acumulado do ano no contexto atual, e há funções equivalentes — DATESMTD e DATESQTD — para o mês e o trimestre. Essas funções podem ser usadas como filtros dentro do CALCULATE.
+  
+- TOTALYTD calcula uma expressão para o acumulado do ano (YTD) no contexto atual, e há versões equivalentes para trimestre (TOTALQTD) e mês (TOTALMTD).
+  
+- DATESBETWEEN retorna uma tabela de datas dentro de um intervalo definido por uma data inicial e uma data final.
+  
+- DATESINPERIOD retorna uma tabela de datas iniciando em uma data específica e se estendendo por um número definido de intervalos (dias, meses, trimestres ou anos).
+
+Observação: A função TOTALYTD é simples, mas aceita apenas um filtro. Para aplicar vários filtros, deve-se usar CALCULATE e incluir DATESYTD como um dos filtros.
+
+O primeiro exemplo de cálculo de inteligência de tempo usa a função TOTALYTD, cuja sintaxe é:
+
+```
+TOTALYTD(<expression>, <dates>, [, <filter>][, <year_end_date>])
+```
+
+A função TOTALYTD exige uma expressão e uma coluna de data de uma tabela de datas marcada. Opcionalmente, pode receber um filtro único ou a data de término do ano, necessária apenas se o ano não terminar em 31 de dezembro.
+
+A medida abaixo calcula a receita acumulada no ano:
+
+```
+Revenue YTD =
+TOTALYTD(
+    [Revenue],
+    'Date'[Date],
+    "6-30"
+)
+```
+
+O valor da data de término do ano "6-30" representa 30 de junho.
+
+### Comparações ao longo do tempo
+
+Outro grupo de funções de inteligência de dados temporais do DAX foca no deslocamento de períodos:
+
+- DATEADD retorna uma tabela de datas deslocadas para frente ou para trás por um número específico de intervalos a partir das datas do contexto atual.
+
+- PARALLELPERIOD retorna uma tabela de datas representando um período paralelo ao especificado, deslocado para frente ou para trás no tempo dentro do contexto de filtro atual.
+
+- SAMEPERIODLASTYEAR retorna uma tabela de datas deslocadas um ano para trás em relação às datas do contexto de filtro atual.
+
+- Funções auxiliares do DAX, como NEXTDAY, NEXTMONTH, NEXTQUARTER, NEXTYEAR, PREVIOUSDAY, PREVIOUSMONTH, PREVIOUSQUARTER e PREVIOUSYEAR, permitem navegar para frente ou para trás em períodos específicos e retornam uma tabela de datas.
+
+A medida abaixo calcula a receita do ano anterior:
+
+```
+Revenue PY =
+VAR RevenuePriorYear = CALCULATE(
+    [Revenue],
+    SAMEPERIODLASTYEAR('Date'[Date])
+)
+RETURN
+    RevenuePriorYear
+```
+
+A medida abaixo produz uma taxa de fator de variação sobre a receita mensal do ano anterior:
+
+```
+Revenue YoY % =
+VAR RevenuePriorYear = CALCULATE(
+    [Revenue],
+    SAMEPERIODLASTYEAR('Date'[Date])
+)
+RETURN
+    DIVIDE(
+        [Revenue] - RevenuePriorYear,
+        RevenuePriorYear
+    )
+```
+
+Observação: A medida Revenue YoY % exemplifica o bom uso de variáveis DAX, tornando a fórmula mais legível, fácil de testar e eficiente, pois armazena o valor da receita do ano anterior uma vez e o reutiliza na cláusula RETURN.
+
+## Cálculos adicionais de inteligência de dados temporais
+
+Algumas funções de inteligência de tempo do DAX retornam uma única data. Entre elas, FIRSTDATE e LASTDATE retornam, respectivamente, a primeira e a última data do contexto de filtro atual.
+
+### Calcular novas ocorrências
+
+As funções de inteligência de tempo também podem ser usadas para contar novas ocorrências, como novos clientes — definidos como aqueles que realizam sua primeira compra em um determinado período.
+
+A medida abaixo conta o número de clientes distintos até a data atual (LTD) — ou seja, do início até a última data no contexto de filtro:
+
+```
+Customers LTD =
+VAR CustomersLTD =
+    CALCULATE(
+        DISTINCTCOUNT(Sales[CustomerKey]),
+        DATESBETWEEN(
+            'Date'[Date],
+            BLANK(),
+            MAX('Date'[Date])
+        ),
+        'Sales Order'[Channel] = "Internet"
+    )
+RETURN
+    CustomersLTD
+```
+
+A função DATESBETWEEN retorna uma tabela de datas entre uma data inicial e uma final. Se a data inicial for BLANK, usa-se a primeira data da coluna; se a data final for BLANK, usa-se a última. No exemplo, MAX define a data final conforme o contexto — por exemplo, 31/08/2017 — retornando todas as datas até esse ponto.
+
+Na medida abaixo (New Customers) foi adicionado uma variável que armazene a contagem de clientes distintos antes do período atual. Na cláusula RETURN, foi subtraído esse valor do total de clientes LTD para obter o número de novos clientes no período:
+
+```
+New Customers =
+VAR CustomersLTD =
+    CALCULATE(
+        DISTINCTCOUNT(Sales[CustomerKey]),
+        DATESBETWEEN(
+            'Date'[Date],
+            BLANK(),
+            MAX('Date'[Date])
+        ),
+    'Sales Order'[Channel] = "Internet"
+    )
+VAR CustomersPrior =
+    CALCULATE(
+        DISTINCTCOUNT(Sales[CustomerKey]),
+        DATESBETWEEN(
+            'Date'[Date],
+            BLANK(),
+            MIN('Date'[Date]) - 1
+        ),
+        'Sales Order'[Channel] = "Internet"
+    )
+RETURN
+    CustomersLTD - CustomersPrior
+```
+
+Na variável CustomersPrior, a função DATESBETWEEN considera datas até um dia antes da primeira data do contexto atual. Como o Power BI armazena datas como números, é possível somar ou subtrair valores para ajustar essas datas.
+
+### Cálculos de instantâneo
+
+Dados de fatos às vezes são armazenados como instantâneos no tempo, como níveis de estoque ou saldos de conta, carregados periodicamente.
+
+Ao resumir esses valores, faz sentido agregar por outras dimensões (como produto), mas não por datas, já que somar níveis de diferentes dias geralmente não é útil.
+
+Para tabelas de instantâneos, as medidas podem usar funções de inteligência de tempo do DAX apenas para aplicar filtros de data.
+
+A medida abaixo buscar a última data de cada período de tempo.
+
+```
+Stock on Hand =
+CALCULATE(
+    SUM(Inventory[UnitsBalance]),
+    LASTDATE('Date'[Date])
+)
+```
+
+Observação: A medida usa a função SUM porque medidas exigem agregação, mas como há uma linha por produto em cada data, a soma efetivamente atua sobre uma única linha.
+
+Filtrar pela última data pode falhar se a data não existir (futuro ou fins de semana sem registro). A solução é usar LASTNONBLANK para encontrar a última data com valor registrado e filtrar por ela ao definir a medida Stock on Hand:
+
+```
+Stock on Hand =
+CALCULATE(
+    SUM(Inventory[UnitsBalance]),
+    LASTNONBLANK(
+        'Date'[Date],
+        CALCULATE(SUM(Inventory[UnitsBalance]))
+    )
+)
+```
+
+A função LASTNONBLANK é um iterador que retorna a última data com valor diferente de BLANK. Ela percorre as datas em ordem decrescente, avaliando a expressão fornecida, e retorna a primeira data não nula encontrada, que pode então ser usada como filtro no CALCULATE. De forma semelhante, FIRSTNONBLANK percorre em ordem crescente.
+
+Observação: A função LASTNONBLANK avalia a expressão no contexto de linha. Para avaliar corretamente no contexto de filtro, é necessário usar CALCULATE para realizar a transição de contexto.
+
+# Criar cálculos visuais no Power BI Desktop
+
+Os cálculos visuais no Power BI são DAX definidos diretamente em um visual, não armazenados no modelo. Eles tornam cálculos complexos mais fáceis, com DAX simplificado, manutenção mais simples e melhor desempenho.
+
+Exemplos incluem: 
+
+- Uma comparação de vendas ao longo dos anos.
+- Uma soma corrente de custos por categoria.
+- Uma média móvel de lucro ao longo do tempo.
+  
+Eles oferecem interface amigável e validação em tempo real, permitindo decidir quando usar cálculos visuais ou medidas para gerar insights nos relatórios.
+
+## Entender os cálculos visuais
 
 
 
