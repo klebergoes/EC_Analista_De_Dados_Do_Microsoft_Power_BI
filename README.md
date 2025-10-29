@@ -504,6 +504,22 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.6.1. Entender os cálculos visuais](#Entender-os-cálculos-visuais)
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.6.1.1. Benefícios de usar um cálculo visual](#Benefícios-de-usar-um-cálculo-visual)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.6.2. Criar cálculos visuais](#Criar-cálculos-visuais)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.6.2.1. Ocultar campos de um visual](#Ocultar-campos-de-um-visual)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.6.2.2. Trabalhar com modelos](#Trabalhar-com-modelos)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.6.2.3. Funções DAX disponíveis](#Funções-DAX-disponíveis)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.6.3. Usar parâmetros em cálculos visuais](#Usar-parâmetros-em-cálculos-visuais)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.6.3.1. Usar o parâmetro Axis](#Usar-o-parâmetro-Axis)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.6.3.2. Usar o parâmetro Reset](#Usar-o-parâmetro-Reset)
+
 [4. Criar elementos visuais e relatórios do Power BI](#Criar-elementos-visuais-e-relatórios-do-Power-BI)
 
 [5. Gerenciar espaços de trabalho e modelos semânticos no Power BI](#Gerenciar-espaços-de-trabalho-e-modelos-semânticos-no-Power-BI)
@@ -3389,6 +3405,122 @@ Exemplos incluem:
 Eles oferecem interface amigável e validação em tempo real, permitindo decidir quando usar cálculos visuais ou medidas para gerar insights nos relatórios.
 
 ## Entender os cálculos visuais
+
+Cálculos visuais no Power BI são expressões DAX criadas diretamente em um visual (como tabela ou gráfico), sem necessidade de modificar o modelo de dados. 
+
+Eles são mais simples de escrever, entender e manter que as medidas tradicionais. Permitem usar dados presentes no próprio visual — colunas, medidas ou outros cálculos visuais — facilitando a criação de análises como somas acumuladas e médias móveis, com menor complexidade e foco no que está sendo exibido.
+
+### Benefícios de usar um cálculo visual
+
+O DAX em cálculos visuais é armazenado no próprio visual, não no modelo, e só pode usar dados presentes nele. Isso simplifica o uso do DAX, reduzindo a complexidade de contexto e filtros. 
+
+Esses cálculos unem a praticidade das colunas calculadas com a flexibilidade das medidas, operando sobre dados agregados — o que melhora o desempenho. Além disso, por fazerem parte do visual, oferecem mais flexibilidade ao se adaptar à sua estrutura.
+
+Observação: Os cálculos visuais ainda estão em versão preliminar e podem ter mudanças. É importante consultar a seção [Considerações e limitações](https://learn.microsoft.com/pt-br/power-bi/transform-model/desktop-visual-calculations-overview#considerations-and-limitations) para verificar informações atualizadas.
+
+## Criar cálculos visuais
+
+Criar um cálculo visual é simples: selecione um visual e escolha **Novo cálculo visual**. A janela de cálculo visual consiste em três seções principais:
+
+- A visualização do visual, que mostra o visual com o qual você está trabalhando.
+
+- Uma barra de fórmulas na qual você pode adicionar cálculos visuais.
+
+- A matriz do visual, que mostra os dados no visual e exibe os resultados dos cálculos visuais conforme você os adiciona. Nenhum estilo ou tema que você aplicar ao seu visual será aplicado à matriz do visual.
+
+Para adicionar um cálculo visual, digite a expressão na barra de fórmulas. Por exemplo, o código a seguir calcula o lucro subtraindo o Total Product Cost e o Sales Amount:
+
+```
+Profit = [Sales Amount] – [Total Product Cost]
+```
+
+O exemplo mostra o cálculo de Profit adicionado a uma matriz com Sales Amount e Total Product Cost por Ano Fiscal, exibindo os valores anuais e os totais desses três indicadores:
+
+| Fiscal Year | Sales Amount    | Total Product Cost | Profit          |
+|-------------|-----------------|--------------------|-----------------|
+| FY2018      | $10,409,454     | $10,348,542        | $60,911.94      |
+| FY2019      | $11,608,125     | $11,348,698        | $259,427.06     |
+| FY2020      | $6,843,707      | $6,218,002         | $625,704.92     |
+| **Total**   | **$28,861,286** | **$27,915,242**    | **$946,043.92** |
+
+Por padrão, os cálculos visuais são avaliados linha a linha, como colunas calculadas. 
+
+No exemplo, o Profit é obtido subtraindo Sales Amount e Total Product Cost em cada linha da matriz. Não é necessário usar funções de agregação como SUM, o que ajuda a diferenciar cálculos visuais de medidas.
+
+### Ocultar campos de um visual
+
+Conforme você adiciona cálculos visuais, eles são mostrados na lista de campos no visual e no próprio visual.
+
+No modo de edição de cálculos visuais, é possível ocultar campos no visual, assim como se ocultam colunas ou tabelas na modelagem. Por exemplo, você pode exibir apenas o cálculo visual **Profit** e ocultar **Sales Amount** e **Total Profit** na visualização. O resultado seria este:
+
+| Fiscal Year | Profit          |
+|-------------|-----------------|
+| FY2018      |  $60,911.94     |
+| FY2019      | $259,427.06     |
+| FY2020      | $625,704.92     |
+| **Total**   | **$946,043.92** |
+
+Campos ocultos aparecem na matriz, mas não no visual final. Use-os apenas se forem necessários para os cálculos.
+
+### Trabalhar com modelos
+
+Os cálculos visuais oferecem modelos prontos para facilitar a criação de cálculos comuns, acessíveis pelo botão de modelo:
+
+- Soma acumulada: calcula a soma de valores, somando o valor atual aos anteriores.
+
+- Média móvel: calcula uma média de um conjunto de valores em uma determinada janela dividindo a soma dos valores pelo tamanho da janela.
+
+- Porcentagem do pai: calcula a porcentagem de um valor em relação ao seu pai.
+
+- Média dos filhos: calcula o valor médio do conjunto de valores filhos.
+  
+- Em relação ao anterior: compara um valor a um anterior.
+
+- Em relação ao próximo: compara um valor a um subsequente.
+
+Cada modelo tem uma função correspondente que é adicionada à barra de fórmulas quando você o escolhe. Você também pode adicionar suas próprias expressões sem depender de modelos.
+
+### Funções DAX disponíveis
+
+Os cálculos visuais permitem o uso de várias funções DAX, mas excluem funções que dependem de relacionamentos de modelo, como USERELATIONSHIP, RELATED e RELATEDTABLE. Eles também incluem funções específicas, que simplificam o uso de funções de janela DAX.
+
+## Usar parâmetros em cálculos visuais
+
+Os cálculos visuais têm parâmetros opcionais para ajudar a criar cálculos complexos com código mínimo.
+
+### Usar o parâmetro Axis
+
+Muitas funções em cálculos visuais possuem o parâmetro opcional Axis, que define como o cálculo percorre a matriz visual. Por padrão, ele usa o primeiro eixo (geralmente ROWS), avaliando o cálculo linha a linha, de cima para baixo.
+
+Os seguintes valores de parâmetro controlam como os dados são calculados:
+
+| Valor        | Descrição                                                                                              |
+|--------------|--------------------------------------------------------------------------------------------------------|
+| ROWS         |  Verticalmente nas linhas de cima para baixo.                                                          |
+| COLUMNS      | Horizontalmente entre colunas da esquerda para a direita.                                              |
+| ROWS COLUMNS | Verticalmente nas linhas de cima para baixo, continuando coluna por coluna da esquerda para a direita. |
+| COLUMNS ROWS | Horizontalmente nas colunas da esquerda para a direita, continuando linha a linha de cima para baixo.  |
+
+### Usar o parâmetro Reset
+
+O parâmetro opcional Reset, exclusivo dos cálculos visuais, controla quando a função reinicia seu valor ou muda de escopo na matriz visual. Por padrão (None), o cálculo não é reiniciado.
+
+A lista a seguir descreve os únicos valores válidos para o parâmetro Reset:
+
+- **NONE** é o valor padrão e não redefine o cálculo.
+- **HIGHESTPARENT** redefine o cálculo quando o valor do pai mais alto no eixo é alterado.
+- **LOWESTPARENT** redefine os cálculos quando o valor do pai mais baixo no eixo é alterado.
+- Um **valor numérico** que informa o Power BI por qual nível da hierarquia do visual particionar — usando inteiros positivos para especificar um nível de redefinição absoluto a partir do topo (1 = primeiro campo, 2 = segundo etc.) e inteiros negativos para especificar um nível de redefinição relativo acima da linha atual — para que o cálculo visual saiba onde reiniciar sua agregação.
+
+Para ilustrar, em um eixo com Ano, Trimestre e Mês, o HIGHESTPARENT é Ano e o LOWESTPARENT é Trimestre — esses níveis determinam como a soma acumulada é calculada.
+
+- RUNNINGSUM([Sales Amount], HIGHESTPARENT) começa em 0 para cada ano.
+
+- RUNNINGSUM([Sales Amount], LOWESTPARENT) começa em 0 para cada trimestre.
+
+Um cálculo visual com RUNNINGSUM([Sales Amount]) sem redefinição soma continuamente os valores mensais de Sales Amount, sem reiniciar entre períodos.
+
+Observação: A redefinição requer múltiplos níveis no eixo; se houver apenas um nível, deve-se usar PARTITIONBY.
 
 
 
