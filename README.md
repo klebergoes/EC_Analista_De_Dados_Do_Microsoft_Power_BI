@@ -520,6 +520,10 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.6.3.2. Usar o parâmetro Reset](#Usar-o-parâmetro-Reset)
 
+&nbsp;&nbsp;&nbsp;&nbsp; [3.7. Otimizar um modelo para desempenho no Power BI](#Otimizar-um-modelo-para-desempenho-no-Power-BI)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.7.1. Descrever técnicas de otimização de modelos semânticos](#Descrever-técnicas-de-otimização-de-modelos-semânticos)
+
 [4. Criar elementos visuais e relatórios do Power BI](#Criar-elementos-visuais-e-relatórios-do-Power-BI)
 
 [5. Gerenciar espaços de trabalho e modelos semânticos no Power BI](#Gerenciar-espaços-de-trabalho-e-modelos-semânticos-no-Power-BI)
@@ -3521,6 +3525,14 @@ Para ilustrar, em um eixo com Ano, Trimestre e Mês, o HIGHESTPARENT é Ano e o 
 Um cálculo visual com RUNNINGSUM([Sales Amount]) sem redefinição soma continuamente os valores mensais de Sales Amount, sem reiniciar entre períodos.
 
 Observação: A redefinição requer múltiplos níveis no eixo; se houver apenas um nível, deve-se usar PARTITIONBY.
+
+# Otimizar um modelo para desempenho no Power BI
+
+A otimização de desempenho (ou ajuste de desempenho) consiste em melhorar a eficiência do modelo semântico. 
+
+O módulo apresenta processos e práticas para otimizar modelos em nível empresarial, destacando que, além das boas práticas no Power BI, a colaboração com engenheiros de dados pode ser necessária para otimizar também os sistemas de dados de origem.
+
+## Descrever técnicas de otimização de modelos semânticos
 
 
 
