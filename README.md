@@ -524,6 +524,32 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.7.1. Descrever técnicas de otimização de modelos semânticos](#Descrever-técnicas-de-otimização-de-modelos-semânticos)
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.7.2. Analisar o desempenho de medidas, relacionamentos e visuais](#Analisar-o-desempenho-de-medidas,-relacionamentos-e-visuais)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.7.2.1. Identificar gargalos de desempenho do relatório](#Identificar-gargalos-de-desempenho-do-relatório)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.7.2.2. Analisar o desempenho](#Analisar-o-desempenho)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.7.2.3. Analisar resultados](#Analisar-resultados)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.7.2.4. Resolver os problemas e otimizar o desempenho](#Resolver-os-problemas-e-otimizar-o-desempenho)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.7.2.5. Visuais](#Visuais)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.7.2.6. Consulta DAX](#Consulta-DAX)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.7.2.7. Modelo semântico](#Modelo-semântico)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.7.2.8. Relacionamentos](#Relacionamentos)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.7.2.9. Colunas](#Colunas)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.7.2.10. Metadados](#Metadados)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.7.2.11. Recurso de data/hora automática](#Recurso-de-data/hora-automática)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.7.3. Usar variáveis para aprimorar o desempenho e solucionar problemas](#Usar-variáveis-para-aprimorar-o-desempenho-e-solucionar-problemas)
+
 [4. Criar elementos visuais e relatórios do Power BI](#Criar-elementos-visuais-e-relatórios-do-Power-BI)
 
 [5. Gerenciar espaços de trabalho e modelos semânticos no Power BI](#Gerenciar-espaços-de-trabalho-e-modelos-semânticos-no-Power-BI)
@@ -3533,6 +3559,156 @@ A otimização de desempenho (ou ajuste de desempenho) consiste em melhorar a ef
 O módulo apresenta processos e práticas para otimizar modelos em nível empresarial, destacando que, além das boas práticas no Power BI, a colaboração com engenheiros de dados pode ser necessária para otimizar também os sistemas de dados de origem.
 
 ## Descrever técnicas de otimização de modelos semânticos
+
+Como analista de dados, grande parte do trabalho (90% aproximadamente) envolve lidar com dados, e o baixo desempenho geralmente é causado por um modelo semântico mal projetado e / ou por cálculos DAX ineficientes (9 em 10 casos). 
+
+Otimizar o modelo desde o desenvolvimento garante relatórios mais rápidos, melhor experiência do usuário e manutenção simplificada conforme os dados crescem.
+
+A otimização busca reduzir o tamanho do modelo (usa menos memória) e usar os dados de forma eficiente, aplicando boas práticas como:
+
+- Garantir que os tipos de dados corretos sejam usados.
+
+- Remover colunas e linhas desnecessárias.
+
+- Evitar valores repetidos.
+
+- Apresentar colunas numéricas como medidas.
+
+- Reduzir a cardinalidade da coluna.
+
+- Analisar metadados do modelo.
+
+- Resumir os dados sempre que possível.
+
+## Analisar o desempenho de medidas, relacionamentos e visuais
+
+Modelos semânticos com muitas tabelas, relacionamentos ou cálculos complexos e dados redundantes tendem a gerar baixo desempenho e, consequentemente, uma experiência negativa para o usuário.
+
+Para otimizar o desempenho, é essencial identificar primeiro quais elementos do relatório ou do modelo semântico causam lentidão, para então aplicar as correções necessárias e melhorar o desempenho geral.
+
+### Identificar-gargalos-de-desempenho-do-relatório
+
+Para alcançar desempenho ideal nos relatórios, é necessário criar um modelo semântico eficiente, com consultas e medidas rápidas. Após estabelecer essa base, deve-se analisar planos de consulta, dependências e medidas para identificar e corrigir gargalos, priorizando as consultas mais lentas para otimizar o desempenho geral.
+
+### Analisar o desempenho
+
+O Performance Analyzer do Power BI Desktop permite avaliar o desempenho de cada elemento do relatório, medindo, por exemplo, o tempo de atualização dos visuais após interações do usuário. Ele ajuda a identificar os componentes que causam lentidão e facilita a solução de problemas de desempenho.
+
+Antes de usar o Performance Analyzer, é importante limpar os caches de visual e do mecanismo de dados para garantir resultados precisos na análise de desempenho:
+
+- O **cache visual** só pode ser limpo ao fechar e reabrir o Power BI Desktop. Para garantir isso, adicione uma página em branco, salve e feche o arquivo, e ao reabri-lo, ele iniciará nessa página, garantindo um cache visual limpo para a análise.
+
+- O **cache do mecanismo de dados** armazena resultados de consultas, o que pode gerar análises enganosas. Para limpar esse cache, é preciso reiniciar o Power BI Desktop ou usar o DAX Studio para invocar a função de limpeza do cache antes de reexecutar os visuais.
+
+Depois de realizar o procedimento de limpeza de cache, acesse a guia **Exibir** na faixa de opções e selecione **Performance Analyzer**.
+
+Para iniciar a análise, clique em **Iniciar gravação**, selecione a página do relatório e interaja com os elementos que deseja monitorar. O painel **Performance Analyzer** mostrará os resultados durante a interação. Ao final, clique em **Parar**.
+
+### Analisar resultados
+
+No painel **Performance Analyzer**, você pode analisar os resultados do teste de desempenho e ordenar as tarefas da mais longa para a mais curta clicando com o botão direito no ícone de **Classificar** na coluna **Duração** e selecionando **Tempo total** em ordem **decrescente**.
+
+Os logs de cada visual mostram a duração necessária para concluir diferentes categorias de tarefas:
+
+- **Consulta DAX:** tempo gasto para enviar a consulta do visual e receber os resultados do Power BI.
+  
+- **Exibição de visual:** tempo gasto para renderizar o visual na tela, incluindo a recuperação de imagens da Web ou geocódigos.
+
+- **Outros:** tempo gasto em tarefas de preparação de consultas, espera por outros visuais ou processamento em segundo plano. Para reduzir esse tempo, é necessário otimizar as consultas DAX de outros visuais ou diminuir o número de visuais no relatório.
+
+Os resultados permitem entender o comportamento do modelo semântico e identificar elementos que precisam de otimização. Devem-se focar nos visuais com maior duração e investigar o motivo da lentidão. 
+
+Para análises mais detalhadas das consultas, pode-se usar o DAX Studio, uma ferramenta gratuita de código aberto.
+
+### Resolver os problemas e otimizar o desempenho
+
+A análise identifica áreas de melhoria e oportunidades de otimização, indicando se é necessário ajustar visuais, cálculos DAX ou outros elementos do modelo semântico, fornecendo diretrizes sobre o que revisar e alterar.
+
+### Visuais
+
+Se os visuais forem o gargalo de desempenho, é necessário otimizar sem comprometer a experiência do usuário. 
+
+Reduzir o número de visuais e campos por visual melhora a performance e a clareza do relatório. Avalie se cada visual e campo agrega valor; caso não, remova ou utilize alternativas como páginas detalhadas ou dicas de ferramenta. 
+
+Visuais com mais de 100 campos tendem a carregar lentamente.
+
+### Consulta DAX
+
+No **Performance Analyzer**, é possível ver o tempo que cada consulta DAX leva para ser avaliada. Consultas com duração acima de 120 ms são um bom ponto de partida para identificar gargalos de desempenho.
+
+O **Performance Analyzer** aponta possíveis problemas, mas não indica como resolvê-los. Para entender por que uma medida é lenta, é necessário investigar mais a fundo, usando ferramentas como o DAX Studio.
+
+Você pode copiar a fórmula de cálculo de uma consulta usando **Copiar Consulta** e colá-la no **DAX Studio** para analisar detalhadamente o cálculo. Por exemplo, contar produtos com pedidos iguais ou superiores a cinco:
+
+```
+Count Customers =
+CALCULATE(
+    DISTINCTCOUNT(Order[ProductID]),
+    FILTER (Order, Order[OrderQty] >= 5)
+)
+```
+
+Após analisar a consulta, é possível identificar os gargalos de desempenho e testar funções DAX alternativas. Por exemplo, substituir FILTER por KEEPFILTER pode reduzir o tempo de execução, como mostrado ao testar novamente no Performance Analyzer:
+
+```
+Count Customers =
+CALCULATE(
+    DISTINCTCOUNT(Order[ProductID]),
+    KEEPFILTERS(Order[OrderQty] >= 5)
+)
+```
+
+Após a alteração, limpe o cache de dados e repita o teste no **Performance Analyzer** para verificar a melhoria.
+
+### Modelo semântico
+
+Medidas e visuais com duração curta normalmente não causam problemas de desempenho. Consultas DAX com duração alta indicam que uma medida pode estar mal escrita ou que há problemas no modelo semântico, como relacionamentos, colunas, metadados ou a opção **Data/hora automática** habilitada.
+
+### Relacionamentos
+
+É importante revisar os relacionamentos entre tabelas para garantir que estão corretos e que a cardinalidade está configurada adequadamente. Por exemplo, uma coluna com valores exclusivos não deve ser configurada como “muitos lados”, pois isso pode afetar o desempenho.
+
+### Colunas
+
+É recomendado não importar colunas desnecessárias. Se não for possível removê-las na origem, use o Power Query para avaliar seu valor no modelo semântico e exclua as que não agregam relevância. Remover colunas desnecessárias reduz o tamanho do modelo, acelera a atualização e melhora o desempenho geral do relatório.
+
+### Metadados
+
+Metadados são informações sobre os dados, incluindo nome, tipo, formato das colunas, esquema do banco, design do relatório e histórico de atualizações. 
+
+Analisar os metadados ao carregar dados no Power BI ajuda a identificar inconsistências, normalizar dados, remover colunas desnecessárias e corrigir erros, o que melhora o desempenho do modelo semântico. 
+
+O Power Query pode ser usado para examinar e ajustar colunas, linhas e valores antes de criar relatórios:
+
+- **Colunas desnecessárias:** Remova colunas que não serão usadas no relatório.
+
+- **Linhas desnecessárias:** Elimine linhas vazias ou irrelevantes.
+
+- **Tipo de dados:** Verifique e corrija tipos de dados incorretos nas colunas.
+
+- **Nomes de consulta:** Renomeie tabelas e consultas para nomes claros e intuitivos.
+
+- **Detalhes da coluna:** O Power Query oferece três opções de visualização na guia **Exibir** para analisar os metadados das colunas:
+
+    - Qualidade da coluna: mostra a porcentagem de itens válidos, com erros ou vazios; valores inválidos devem ser corrigidos.
+      
+    - Distribuição da coluna: apresenta a frequência e distribuição dos valores.
+      
+    - Perfil da coluna: exibe gráficos estatísticos e de distribuição das colunas.
+ 
+Observação: Para analisar uma consulta com mais de 1.000 linhas, altere a configuração padrão de **Criação de perfil da coluna com base nas 1.000 primeiras linhas** para **Criação de perfil da coluna com base em todo o conjunto de dados**.
+
+Outros metadados importantes incluem o tamanho do arquivo e as taxas de atualização de dados. No Power BI, os dados são armazenados e compactados pelo mecanismo VertiPaq, e modelos menores consomem menos memória, atualizam mais rápido e proporcionam melhor desempenho em cálculos e visuais.
+
+### Recurso de data/hora automática
+
+A opção Data/hora automática do Power BI Desktop cria tabelas de datas ocultas para colunas de data, facilitando a inteligência temporal. É recomendável mantê-la apenas para análises de calendário simples.
+
+Se você já possui uma tabela de dimensões de data, deve desabilitar o recurso para reduzir o tamanho do modelo e o tempo de atualização. 
+
+Para habilitar/desabilitar a opção **Data/hora automática**, vá até **Arquivo > Opções e configurações > Opções** e selecione a página **Global** ou **Arquivo Atual**. Em qualquer uma das páginas, selecione **Carregamento de Dados** e, na seção **Inteligência de Dados Temporais**, marque ou desmarque a caixa de seleção conforme necessário.
+
+## Usar variáveis para aprimorar o desempenho e solucionar problemas
 
 
 
