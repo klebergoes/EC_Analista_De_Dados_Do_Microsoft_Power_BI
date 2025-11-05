@@ -550,6 +550,22 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.7.3. Usar variáveis para aprimorar o desempenho e solucionar problemas](#Usar-variáveis-para-aprimorar-o-desempenho-e-solucionar-problemas)
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.7.3.1. Usar variáveis para aprimorar o desempenho](#Usar-variáveis-para-aprimorar-o-desempenho)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.7.3.2. Usar variáveis para aprimorar a legibilidade](#Usar-variáveis-para-aprimorar-a-legibilidade)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.7.3.3. Usar variáveis para solucionar problemas com várias etapas](#Usar-variáveis-para-solucionar-problemas-com-várias-etapas)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.7.4. Reduzir a cardinalidade](#Reduzir-a-cardinalidade)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.7.4.1. Identificar níveis de cardinalidade nas colunas](#Identificar-níveis-de-cardinalidade-nas-colunas)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.7.4.2. Reduzir a cardinalidade do relacionamento](#Reduzir-a-cardinalidade-do-relacionamento)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.7.4.3. Aprimorar o desempenho reduzindo os níveis de cardinalidade](#Aprimorar-o-desempenho-reduzindo-os-níveis-de-cardinalidade)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.7.5. Otimizar modelos do DirectQuery com armazenamento no nível da tabela](#Otimizar-modelos-do-DirectQuery-com-armazenamento-no-nível-da-tabela)
+
 [4. Criar elementos visuais e relatórios do Power BI](#Criar-elementos-visuais-e-relatórios-do-Power-BI)
 
 [5. Gerenciar espaços de trabalho e modelos semânticos no Power BI](#Gerenciar-espaços-de-trabalho-e-modelos-semânticos-no-Power-BI)
@@ -3709,6 +3725,121 @@ Se você já possui uma tabela de dimensões de data, deve desabilitar o recurso
 Para habilitar/desabilitar a opção **Data/hora automática**, vá até **Arquivo > Opções e configurações > Opções** e selecione a página **Global** ou **Arquivo Atual**. Em qualquer uma das páginas, selecione **Carregamento de Dados** e, na seção **Inteligência de Dados Temporais**, marque ou desmarque a caixa de seleção conforme necessário.
 
 ## Usar variáveis para aprimorar o desempenho e solucionar problemas
+
+O uso de variáveis em DAX torna os cálculos mais simples, legíveis e eficientes. Elas reduzem a complexidade e o tempo de processamento, especialmente em expressões com muitas funções aninhadas ou lógica repetida, contribuindo para melhorar o desempenho do modelo semântico.
+
+O uso de variáveis em seu modelo semântico fornece as seguintes vantagens:
+
+- Melhor desempenho: As variáveis em DAX melhoram o desempenho das medidas, evitando que o Power BI reavalie a mesma expressão repetidamente, o que pode reduzir o tempo de processamento pela metade.
+
+- Legibilidade aprimorada: As variáveis em DAX melhoram a legibilidade das fórmulas, substituindo expressões complexas por nomes curtos e descritivos, facilitando a leitura e compreensão dos cálculos.
+
+- Depuração simplificada: As variáveis em DAX facilitam a depuração e o teste de expressões, auxiliando na solução de problemas em fórmulas.
+
+- Complexidade reduzida: As variáveis em DAX substituem o uso das funções EARLIER e EARLIEST, tornando as fórmulas mais simples e fáceis de entender, sem a necessidade de lidar com contextos de filtro complexos.
+
+### Usar variáveis para aprimorar o desempenho
+
+O exemplo mostra que o uso de variáveis em DAX torna as medidas mais eficientes. 
+
+Em vez de repetir a mesma expressão várias vezes, a variável — criada com VAR — armazena o resultado (como “vendas do mesmo período do ano passado”) e o reutiliza no cálculo, simplificando e otimizando a fórmula:
+
+*Sem variável:*
+
+```
+Sales YoY Growth =
+DIVIDE(
+    ([Sales] - CALCULATE([Sales], PARALLELPERIOD('Date'[Date], -12, MONTH))),
+    CALCULATE([Sales], PARALLELPERIOD('Date'[Date], -12, MONTH))
+)
+```
+
+*Com variável:*
+
+```
+Sales YoY Growth =
+VAR SalesPriorYear =
+    CALCULATE([Sales], PARALLELPERIOD('Date'[Date], -12, MONTH))
+VAR SalesVariance =
+    DIVIDE(([Sales] - SalesPriorYear), SalesPriorYear)
+RETURN
+    SalesVariance
+```
+
+A primeira medida é ineficiente por repetir o mesmo cálculo duas vezes, enquanto a segunda, com variável, avalia a expressão apenas uma vez, tornando o processamento mais rápido. Em modelos com várias medidas, o uso de variáveis pode reduzir significativamente o tempo de consulta e melhorar o desempenho geral do modelo.
+
+### Usar variáveis para aprimorar a legibilidade
+
+Além de melhorar o desempenho, as variáveis também tornam o código mais legível. 
+
+Usar nomes descritivos, como SalesPriorYear, facilita o entendimento, a documentação e a manutenção do código, evitando ambiguidades que surgem com nomes genéricos como X ou temp.
+
+### Usar variáveis para solucionar problemas com várias etapas
+
+As variáveis em DAX facilitam a depuração, permitindo testar partes da fórmula separadamente. 
+
+É possível reescrever temporariamente a cláusula **RETURN** para exibir o valor de uma variável específica, como **SalesPriorYear**, e assim identificar problemas no cálculo:
+
+```
+Sales YoY Growth % =
+VAR SalesPriorYear =  CALCULATE([Sales], PARALLELPERIOD('Date'[Date], -12, MONTH))
+VAR SalesPriorYear% = DIVIDE(([Sales] - SalesPriorYear), SalesPriorYear)  
+RETURN SalesPriorYear%
+```
+
+A cláusula **RETURN* pode ser usada para retornar apenas uma variável durante a depuração, como **SalesPriorYear%**, facilitando a análise do cálculo. 
+
+Após o teste, a expressão original pode ser restaurada, mantendo o código DAX mais simples e fácil de entender.
+
+## Reduzir a cardinalidade
+
+Cardinalidade é um termo usado para descrever a exclusividade dos valores em uma coluna. 
+
+A cardinalidade também é usada no contexto de relacionamentos de modelo, onde ela descreve a direção do relacionamento.
+
+### Identificar níveis de cardinalidade nas colunas
+
+Anteriormente, quando você usava o Power Query para analisar os metadados, a opção **Distribuição da coluna** na guia da faixa de opções **Exibir** mostrava estatísticas sobre quantos itens distintos e exclusivos estavam em cada coluna nos dados.
+
+- **Contagem de valores distintos:** Número total de valores diferentes encontrados em uma determinada coluna.
+
+- **Contagem de valores exclusivos:** Número total de valores que aparecem apenas uma vez em uma determinada coluna.
+
+Colunas com poucos valores únicos têm baixa cardinalidade, enquanto aquelas com muitos valores únicos têm alta cardinalidade. 
+
+Baixa cardinalidade melhora o desempenho, por isso é recomendável reduzir colunas com alta cardinalidade no modelo semântico.
+
+### Reduzir a cardinalidade do relacionamento
+
+Ao importar várias tabelas no Power BI, é necessário criar relacionamentos entre elas para garantir cálculos e análises corretos. O Power BI normalmente faz isso automaticamente, mas às vezes é preciso criar ou ajustar manualmente os relacionamentos.
+
+Cada relacionamento tem uma cardinalidade, que define como as tabelas se conectam:
+
+- **Muitos para um (*:1):** – Mais comum; vários registros de uma tabela se relacionam a um único valor em outra.
+
+- **Um para um (1:1):** – Cada valor aparece apenas uma vez em ambas as tabelas.
+
+- **Um para muitos (1:*):** – Um valor único em uma tabela pode se relacionar com vários valores correspondentes na outra.
+
+- **Muitos para muitos (:):** – Permite que ambos os lados tenham valores repetidos, eliminando a necessidade de tabelas intermediárias.
+
+Ao criar relacionamentos no modelo, as colunas envolvidas devem ter o mesmo tipo de dados. Caso contrário, o relacionamento não funcionará — por exemplo, não é possível relacionar uma coluna de texto com outra de inteiro.
+
+As colunas com o tipo de dados **Inteiro** têm melhor desempenho do que as colunas com o tipo de dados **Texto**.
+
+### Aprimorar o desempenho reduzindo os níveis de cardinalidade
+
+O Power BI oferece técnicas para reduzir a quantidade de dados carregados nos modelos, o que melhora o desempenho e a cardinalidade. A principal estratégia é usar tabelas resumidas em vez de tabelas detalhadas, agregando informações por dia, semana ou mês — o que pode reduzir o tamanho do modelo em até 99%, embora com perda de detalhes analíticos.
+
+Essa limitação pode ser equilibrada com Modelos de composição, que permitem combinar modos de armazenamento diferentes:
+
+- **Importação** para tabelas resumidas (rápidas e leves).
+
+- **DirectQuery** para tabelas detalhadas (acesso sob demanda aos dados brutos).
+
+Assim, é possível criar relatórios de alto desempenho e usar drill-through para consultar detalhes apenas quando necessário.
+
+## Otimizar modelos do DirectQuery com armazenamento no nível da tabela
 
 
 
