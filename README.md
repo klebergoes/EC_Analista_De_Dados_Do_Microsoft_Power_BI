@@ -566,7 +566,31 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.7.5. Otimizar modelos do DirectQuery com armazenamento no nível da tabela](#Otimizar-modelos-do-DirectQuery-com-armazenamento-no-nível-da-tabela)
 
-[4. Criar elementos visuais e relatórios do Power BI](#Criar-elementos-visuais-e-relatórios-do-Power-BI)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.7.5.1. Implicações do uso do DirectQuery](#Implicações-do-uso-do-DirectQuery)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.7.5.2. Comportamento das conexões do DirectQuery](#Comportamento-das-conexões-do-DirectQuery)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.7.5.3. Limitações de conexões do DirectQuery](#Limitações-de-conexões-do-DirectQuery)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.7.5.4. Otimizar o desempenho](#Otimizar-o-desempenho)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.7.5.5. Otimizar dados no Power BI Desktop](#Otimizar-dados-no-Power-BI-Desktop)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.7.5.6. Otimizar a fonte de dados subjacente (banco de dados conectado)](#Otimizar-a-fonte-de-dados-subjacente-(banco-de-dados-conectado))
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.7.5.7. Personalizar as opções de redução da consulta](#Personalizar-as-opções-de-redução-da-consulta)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.7.6. Criar e gerenciar agregações](#Criar-e-gerenciar-agregações)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.7.6.1. Criar agregações](#Criar-agregações)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [3.7.6.2. Gerenciar-agregações](#Gerenciar-agregações)
+
+[4. Criar relatórios eficazes no Power BI](#Criar-relatórios-eficazes-no-Power-BI)
+
+&nbsp;&nbsp;&nbsp;&nbsp; [4.1. Definir os requisitos de design de relatório](#Definir-os-requisitos-de-design-de-relatório)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.1.1. Identificar o público-alvo](#Identificar-o-público-alvo)
 
 [5. Gerenciar espaços de trabalho e modelos semânticos no Power BI](#Gerenciar-espaços-de-trabalho-e-modelos-semânticos-no-Power-BI)
 
@@ -3841,8 +3865,164 @@ Assim, é possível criar relatórios de alto desempenho e usar drill-through pa
 
 ## Otimizar modelos do DirectQuery com armazenamento no nível da tabela
 
+O DirectQuery é um modo de armazenamento em que o Power BI acessa os dados diretamente da fonte, sem importá-los para o modelo.
+
+No modo DirectQuery, o desempenho das consultas depende diretamente da velocidade da fonte de dados. Consultas lentas geram uma má experiência ao usuário e podem até atingir tempo limite. Além disso, quanto mais usuários e visuais houver em um relatório, maior será a carga sobre a fonte de dados, já que cada visual envia uma ou mais consultas.
+
+O desempenho do modelo semântico no DirectQuery também depende de fatores externos, como a latência da rede e o desempenho do servidor da fonte de dados, que pode ser afetado por outras cargas de trabalho ou manutenções simultâneas.
+
+O uso do DirectQuery pode comprometer o desempenho do modelo, por isso é essencial ter controle ou acesso ao banco de dados de origem para aplicar otimizações.
+
+### Implicações do uso do DirectQuery
+
+Embora a importação de dados seja a prática recomendada, o DirectQuery pode ser usado quando:
+
+- Os dados mudam com frequência e é preciso relatórios quase em tempo real;
+
+- Há grande volume de dados sem possibilidade de pré-agregação;
+
+- Existem restrições legais de soberania de dados;
+
+- A fonte é multidimensional, como o SAP BW.
+
+Nesses casos, é importante entender bem o comportamento e as limitações do DirectQuery para otimizar seu desempenho.
+
+### Comportamento das conexões do DirectQuery
+
+Quando você usa o DirectQuery para se conectar aos dados no Power BI Desktop, essa conexão se comporta da seguinte maneira:
+
+- Em fontes relacionais, é possível selecionar várias tabelas, cada uma com sua própria consulta. Em fontes multidimensionais (como SAP BW), é possível selecionar apenas a fonte inteira.
+
+- No DirectQuery, ao carregar os dados, apenas o esquema é importado para o Power BI. Os dados são consultados diretamente na fonte sempre que um visual é exibido, e o tempo de atualização depende do desempenho dessa fonte.
+
+- Alterações na fonte de dados não aparecem imediatamente nos visuais por causa do cache. É necessário atualizar o relatório para que novas consultas sejam enviadas e os visuais sejam atualizados corretamente.
+
+- Ao publicar um arquivo do Power BI Desktop no serviço, é enviado apenas o modelo semântico, sem incluir dados.
+
+- Ao abrir ou criar um relatório no serviço do Power BI, os dados são consultados diretamente na fonte. Se a fonte estiver em ambiente local, é preciso configurar um gateway de dados.
+
+- Visuais ou páginas podem ser fixados em painéis e atualizados automaticamente conforme uma agenda definida. Os blocos mostram os dados da última atualização, podendo não refletir mudanças recentes, mas é possível atualizá-los manualmente a qualquer momento.
+
+### Limitações de conexões do DirectQuery
+
+O uso do DirectQuery pode ter implicações negativas. As limitações variam de acordo com a fonte de dados específica usada. Você deve levar em consideração os seguintes aspectos:
+
+- O **desempenho** do DirectQuery depende fortemente da velocidade e eficiência da fonte de dados, impactando diretamente a experiência do usuário.
+
+- Em termos de **segurança**, ao usar múltiplas fontes no DirectQuery, é essencial entender como os dados transitam entre elas e verificar se há regras de segurança na fonte, pois o Power BI exibe os dados a todos os usuários com acesso ao relatório.
+
+- No DirectQuery, há limitações nas **transformações de dados** feitas pelo Power Query. Em fontes como SAP BW (OLAP), nenhuma transformação é permitida, sendo necessário realizar ajustes diretamente na fonte de dados.
+
+- Algumas das funcionalidades de **modelagem** que você tem com dados importados não estão disponíveis ou ficam limitados.
+
+- As funcionalidades de **relatórios** do DirectQuery são, em geral, iguais às dos dados importados, desde que a fonte de dados tenha bom desempenho.
+
+### Otimizar o desempenho
+
+É possível analisar as consultas enviadas à fonte de dados para identificar causas de lentidão e, então, ajustar o Power BI ou a própria fonte para melhorar o desempenho.
+
+### Otimizar dados no Power BI Desktop
+
+Mesmo após otimizar a fonte de dados, é possível usar o **Performance Analyzer** no Power BI Desktop para identificar consultas lentas e localizar gargalos. As técnicas de otimização são as mesmas usadas para dados importados, como reduzir o número de visuais, campos, colunas e linhas desnecessárias no relatório.
+
+### Otimizar a fonte de dados subjacente (banco de dados conectado)
+
+A principal ação é otimizar o banco de dados de origem, pois melhorias no desempenho da fonte refletem diretamente em um melhor desempenho do DirectQuery no Power BI.
+
+Leve em consideração do uso das seguintes práticas do banco de dados padrão que se aplicam à maioria das situações:
+
+- Evite o uso de colunas calculadas complexas, pois a expressão de cálculo será inserida nas consultas de origem. É mais eficiente executar o cálculo diretamente na fonte de dados, pois isso evita sobrecarregar o Power BI e melhora o desempenho das consultas. Considere adicionar surrrogate key nas tabelas de dimensão para otimizar o desempenho e melhorar os relacionamentos no modelo.
+
+- Verifique se a tabela de origem possui índices adequados e, se necessário, crie índices otimizados para melhorar o desempenho das consultas.
+
+### Personalizar as opções de redução da consulta
+
+O Power BI permite reduzir o número de consultas enviadas à fonte, desativando interações lentas para evitar acessos contínuos e melhorar o desempenho.
+
+Você pode ajustar as opções de **redução de dados** no Power BI em **Arquivo > Opções e configurações > Opções > Redução da consulta** para melhorar o desempenho do relatório.
+
+As seguintes opções de redução da consulta estão disponíveis:
+
+- **Reduzir o número de consultas enviadas por** - Por padrão, todos os visuais interagem entre si, mas é possível desativar essa interação geral e definir manualmente quais visuais se relacionam usando **Editar interações**.
+
+- **Segmentações** - Por padrão, a opção **Aplicar instantaneamente alterações feitas na segmentação** permanece selecionada. Para forçar os usuários do relatório a aplicar as alterações feitas na segmentação manual, selecione a opção **Adicionar um botão Aplicar a cada segmentação para aplicar alterações quando você estiver pronto**.
+
+- **Filtros** - Por padrão, os filtros são aplicados automaticamente, mas é possível exigir que o usuário clique em um botão **Aplicar** — seja para cada filtro básico ou para todos de uma vez no painel de filtragem.
+
+## Criar e gerenciar agregações
+
+A agregação resume os dados em um nível mais alto (como por data ou produto), reduz o tamanho das tabelas e melhora o desempenho das consultas:
+
+De:
+| Data | Valor |
+|------|-------|
+|      |       |
+|      |       |
+|      |       |
+|      |       |
+
+Para:
+| Data | Valor |
+|------|-------|
+|      |       |
+|      |       |
+
+Sua organização pode usar agregações em modelos semânticos para melhorar o desempenho e reduzir o volume de dados processados nas consultas:
+
+- As agregações melhoram o desempenho em grandes volumes de dados, pois armazenam dados resumidos em cache — o que consome menos recursos — e ainda facilitam a análise e a descoberta de insights nesses grandes conjuntos de dados.
+
+- As agregações aceleram a atualização de dados, pois reduzem o volume processado — atualizando apenas dados resumidos em vez de milhões de linhas — o que diminui o tempo de atualização e entrega os dados mais rapidamente aos usuários.
+
+- As agregações ajudam a reduzir e controlar o tamanho de modelos semânticos grandes, tornando-os mais leves e eficientes.
+
+- As agregações preparam o modelo para o crescimento futuro, prevenindo problemas de desempenho, atualização e consultas à medida que os dados aumentam.
+
+### Criar agregações
+
+Antes de criar agregações, é preciso definir o nível de granularidade desejado — por exemplo, agregar os dados de vendas por dia.
+
+Depois de definir a granularidade, escolha o método para criar as agregações — há várias formas possíveis que levam ao mesmo resultado:
+
+- Com acesso ao banco de dados, você poderá criar uma tabela (ou exibição) e, em seguida, importá-la no Power BI Desktop.
+
+- No Power BI Desktop, você pode usar o Power Query para criar as agregações passo a passo.
+
+1. Para criar a agregação, selecione as colunas que deseja manter no relatório usando **Escolher Colunas** na guia **Página Inicial** e clique em **OK**.
+
+2. Depois de exibir as colunas, selecione **Agrupar por** em **Página Inicial**, escolha a coluna desejada como campo de agrupamento e nomeie a nova coluna.
+
+3. Na opção **Avançado**, clique em **Adicionar agregação**, nomeie a nova coluna, escolha a operação e a coluna correspondente. Repita o processo para todas as agregações desejadas e clique em **OK**.
+
+4. Após alguns minutos, a visualização mostrará os dados já agregados.
+
+5. Clique em **Fechar e Aplicar** para aplicar as alterações. Ao atualizar o modelo, o Power BI exibirá o número de linhas carregadas — que deve ser bem menor que o original, confirmando a redução dos dados após a agregação.
+
+### Gerenciar-agregações
+
+É possível gerenciar agregações no Power BI Desktop para ajustar seu comportamento conforme necessário.
+
+No Power BI Desktop, você pode abrir **Gerenciar Agregações** clicando com o botão direito na tabela no painel **Dados** e selecionando essa opção.
+
+Para cada coluna de agregação, você pode ajustar o tipo de resumo e alterar a tabela ou coluna associada. Após as alterações, clique em **Aplicar a Todos**.
+
+# Criar relatórios eficazes no Power BI
+
+Use visualizações e storytelling no Power BI para criar relatórios dinâmicos que engajem usuários, destaquem insights importantes e apoiem decisões baseadas em dados.
+
+# Definir os requisitos de design de relatório
+
+Como acontece com qualquer projeto, um bom ponto de partida ao criar relatórios é definir metas claras. Em seu projeto de relatório, essas metas devem procurar ajudar você a determinar o seguinte:
+
+- Públicos-alvo dos seus relatórios.
+
+- Tipos de relatório.
+
+- Requisitos da interface do usuário.
+
+- Requisitos da experiência do usuário.
+
+## Identificar o público-alvo
 
 
-# Criar elementos visuais e relatórios do Power BI
 
 # Fonte
