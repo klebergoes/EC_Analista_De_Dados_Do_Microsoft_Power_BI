@@ -592,6 +592,40 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.1.1. Identificar o público-alvo](#Identificar-o-público-alvo)
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.1.2. Determinar tipos de relatório](#Determinar-tipos-de-relatório)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.1.2.1. Painel](#Painel)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.1.2.2. Relatório analítico](#Relatório-analítico)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.1.2.3. Relatório operacional](#Relatório-operacional)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.1.2.4. Relatório educacional](#Relatório-educacional)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.1.3. Definir os requisitos da interface do usuário](#Definir-os-requisitos-da-interface-do-usuário)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.1.3.1. Fator forma](#Fator-forma)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.1.3.2. Método de entrada](#Método-de-entrada)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.1.3.3. Estilo e tema](#Estilo-e-tema)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.1.3.4. Acessibilidade](#Acessibilidade)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.1.4. Definir os requisitos da experiência do usuário](#Definir-os-requisitos-da-experiência-do-usuário)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.1.4.1. Permitir a exploração interativa](#Permitir-a-exploração-interativa)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.1.4.2. Fornecer acesso flexível aos dados](#Fornecer-acesso-flexível-aos-dados)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.1.4.3. Suporte à análise e personalização de cenários](#Suporte-à-análise-e-personalização-de-cenários)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.1.4.4. Automatizar a entrega e incentivar a colaboração](#Automatizar-a-entrega-e-incentivar-a-colaboração)
+
+&nbsp;&nbsp;&nbsp;&nbsp; [4.2. Projetar relatórios do Power BI](#Projetar-relatórios-do-Power-BI)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.1. Introdução](#Introdução)
+
 [5. Gerenciar espaços de trabalho e modelos semânticos no Power BI](#Gerenciar-espaços-de-trabalho-e-modelos-semânticos-no-Power-BI)
 
 [6. Fonte](#Fonte)
@@ -4022,6 +4056,164 @@ Como acontece com qualquer projeto, um bom ponto de partida ao criar relatórios
 - Requisitos da experiência do usuário.
 
 ## Identificar o público-alvo
+
+Identificar o público-alvo é essencial no design de relatórios, pois garante que o resultado final seja eficiente e atenda às necessidades dos usuários.
+
+Há três amplos públicos-alvo consumidores de relatório:
+
+- Executivo: Responsável por planejar e tomar decisões estratégicas de médio e longo prazo para garantir o bom funcionamento dos negócios.
+  
+- Analista de dados: Orienta a organização, avaliando estratégias, aprimorando processos e implementando melhorias para aumentar a eficácia dos negócios.
+  
+- Trabalhador da informação (gerente): Utiliza dados para apoiar decisões e ações operacionais do dia a dia
+
+## Determinar tipos de relatório
+
+O design de relatórios costuma ser definido pelo tipo de relatório, que se relaciona diretamente ao público-alvo. As necessidades do público podem ser atendidas por um ou mais dos quatro tipos de relatório:
+
+- Executivos -> Painel
+  
+- Analistas -> Analítico
+  
+- Trabalhadores da informação -> Operacional
+  
+- Público em geral -> Educacional
+
+Cada tipo de relatório requer uma abordagem específica para os requisitos de interface e experiência do usuário.
+
+### Painel
+
+Um painel tem como objetivo monitorar e interpretar rapidamente informações essenciais, com visuais claros e focados que evitam ambiguidades. 
+
+Ele apresenta insights selecionados para o público, como métricas de alto nível em uma única página, respondendo a perguntas de desempenho como “Como estamos indo?”.
+
+### Relatório analítico
+
+Um relatório analítico oferece um ambiente interativo e estruturado para explorar dados e responder perguntas complexas, como “Por que isso aconteceu?” ou “O que pode acontecer a seguir?”. 
+
+Ele utiliza filtros, segmentações e visuais detalhados para permitir análise profunda e descoberta de insights.
+
+### Relatório operacional
+
+Um relatório operacional permite monitorar dados em tempo real, tomar decisões e agir diretamente a partir do relatório. 
+
+Focado em eficiência e usabilidade, ele evita recursos analíticos complexos para manter a operação ágil.
+
+### Relatório educacional
+
+Um relatório educacional apresenta informações de forma clara e explicativa para públicos que não conhecem bem os dados ou o contexto. 
+
+Ele combina narrativa e orientação para facilitar a compreensão, como em relatórios sobre o progresso da vacinação contra a COVID-19 filtrados por região.
+
+## Definir os requisitos da interface do usuário
+
+Os requisitos de interface do usuário definem como os relatórios são visualizados e interagem com o usuário, considerando fatores como formato, método de entrada, estilo, tema e acessibilidade.
+
+### Fator forma
+
+No design de relatórios, o fator forma refere-se ao tamanho e à orientação do dispositivo usado para visualização. 
+
+Monitores grandes favorecem relatórios complexos em paisagem, enquanto dispositivos móveis exigem designs simplificados, com menos e maiores visuais, geralmente em retrato. 
+
+Em alguns casos, relatórios podem ter versões adaptadas para visualização móvel ou até em realidade aumentada.
+
+### Método de entrada
+
+Ao definir a interface do usuário, é essencial considerar os métodos de entrada dos dispositivos. 
+
+Computadores usam teclado e mouse, enquanto dispositivos móveis dependem de gestos, toques e comandos de voz, e dispositivos de realidade aumentada usam movimentos corporais. 
+
+O design deve refletir essas interações, ajustando visuais, espaçamento e elementos interativos. 
+
+Em relatórios inseridos em aplicativos, filtros e ações podem ser aplicados automaticamente conforme o contexto do usuário.
+
+### Estilo e tema
+
+Os requisitos de interface devem incluir estilo e tema, garantindo uma aparência consistente e alinhada à identidade visual da organização. 
+
+O tema deve conter:
+
+- Um símbolo de marca ou logotipo.
+- Uma paleta de cores que se alinhe ou complemente a identidade visual organizacional.
+- Configurações de texto. 
+
+Usar um repositório central para armazenar imagens e temas facilita a atualização e manutenção visual dos relatórios.
+
+### Acessibilidade
+
+A interface do usuário deve considerar a acessibilidade, garantindo que pessoas com deficiências visuais ou físicas possam usar os relatórios plenamente. 
+
+Isso inclui:
+
+- Fontes claras e grandes.
+  
+- Visuais bem espaçados e grandes.
+  
+- Cores contrastantes claras e distintivas.
+  
+- Navegação intuitiva de relatórios, que possa ser compreendida por teclado e leitores de tela.
+
+Projetar com acessibilidade desde o início amplia o alcance e melhora a experiência de todos os usuários.
+
+## Definir os requisitos da experiência do usuário
+
+Os requisitos de experiência do usuário garantem que os relatórios do Power BI atendam ao público-alvo, tornando-os mais intuitivos, acessíveis e úteis para a tomada de decisões.
+
+### Permitir a exploração interativa
+
+A interatividade torna os relatórios mais dinâmicos e acessíveis, permitindo que os usuários explorem dados, façam análises e encontrem insights de forma independente:
+
+- Faça drill up, busca detalhada e drill-through nos detalhes.
+  
+- Navegação no relatório ou para outros relatórios.
+  
+- Filtros e segmentações para visuais, páginas ou todo o relatório.
+
+Adicione botões de drill-through para permitir que os usuários explorem detalhes, como transações por região, facilitando o acesso a diferentes níveis de informação.
+
+### Fornecer acesso flexível aos dados
+
+O acesso flexível a dados torna os relatórios mais inclusivos e úteis, permitindo que os usuários explorem e acessem informações de acordo com suas necessidades e habilidades:
+
+- Exporte dados como arquivos de Excel ou CSV.
+  
+- Faça perguntas usando linguagem natural (visual de perguntas e respostas).
+  
+- Configure alertas de dados para valores-chave (nos painéis de serviço do Power BI).
+  
+- Link para páginas da Web abertas.
+  
+- Configure ações para abrir aplicativos, gravar valores de entrada de dados ou iniciar fluxos de trabalho.
+
+O visual de P e R permite explorar dados por meio de linguagem natural, facilitando o acesso a informações mesmo para usuários sem familiaridade com o relatório.
+
+### Suporte à análise e personalização de cenários
+
+Recursos de análise e personalização permitem testar cenários e ajustar a visualização dos dados, facilitando a compreensão de impactos e apoiando decisões mais informadas.
+
+- Análise de teste de hipóteses com parâmetros ajustáveis.
+  
+- Layouts de página que funcionam em várias páginas e têm boa qualidade de impressão.
+  
+- Imprimir o relatório em uma impressora física ou como um documento PDF.
+
+Um parâmetro de teste de hipóteses de crescimento de vendas permite ajustar a demanda e visualizar seu impacto na receita, tornando o relatório mais interativo e útil para o planejamento.
+
+### Automatizar a entrega e incentivar a colaboração
+
+Assinaturas e conversas em relatórios promovem colaboração e mantêm os usuários atualizados, aumentando o engajamento e o valor contínuo dos relatórios:
+
+- Assinar o relatório para que ele possa ser entregue automaticamente como um documento conforme agendado.
+  
+- Recursos de colaboração que permitem adicionar declarações, comentários ou participar de uma conversa sobre o relatório.
+
+Assinaturas enviam relatórios atualizados por e-mail regularmente, enquanto comentários permitem discutir insights diretamente no relatório, promovendo colaboração e decisões mais acessíveis.
+
+# Projetar relatórios do Power BI
+
+Crie relatórios eficazes do Power BI que sejam visualmente atraentes e fáceis de entender com estrutura de relatório consistente, objetos interativos e filtragem.
+
+## Introdução
 
 
 
