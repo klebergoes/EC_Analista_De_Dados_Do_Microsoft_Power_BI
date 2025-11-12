@@ -626,6 +626,48 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.1. Introdução](#Introdução)
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.1.1. Estrutura de relatório](#Estrutura-de-relatório)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.1.2. Páginas de relatório](#Páginas-de-relatório)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.2. Projetar o layout de relatório analítico](#Projetar-o-layout-de-relatório-analítico)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.2.1. Posicionamento](#Posicionamento)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.2.2. Equilíbrio](#Equilíbrio)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.2.3. Proximidade](#Proximidade)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.2.4. Contraste](#Contraste)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.2.5. Repetição](#Repetição)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.3. Projetar relatórios visualmente atraentes](#Projetar-relatórios-visualmente-atraentes)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.3.1. Espaço](#Espaço)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.3.2. Margens](#Margens)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.3.3. Espaçamento de objeto](#Espaçamento-de-objeto)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.3.4. Tamanho](#Tamanho)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.3.5. Tamanho da página](#Tamanho-da-página)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.3.6. Tamanho do visual](#Tamanho-do-visual)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.3.7. Alinhamento](#Alinhamento)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.3.8. Seções implícitas](#Seções-implícitas)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.3.9. Seções explícitas](#Seções-explícitas)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.3.10. Cor](#Cor)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.3.11. Consistência](#Consistência)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.4. Usar objetos de relatório](#Usar-objetos-de-relatório)
+
 [5. Gerenciar espaços de trabalho e modelos semânticos no Power BI](#Gerenciar-espaços-de-trabalho-e-modelos-semânticos-no-Power-BI)
 
 [6. Fonte](#Fonte)
@@ -4214,6 +4256,181 @@ Assinaturas enviam relatórios atualizados por e-mail regularmente, enquanto com
 Crie relatórios eficazes do Power BI que sejam visualmente atraentes e fáceis de entender com estrutura de relatório consistente, objetos interativos e filtragem.
 
 ## Introdução
+
+Você pode criar relatórios no Power BI Desktop ou no serviço online, enquanto os aplicativos móveis servem apenas para visualização.
+
+Observação: O Power BI Desktop funciona apenas no Windows e é usado para criar relatórios e modelos, com foco neste módulo no design de relatórios.
+
+### Estrutura de relatório
+
+Um relatório do Power BI se conecta a um único modelo semântico e contém uma ou mais páginas com objetos organizados. Os objetos de relatório incluem:
+
+- Visuais: Dados de modelos semânticos.
+  
+- Elementos: Textos, botões, formas e imagens.
+
+```
+├── Relatório
+
+│   ├── Páginas
+
+│   │   ├── Visuais ---> Query --- > Modelo Semântico
+
+│   │   ├── Elementos
+```
+
+### Páginas de relatório
+
+No Power BI, é possível gerenciar páginas do relatório como no Excel — adicionando, renomeando, ocultando ou excluindo. 
+
+A criação de múltiplas páginas deve seguir um fluxo lógico de informações, com um resumo inicial e detalhes nas seguintes. 
+
+Páginas podem ser separadas em relatórios diferentes para atender públicos distintos ou controlar o acesso. 
+
+Também é possível ocultá-las, criar navegação entre elas e definir configurações como tamanho, fundo e informações da página.
+
+Dica: Duplicar páginas acelera o desenvolvimento, mas deve ser feito com cautela — muitas vezes, é melhor usar filtros ou segmentações em uma única página em vez de criar várias páginas semelhantes.
+
+## Projetar o layout de relatório analítico
+
+Um bom relatório deve seguir princípios de design para facilitar a compreensão dos dados. 
+
+Ele pode ter várias páginas, cada uma com um propósito claro e objetos relevantes, como visuais ou elementos decorativos. 
+
+É importante evitar misturar temas na mesma página e aplicar princípios de equilíbrio, contraste, proximidade e repetição no layout.
+
+Dica: O design de relatórios une ciência e arte, devendo focar em comunicar os dados de forma clara e eficaz. A simplicidade é essencial — menos é mais.
+
+### Posicionamento
+
+Um bom design de relatório depende do posicionamento dos objetos: coloque as informações mais importantes no canto superior esquerdo e organize os elementos da esquerda para a direita e de cima para baixo.
+
+Ordem de leitura:
+
+1ª ---------------------->
+
+2ª ---------------------->
+
+Observação: O posicionamento deve seguir o sentido de leitura do público: para idiomas LTR, organize da esquerda para a direita; para RTL, como árabe e hebraico, do canto superior direito para a esquerda.
+
+Mantenha os objetos de relatório alinhados e agrupados logicamente para transmitir ordem e clareza. 
+
+Um layout bem organizado conecta os elementos visuais e evita desorganização. 
+
+Aplique a regra dos terços, dividindo a página em uma grade de nove partes para posicionar os objetos de forma equilibrada e atraente:
+
+|  |  |  |
+|--|--|--|
+|  |  |  |
+|  |  |  |
+
+### Equilíbrio
+
+O equilíbrio no design de relatórios garante estabilidade visual, distribuindo o peso dos objetos de forma harmônica. 
+
+Ele pode ser simétrico (peso igual dos dois lados) ou assimétrico (uso de contraste). 
+
+A proporção áurea, baseada na sequência de Fibonacci, ajuda a criar equilíbrio assimétrico, destacando primeiro elementos maiores e depois guiando o olhar para visuais menores e complementares.
+
+### Proximidade
+
+A proximidade no layout refere-se à forma como os objetos são agrupados. 
+
+Elementos relacionados devem ficar próximos e alinhados de modo consistente, enquanto grupos diferentes devem ser separados por espaço para facilitar a leitura e destacar seções distintas.
+
+### Contraste
+
+O contraste destaca elementos importantes no relatório, usando diferenças de cor, fonte ou estilo para guiar o olhar do usuário e indicar onde ele deve focar ou interagir primeiro.
+
+### Repetição
+
+A repetição traz consistência e reforça a organização do relatório. 
+
+Usar o mesmo formato para elementos semelhantes, como cartões de métricas, ajuda o usuário a reconhecer padrões e compreender os dados mais rapidamente.
+
+## Projetar relatórios visualmente atraentes
+
+Um bom relatório combina dados corretos, visuais adequados e design atraente. 
+
+Ele deve ser claro, fácil de usar e guiar o usuário rapidamente às respostas, mantendo organização mesmo com vários elementos visuais.
+
+### Espaço
+
+O espaço é fundamental no design de relatórios, pois reduz a poluição visual e melhora a leitura, tanto nas margens da página quanto entre os objetos do relatório.
+
+### Margens
+
+As margens criam uma borda visual que enquadra o relatório e mantêm o equilíbrio do layout. 
+
+Embora não haja configuração automática, é importante manter espaçamento consistente nos lados e ajustar o topo e a base para incluir elementos como títulos ou segmentações.
+
+### Espaçamento de objeto
+
+Deixe espaço adequado ao redor e dentro dos objetos do relatório para destacar seções, mas evite excessos que causem desequilíbrio. O ideal é manter um espaçamento uniforme e visualmente equilibrado.
+
+Observação: Verifique se os cabeçalhos dos visuais não se sobrepõem a outros objetos. Manter espaçamento adequado entre eles evita problemas de visualização e interação.
+
+### Tamanho
+
+O tamanho pode estar relacionado ao tamanho da página e ao tamanho do visual.
+
+### Tamanho da página
+
+O tamanho da página pode ser predefinido ou personalizado, inclusive maior que a tela, exigindo rolagem. 
+
+Porém, páginas muito grandes com muitos visuais podem demorar para carregar e não renderizar na ordem esperada.
+
+### Tamanho do visual
+
+Visuais mais importantes devem ser maiores, pois atraem mais atenção. 
+
+Visuais semelhantes precisam ter tamanhos iguais. 
+
+Muitos visuais se adaptam bem a diferentes tamanhos, mas gráficos menores podem ocultar detalhes. 
+
+Mesmo assim, cada visual deve ser claro em seu tamanho normal, e o modo de foco pode ser usado para ampliar e explorar detalhes.
+
+### Alinhamento
+
+Mantenha os visuais alinhados e com espaçamentos consistentes. 
+
+Garanta também alinhamento uniforme em títulos e legendas. 
+
+Organize a página em seções, explícitas ou implícitas, com visuais bem alinhados dentro delas.
+
+### Seções implícitas
+
+Seções implícitas agrupam visuais próximos, usando o espaçamento para indicar associação, guiar a atenção do usuário e criar equilíbrio e estrutura no relatório.
+
+### Seções explícitas
+
+Seções explícitas utilizam formas coloridas como fundo e visuais alinhados sobre elas, usando cor e espaçamento para dividir claramente o relatório em áreas distintas.
+
+Dica: Os comandos de alinhamento na guia **Formatar** permitem alinhar visuais de forma rápida e precisa no relatório.
+
+### Cor
+
+Use cores com moderação e propósito, preferindo tons suaves alinhados à identidade visual. 
+
+Reserve cores fortes para destacar exceções. 
+
+Garanta bom contraste, especialmente para acessibilidade. 
+
+O uso excessivo ou inconsistente de cores pode distrair e prejudicar a leitura dos dados.
+
+### Consistência
+
+Mantenha consistência no design do relatório — em espaçamento, margens, tamanhos, alinhamento e formatação (fontes, cores, estilos e rótulos). 
+
+Inconsistências visuais tornam o relatório confuso. 
+
+A melhor forma de garantir uniformidade é usar um tema de relatório, que aplica formatações padronizadas a todo o projeto e pode ser personalizado conforme necessário.
+
+Observação: Evite substituir manualmente as configurações do tema (como inserir cores HEXA), pois essas substituições não mudam ao trocar de tema. Faça isso apenas em casos excepcionais para manter a consistência visual.
+
+Dica: Você pode usar um site externo como powerbi.tips para gerar um tema. O site orienta você na criação de uma paleta de cores e na definição de valores de propriedade para todos os tipos de visual principais.
+
+## Usar objetos de relatório
 
 
 
