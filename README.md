@@ -668,6 +668,30 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.4. Usar objetos de relatório](#Usar-objetos-de-relatório)
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.4.1. Visuais](#Visuais)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.4.2. Elementos](#Elementos)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.5. Selecionar visuais do relatório](#Selecionar-visuais-do-relatório)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.5.1. Visuais categóricos](#Visuais-categóricos)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.5.2. Visuais de série temporal](#Visuais-de-série-temporal)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.5.3. Visuais proporcionais](#Visuais-proporcionais)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.5.4. Visuais numéricos](#Visuais-numéricos)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.5.5. Visuais de grade](#Visuais-de-grade)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.5.6. Visuais de desempenho](#Visuais-de-desempenho)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.5.7. Visuais geoespaciais](#Visuais-geoespaciais)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.5.8. Layout visual](#Layout-visual)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.6. Aplicar filtros e segmentações a relatórios](#Aplicar-filtros-e-segmentações-a-relatórios)
+
 [5. Gerenciar espaços de trabalho e modelos semânticos no Power BI](#Gerenciar-espaços-de-trabalho-e-modelos-semânticos-no-Power-BI)
 
 [6. Fonte](#Fonte)
@@ -4431,6 +4455,166 @@ Observação: Evite substituir manualmente as configurações do tema (como inse
 Dica: Você pode usar um site externo como powerbi.tips para gerar um tema. O site orienta você na criação de uma paleta de cores e na definição de valores de propriedade para todos os tipos de visual principais.
 
 ## Usar objetos de relatório
+
+Os objetos de relatório são colocados em cada página de relatório e incluem:
+
+- Visuais: visualizações de dados de modelos semânticos.
+
+- Elementos: fornecem interesse visual, mas não usam dados de modelo semântico. Elementos incluem caixas de texto, botões, formas e imagens.
+
+Todos os objetos de relatório compartilham propriedades comuns configuráveis nas opções de Formato, como localização, tamanho, texto alternativo, título e efeitos visuais (fundo, borda, sombra etc.).
+
+### Visuais
+
+Visuais são representações gráficas de dados do modelo semântico. O Power BI oferece mais de 30 visuais integrados disponíveis na primeira seção do painel de Visualizações.
+
+Dica: Para identificar um ícone no painel Visualizações, basta passar o cursor sobre ele para ver o tipo de visual exibido em uma dica de ferramenta.
+
+Além dos visuais principais, é possível adicionar visuais personalizados do Microsoft AppSource ou por meio de arquivos PBIVIZ.
+
+Para configurá-los, basta:
+
+- Selecionar o tipo de visual e ajustá-lo na página.
+  
+- Mapear os campos do modelo semântico.
+
+- Opcionalmente, aplique filtros no nível do visual.
+
+- É possível ajustar os mapeamentos de campo, renomeando-os, alterando o tipo de resumo ou exibindo itens sem dados.
+
+- Você pode ajustar o campo e a direção da classificação, escolhendo entre ordem crescente ou decrescente.
+
+- Você pode aplicar opções de formato para ajustar a aparência e o estilo do visual conforme desejado.
+
+- Quando disponível, é possível usar opções de Análise para adicionar elementos como linhas de referência, detecção de anomalias e previsões baseadas em IA.
+
+Observação: As etapas de 2 a 4 definem a consulta analítica, que trata de filtrar, agrupar e resumir dados do modelo semântico.
+
+### Elementos
+
+Os elementos servem para enriquecer o visual do relatório, mas não utilizam dados do modelo semântico (com uma exceção específica).
+
+Os quatro tipos de elemento são:
+
+- Caixa de texto: permite adicionar texto formatado, títulos e hiperlinks.
+
+- Botões: possibilitam interação, como navegação entre páginas ou abertura de URLs.
+
+- Formas: servem como elementos decorativos ou botões com ações personalizadas.
+
+- Imagens: permitem inserir arquivos visuais (como logotipos) e também podem atuar como botões.
+
+A caixa de texto pode exibir valores dinâmicos do modelo semântico que se atualizam conforme os filtros da página. 
+
+Embora não seja um visual, comporta-se como um e também existe na forma de Narrativa inteligente, que gera resumos e insights automáticos em texto.
+
+Durante o design, é possível usar uma caixa de texto ou o visual de Narrativa inteligente — ambos geram o mesmo resultado. Depois, pode-se inserir valores dinâmicos via P e R e formatá-los conforme desejado.
+
+## Selecionar visuais do relatório
+
+O principal objetivo da visualização de dados é comunicar informações de forma clara e eficaz. 
+
+Escolher o tipo e o layout corretos é essencial, pois um visual inadequado pode confundir ou distorcer os dados. 
+
+### Visuais categóricos
+
+Gráficos de barras ou colunas são ideais para comparar várias categorias. 
+
+A escolha depende da quantidade de categorias e do tipo de dado. 
+
+Evite usar cores para muitas divisões (como em barras empilhadas) e não utilize gráficos de linhas com eixo categórico, pois podem sugerir relações inexistentes. 
+
+Prefira ordenar as categorias por valor, em ordem crescente ou decrescente, para facilitar a leitura e destacar o que for mais relevante.
+
+Observação: Você deverá classificar pela categoria quando houver uma sequência estabelecida, como etapas de um processo que devem ser exibidas nessa ordem.
+
+### Visuais de série temporal
+
+Use gráficos de linhas ou colunas para exibir valores ao longo do tempo, com o eixo X ordenado do mais antigo ao mais recente. 
+
+O gráfico de linhas mostra claramente a evolução temporal e pode incluir previsões. 
+
+Ele é ideal para dados contínuos, mas, se houver períodos sem valores, prefira colunas para evitar interpretações incorretas.
+
+Outros visuais elementais do Power BI que você pode usar para dados de série temporal incluem:
+
+- Gráfico de colunas empilhadas
+
+- Gráfico de áreas
+
+- Gráfico de colunas empilhadas e linhas
+
+- Gráfico de faixas, que tem o benefício adicional de mostrar alterações de classificação ao longo do tempo
+
+Observação: O eixo do tempo deve seguir o sentido de leitura do público: da esquerda para a direita em idiomas LTR e da direita para a esquerda em idiomas RTL.
+
+### Visuais proporcionais
+
+Visuais proporcionais mostram como cada parte contribui para o todo, destacando a distribuição dos valores em uma dimensão. 
+
+Gráficos de barras ou colunas 100% empilhadas são ideais para isso, exibindo proporções em vez de valores absolutos, embora os valores reais possam ser mostrados em dicas de ferramenta se necessário.
+
+Outros visuais elementais do Power BI que você pode usar para visualização proporcional incluem:
+
+- Gráfico de Colunas 100% Empilhadas
+  
+- Gráfico de funil
+  
+- Mapa de árvore
+  
+- Gráfico de pizza
+  
+- Gráfico de rosca
+
+Observação: Visuais proporcionais só devem ser usados quando todos os valores forem positivos ou todos negativos, pois não representam corretamente combinações dos dois.
+
+### Visuais numéricos
+
+Valores numéricos destacados podem ser exibidos em visuais de cartão para comunicar rapidamente informações importantes. 
+
+Cartões de várias linhas permitem mostrar múltiplos valores em um só visual.
+
+### Visuais de grade
+
+Tabelas e matrizes são úteis para exibir detalhes e comparações. 
+
+Tabelas têm colunas fixas e mostram dados resumidos, enquanto matrizes permitem agrupamentos em linhas e colunas, além de navegação hierárquica. 
+
+A formatação condicional (cores, ícones, barras de dados) destaca padrões e facilita a leitura. 
+
+Esses visuais equilibram relatórios e ajudam a identificar rapidamente valores e tendências.
+
+### Visuais de desempenho
+
+Comunicar desempenho envolve comparar um valor com sua meta e destacar a variação entre ambos, positiva ou negativa, usando cores ou ícones. 
+
+O visual de KPI mostra essa relação e o progresso ao longo do tempo, exigindo três elementos: a medida acompanhada, a meta e uma série temporal. 
+
+Outros visuais adequados para mostrar desempenho são:
+
+- Medidor
+  
+- Tabela, com formatação condicional
+  
+- Matriz, com formatação condicional
+
+### Visuais geoespaciais
+
+Quando há dados geoespaciais, eles podem ser exibidos em visuais de mapa. 
+
+O Power BI oferece diferentes tipos de mapas com opções de formatação para destacar essas informações. 
+
+Mapas de bolhas funcionam melhor para dados detalhados, como por cidade, enquanto mapas coropléticos são mais adequados para níveis mais amplos, como estados, permitindo comparar regiões por gradações de cor.
+
+Observação: Mapas ocupam bastante espaço e nem sempre são necessários. Se a localização não for essencial, é melhor usar um visual categórico em vez de um mapa.
+
+### Layout visual
+
+A escolha do tipo de visual também deve considerar o espaço disponível no relatório. 
+
+Gráficos de barras 100% empilhadas são mais fáceis de ler em áreas largas e baixas, enquanto gráficos de colunas 100% empilhadas funcionam melhor em espaços estreitos e altos, mantendo clareza e boa ocupação visual.
+
+## Aplicar filtros e segmentações a relatórios
 
 
 
