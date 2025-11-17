@@ -692,6 +692,38 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.6. Aplicar filtros e segmentações a relatórios](#Aplicar-filtros-e-segmentações-a-relatórios)
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.6.1. Introdução à filtragem de relatórios](#Introdução-à-filtragem-de-relatórios)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.6.2. Modelo semântico](#Modelo-semântico)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.6.3. Estrutura de relatório](#Estrutura-de-relatório)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.6.4. Medida](#Medida)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.6.5. Aplicar filtros à estrutura do relatório](#Aplicar-filtros-à-estrutura-do-relatório)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.6.6. Aplicar filtros com segmentações](#Aplicar-filtros-com-segmentações)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.7. Compreender as técnicas e considerações de filtragem](#Compreender-as-técnicas-e-considerações-de-filtragem)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.7.1. Outras técnicas de filtragem](#Outras-técnicas-de-filtragem)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.7.2. Interações com visual](#Interações-com-visual)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.7.3. Drill-through](#Drill-through)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.7.4. Dica de ferramenta de relatório](#Dica-de-ferramenta-de-relatório)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.7.5. Indicadores](#Indicadores)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.7.6. Outras técnicas](#Outras-técnicas)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.7.7. Selecionar técnicas de filtro de relatório](#Selecionar-técnicas-de-filtro-de-relatório)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.7.8. Dicas de filtragem](#Dicas-de-filtragem)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.8. Estudo de caso: configurar filtros de relatório com base nos comentários](#Estudo-de-caso:-configurar-filtros-de-relatório-com-base-nos-comentários)
+
 [5. Gerenciar espaços de trabalho e modelos semânticos no Power BI](#Gerenciar-espaços-de-trabalho-e-modelos-semânticos-no-Power-BI)
 
 [6. Fonte](#Fonte)
@@ -4615,6 +4647,262 @@ A escolha do tipo de visual também deve considerar o espaço disponível no rel
 Gráficos de barras 100% empilhadas são mais fáceis de ler em áreas largas e baixas, enquanto gráficos de colunas 100% empilhadas funcionam melhor em espaços estreitos e altos, mantendo clareza e boa ocupação visual.
 
 ## Aplicar filtros e segmentações a relatórios
+
+A filtragem de relatórios é um tema complexo devido à variedade de técnicas disponíveis, mas essa complexidade oferece maior controle sobre o design do relatório. A unidade apresenta os principais recursos de filtragem e explica as técnicas que podem ser aplicadas durante a criação do relatório.
+
+### Introdução à filtragem de relatórios
+
+A filtragem pode ocorrer em cinco níveis diferentes de um relatório:
+
+- Modelo semântico, com RLS (segurança em nível de linha)
+
+- Relatório
+
+- Página
+  
+- Visual
+  
+- Medida
+  
+Os filtros no nível de relatório, página e visual se aplicam à estrutura do relatório.
+
+Estrutura do relatório:
+
+```
+├── Modelo Semantico (RLS)
+
+│   ├── Relatório
+
+│   │   ├── Página
+
+│   │   │   ├── Visual
+
+│   │   │   │   ├── Medida
+```
+
+### Modelo semântico
+
+Cada relatório consulta um único modelo semântico, que deve ser um modelo semântico. 
+
+O modelo semântico pode impor a RLS (segurança em nível de linha) para restringir o acesso a um subconjunto de dados, e usuários diferentes verão dados diferentes. 
+
+Um relatório não pode determinar se o modelo semântico impõe a RLS, e não pode substituir a RLS.
+
+Importante: Ao aplicar filtros em tabelas que têm RLS, é preciso tomar cuidado para não gerar resultados em branco para alguns usuários. Por exemplo, se o modelo restringe a visualização por país e você filtra o relatório por Austrália, um usuário que só pode ver dados dos Estados Unidos não verá nada no relatório.
+
+### Estrutura de relatório
+
+A estrutura de um relatório é hierárquica. A estrutura do relatório é a seguinte:
+
+- O nível superior é o relatório.
+  
+- O segundo nível compreende suas páginas.
+  
+- O terceiro nível compreende objetos de relatório, que consistem em visuais e elementos.
+  
+- No painel Filtros, você pode adicionar um filtro a qualquer um desses níveis.
+
+### Medida
+
+Medidas são cálculos em DAX usados para resumir dados no modelo semântico. 
+
+Elas podem alterar o contexto de filtro usando CALCULATE ou CALCULATETABLE, funções que permitem adicionar, remover ou modificar filtros e relacionamentos. 
+
+Funções de inteligência de tempo também mudam o contexto, podendo substituir filtros aplicados no relatório.
+
+No Power BI Desktop, você pode criar medidas no nível do relatório.
+
+Um exemplo é a média móvel de 3 meses, que precisa expandir o filtro do mês para incluir os meses anteriores, o que é feito com CALCULATE ou funções de tempo.
+
+### Aplicar filtros à estrutura do relatório
+
+No tempo de design do relatório, use o painel Filtros para aplicar filtros à estrutura do relatório.
+
+O painel Filtros tem três seções:
+
+- Filtros em todas as páginas: são filtros globais que afetam todo o relatório.
+  
+- Filtros nesta página: afetam apenas uma página específica e se somam aos filtros do nível de relatório.
+  
+- Filtros neste visual: atuam somente sobre um visual selecionado e se acumulam aos filtros de página e de relatório. Diferente dos filtros de página e relatório, filtros no nível do visual podem usar medidas.
+
+Os filtros se aplicam a um único campo e usam um dos seguintes tipos de filtro:
+
+- Básico
+  
+- Avançado, que permite criar condições mais complexas usando operadores específicos do tipo de dados
+  
+- N Principais
+  
+- Data e hora relativas
+
+É possível bloquear filtros para impedir que os usuários os removam ou alterem, o que é útil para filtros essenciais ao design do relatório, página ou visual. 
+
+Também é possível ocultar filtros, deixando-os invisíveis para o consumidor. Isso é recomendado quando o filtro não precisa ser exibido, como no caso de filtros usados apenas para limpar dados ou remover valores em branco.
+
+### Aplicar filtros com segmentações
+
+A segmentação é um visual usado para filtrar outros visuais de forma intuitiva, sendo um dos elementos mais comuns em relatórios. O autor do relatório pode controlar sua aparência, formato e funcionamento. 
+
+Por padrão, ela filtra todos os visuais da página, mas é possível ajustar as interações para limitar quais visuais ela afeta. Além disso, a segmentação pode ser sincronizada para funcionar em várias páginas do relatório.
+
+importante: Embora pareça que a segmentação cria filtros no nível de página, na verdade ela é apenas um visual que envia filtros para outros visuais da página (ou de outras páginas, quando sincronizada). Ela não é um filtro de página, mas um visual que propaga filtros.
+
+Uma segmentação pode usar um ou vários campos da mesma tabela (ou de uma hierarquia), exibindo uma árvore expansível quando há múltiplos níveis.
+
+O layout é responsivo ao tipo de dado: texto gera uma lista, números geram um filtro “entre” e datas geram um intervalo com seleção por calendário.
+
+No design, você pode alterar o layout, transformando listas em listas suspensas para economizar espaço, e ajustar segmentações numéricas e de datas para permitir diferentes formas de selecionar limites ou intervalos, pois esses tipos representam valores contínuos.
+
+Observação: Para alterar o estilo da segmentação, selecione Formatar seu visual > Configurações de segmentação > Visual > Opções > Estilo.
+
+Segmentações baseadas em campos de data permitem usar layouts de datas relativas, que filtram períodos passados, presentes ou futuros em relação à data e hora atuais. Assim, o usuário pode, por exemplo, filtrar rapidamente por “hoje”.
+
+Dica: Segmentações em formato de lista suspensa são muito usadas porque economizam espaço na página e deixam mais área para outros visuais. Além disso, elas só fazem consulta ao modelo semântico quando são abertas, o que pode melhorar o desempenho e acelerar a renderização da página do relatório.
+
+Segmentações em lista ou suspensas permitem configurar como os itens podem ser selecionados. Ao ativar Seleção única, o usuário só pode escolher um valor por vez — ideal para casos como “Cenário” (Real, Orçamento ou Previsão), onde faz sentido filtrar apenas uma opção de cada vez.
+
+## Compreender as técnicas e considerações de filtragem
+
+Algumas técnicas de filtragem de relatório se aplicam no tempo de design, enquanto outras são relevantes no momento do consumo do relatório (no modo de exibição de leitura).
+
+### Outras técnicas de filtragem
+
+Além de filtros e segmentações, os autores de relatório podem empregar outras técnicas de filtragem, como:
+
+- Interações com visual
+
+- Drill-through
+
+- Dica de ferramenta de relatório
+
+- Indicadores
+
+- Opções de relatório
+
+- Opções de redução de consulta
+
+###  Interações com visual
+
+Por padrão, quando o usuário interage com um visual, essa ação filtra automaticamente os outros visuais da página — como se cada visual funcionasse como uma segmentação. Por exemplo, clicar em uma coluna de um gráfico filtra os demais visuais. Para remover o filtro, basta clicar novamente no item ou selecionar outro visual.
+
+Dica: Durante a filtragem cruzada, você pode introduzir mais filtros cruzados, mesmo de outros visuais, pressionando a tecla Ctrl.
+
+A filtragem cruzada (e o realce cruzado) funciona entre dois visuais. No entanto, no tempo de design, você pode editar interações com visual entre qualquer par de visuais e em qualquer direção. Além disso, você pode desabilitar a filtragem cruzada ou modificar a interação para usar o realce cruzado. Clique no visual -> Formato -> Editar interrações
+
+### Drill-through
+
+Adicione páginas de drill-through para permitir que os consumidores de relatório analisem os visuais. 
+
+Por padrão, a ação de drill-through propaga todos os filtros que se aplicam ao visual para a página de drill-through.
+
+### Dica de ferramenta de relatório
+
+Adicione dicas de ferramentas de relatório que serão exibidas quando os consumidores de relatório passarem o cursor sobre visuais. Por padrão, a dica de ferramenta de relatório recebe todos os filtros que se aplicam ao visual.
+
+### Indicadores
+
+Indicadores registram um estado específico do relatório — incluindo filtros, segmentações, página atual e como os visuais estão configurados. Tanto autores quanto consumidores podem criá-los. 
+
+Quando um indicador é acionado, ele restaura exatamente esse estado salvo. Ele pode ser ativado pelo painel de indicadores ou por botões, imagens ou formas. 
+
+Assim, é possível criar um indicador que guarda o estado padrão das segmentações e usá-lo em um botão como “Redefinir segmentações”.
+
+### Outras técnicas
+
+O autor do relatório pode ajustar configurações para controlar como os filtros funcionam e como o usuário interage com eles. Entre as opções disponíveis, é possível:
+
+- Desativar filtros persistentes.
+
+- Ocultar cabeçalhos de visuais (em todos ou em apenas um visual), impedindo o usuário de ver o ícone de filtro.
+
+- Ocultar o ícone de filtro de um visual específico.
+
+- Impedir que o usuário altere o tipo de filtro no painel (básico/avançado).
+
+- Remover a caixa de pesquisa do painel de filtros.
+
+Também é possível configurar o relatório para reduzir a quantidade de consultas enviadas ao modelo semântico, o que melhora a performance quando o usuário muda filtros, segmentações ou interage com os visuais.
+
+### Selecionar técnicas de filtro de relatório
+
+Filtros e segmentações alcançam o mesmo resultado, mas cada um tem vantagens diferentes.
+
+O painel Filtros oferece melhor desempenho e não ocupa espaço na página, pois não precisa renderizar visuais.
+
+Já as segmentações oferecem maior flexibilidade de formatação e podem ser integradas ao design da página, criando uma experiência mais elegante e intuitiva para o usuário.
+
+A escolha entre filtro e segmentação envolve equilibrar desempenho e design, garantindo que a segmentação, se usada, esteja bem posicionada e alinhada ao layout do relatório.
+
+O painel Filtros oferece várias vantagens:
+
+- Fica sempre no lado direito do relatório, facilitando a localização.
+
+- Permite filtros avançados, como Top N, contém, não contém, em branco, etc.
+
+- Possui caixa de pesquisa e ordenção, úteis quando há muitos filtros.
+
+- Garante melhor desempenho, já que não precisa renderizar visuais.
+
+- Permite bloquear ou ocultar filtros.
+
+- Com o botão Aplicar, é possível enviar todas as mudanças de uma vez, reduzindo consultas.
+
+- Permite filtrar por medidas (no nível de visual).
+
+As desvantagens do painel Filtros são:
+
+- Possui pouca flexibilidade de design (apenas ajustes básicos de fonte e cor).
+
+- É preciso decidir com cuidado quais filtros ocultar, para não confundir o usuário.
+
+- Pode ser difícil perceber quando filtros estão aplicados no nível de visual.
+
+Vantagens das segmentações:
+
+- Podem ser colocadas em qualquer posição da página, criando um layout mais intuitivo.
+
+- São altamente personalizáveis em estilo e funcionalidade.
+
+- Permitem criar segmentações hierárquicas (por hierarquia ou vários campos da mesma tabela).
+
+- Mostram claramente o filtro selecionado diretamente na página.
+
+- Podem exibir imagens quando o campo é uma URL de imagem.
+
+- Podem filtrar somente visuais específicos usando Editar interações.
+
+- Podem receber filtros como qualquer visual (ex.: remover BLANK).
+
+- Permitem classificação dos itens.
+
+- Segmentações sincronizadas podem filtrar outras páginas do relatório.
+
+Desvantagens das segmentações:
+
+- Podem reduzir o desempenho, pois cada segmentação é um visual que precisa ser renderizado.
+
+- Ocupam espaço na página que poderia ser usado para outros visuais.
+
+- Oferecem opções de filtragem menos avançadas que o painel Filtros — por exemplo, não permitem N Principais.
+
+Visuais também podem funcionar como filtros (por exemplo, clicar em barras de um gráfico filtra outros visuais). Porém, a desvantagem é que muitos usuários não percebem que podem interagir com esses visuais para filtrar o relatório.
+
+### Dicas de filtragem
+
+Veja a seguir algumas dicas de filtragem que ajudam a produzir designs de relatório bem-sucedidos:
+
+- Use filtros ou segmentações, mas evite misturar as duas técnicas para não gerar confusão.
+
+- No painel Filtros, bloqueie ou oculte filtros no nível de visual para evitar que o usuário altere algo que não deveria.
+
+- Crie um indicador que redefina todas as segmentações e coloque um botão “Redefinir segmentações” na página.
+
+- Se houver muitas segmentações, crie uma página específica só para segmentações, sincronize-as com as outras páginas e deixe-as ocultas nelas. Adicione um botão em cada página para acessar essa página de segmentações.
+
+- Considere usar outros visuais como filtros, ensinando o consumidor a usar a filtragem cruzada.
+
+## Estudo de caso: configurar filtros de relatório com base nos comentários
 
 
 
