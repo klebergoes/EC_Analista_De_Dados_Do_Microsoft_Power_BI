@@ -722,7 +722,9 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.7.8. Dicas de filtragem](#Dicas-de-filtragem)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.2.8. Estudo de caso: configurar filtros de relatório com base nos comentários](#Estudo-de-caso:-configurar-filtros-de-relatório-com-base-nos-comentários)
+&nbsp;&nbsp;&nbsp;&nbsp; [4.3. Aprimorar os designs de relatórios do Power BI para a experiência do usuário](#Aprimorar-os-designs-de-relatórios-do-Power-BI-para-a-experiência-do-usuário)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [4.3.1. Projetar relatórios para mostrar detalhes](#Projetar-relatórios-para-mostrar-detalhes)
 
 [5. Gerenciar espaços de trabalho e modelos semânticos no Power BI](#Gerenciar-espaços-de-trabalho-e-modelos-semânticos-no-Power-BI)
 
@@ -4902,7 +4904,19 @@ Veja a seguir algumas dicas de filtragem que ajudam a produzir designs de relat�
 
 - Considere usar outros visuais como filtros, ensinando o consumidor a usar a filtragem cruzada.
 
-## Estudo de caso: configurar filtros de relatório com base nos comentários
+# Aprimorar os designs de relatórios do Power BI para a experiência do usuário
+
+O módulo apresenta os recursos que o Power BI oferece para criar relatórios visualmente atraentes e funcionais. 
+
+Ele mostra como construir uma experiência analítica guiada, destacar valores importantes e usar botões e indicadores para que o relatório se comporte como um aplicativo. 
+
+Também explica como adicionar navegação, utilizar cabeçalhos de visuais e aplicar técnicas de assistência interna. 
+
+Além disso, aborda como solucionar problemas, otimizar o desempenho e criar layouts alternativos, incluindo versões adequadas para dispositivos móveis. 
+
+No conjunto, o módulo demonstra o que é possível fazer e oferece dicas para aprimorar significativamente a qualidade dos seus relatórios.
+
+## Projetar relatórios para mostrar detalhes
 
 
 
